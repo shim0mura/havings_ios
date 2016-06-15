@@ -1,0 +1,10 @@
+framework module TagListView {
+  umbrella header "TagListView.h"
+
+  export *
+  module * { export * }
+}
+
+module TagListView.Swift {
+    header "TagListView-Swift.h"
+}

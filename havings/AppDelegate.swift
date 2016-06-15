@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        let downloader = KingfisherManager.sharedManager.downloader
+        downloader.trustedHosts = Set(["havings.com"])
+
         return true
     }
 
@@ -42,5 +46,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+}
+
+extension UITableView {
+    func reloadData(completion: ()->()) {
+        UIView.animateWithDuration(0, animations: { self.reloadData() })
+        { _ in completion() }
+    }
 }
 
