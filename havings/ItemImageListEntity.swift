@@ -15,8 +15,9 @@ class ItemImageListEntity: Mappable, EntityPostable {
     var hasNextImage: Bool?
     var nextPageForImage: Int?
     
+    init(){}
+    
     required init?(_ map: Map){
-        
     }
     
     func mapping(map: Map) {
@@ -27,6 +28,36 @@ class ItemImageListEntity: Mappable, EntityPostable {
     
     func getNextItemImages(itemId itemId: Int, page: Int, callback: (ItemImageListEntity) -> Void){
         API.call(Endpoint.ItemImageList.GetNextImageList(id: itemId, page: page)) { response in
+            switch response {
+            case .Success(let result):
+                self.hasNextImage = result.hasNextImage
+                self.nextPageForImage = result.nextPageForImage
+                self.images = [self.images, result.images].flatMap{$0}.flatMap{$0}
+                
+                callback(self)
+            case .Failure(let error):
+                print("failure \(error)")
+            }
+        }
+    }
+    
+    func getNextUserImages(userId userId: Int, page: Int, callback: (ItemImageListEntity) -> Void){
+        API.call(Endpoint.ItemImageList.GetNextImageListOfUser(userId: userId, page: page)) { response in
+            switch response {
+            case .Success(let result):
+                self.hasNextImage = result.hasNextImage
+                self.nextPageForImage = result.nextPageForImage
+                self.images = [self.images, result.images].flatMap{$0}.flatMap{$0}
+                
+                callback(self)
+            case .Failure(let error):
+                print("failure \(error)")
+            }
+        }
+    }
+    
+    func getNextFavoriteImage(userId userId: Int, page: Int, callback: (ItemImageListEntity) -> Void){
+        API.call(Endpoint.ItemImageList.GetNextFavoriteImage(userId: userId, page: page)) { response in
             switch response {
             case .Success(let result):
                 self.hasNextImage = result.hasNextImage

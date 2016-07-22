@@ -15,6 +15,7 @@ class SessionEntity: Mappable, EntityPostable {
     var password: String?
     var token: String?
     var uid: String?
+    var id: Int?
     
     init(){}
         
@@ -27,5 +28,6 @@ class SessionEntity: Mappable, EntityPostable {
         password <- map["password"]
         token <- map["token"]
         uid <- map["uid"]
+        id <- map["id"]
     }
 }

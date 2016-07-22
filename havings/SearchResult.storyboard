@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Search Result View Controller-->
+        <scene sceneID="kja-bQ-86u">
+            <objects>
+                <viewController storyboardIdentifier="ItemSearch" automaticallyAdjustsScrollViewInsets="NO" id="jrt-tm-7Xr" customClass="SearchResultViewController" customModule="havings" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Nyi-eC-Qhx"/>
+                        <viewControllerLayoutGuide type="bottom" id="PVB-G3-x2a"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KfY-sL-7x4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jc4-it-qKx">
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="loading" id="oTy-Id-vmf">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oTy-Id-vmf" id="jaQ-N8-7lF">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Pym-rG-KIS">
+                                                    <rect key="frame" x="197" y="12" width="20" height="20"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Pym-rG-KIS" firstAttribute="centerY" secondItem="jaQ-N8-7lF" secondAttribute="centerY" id="Quh-PW-ha2"/>
+                                                <constraint firstItem="Pym-rG-KIS" firstAttribute="centerX" secondItem="jaQ-N8-7lF" secondAttribute="centerX" id="xXY-2q-kG4"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jc4-it-qKx" firstAttribute="leading" secondItem="KfY-sL-7x4" secondAttribute="leading" id="GCP-Xu-uhX"/>
+                            <constraint firstAttribute="trailing" secondItem="jc4-it-qKx" secondAttribute="trailing" id="L1N-jB-iha"/>
+                            <constraint firstItem="jc4-it-qKx" firstAttribute="top" secondItem="Nyi-eC-Qhx" secondAttribute="bottom" id="NWS-Kb-o9v"/>
+                            <constraint firstItem="PVB-G3-x2a" firstAttribute="top" secondItem="jc4-it-qKx" secondAttribute="bottom" id="ZDF-Ah-gfG"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="tableView" destination="jc4-it-qKx" id="FJA-oW-JYR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q5Y-F8-fqC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="138" y="307"/>
+        </scene>
+    </scenes>
+</document>

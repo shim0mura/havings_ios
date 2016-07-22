@@ -10,12 +10,16 @@ import UIKit
 
 class ItemTableViewCell: UITableViewCell  {
     
-    let TAGS = ["Tech", "Design", "Humor", "Travel", "Music", "Writing", "Social Media", "Life", "Education", "Edtech", "Education Reform", "Photography", "Startup", "Poetry", "Women In Tech", "Female Founders", "Business", "Fiction", "Love", "Food"]
-    
-    //@IBOutlet weak var flowLayout: CollectionViewFlowLayoutLeftAlign!
-    //@IBOutlet weak var tagCollection: UICollectionView!
+
     @IBOutlet weak var itemThumbnail: UIImageView!
     @IBOutlet weak var itemName: UILabel!
+    
+    @IBOutlet weak var iconTypeImage: UIImageView!
+    
+    @IBOutlet weak var itemCountLabel: UILabel!
+    
+    @IBOutlet weak var likeCountLabel: UILabel!
+    
     // https://teratail.com/questions/7826
     // tagのcollectionViewのheightだけはpriorityをちょっと下げてる
     //@IBOutlet weak var tagHeightConstraint: NSLayoutConstraint!
@@ -54,8 +58,16 @@ class ItemTableViewCell: UITableViewCell  {
     
     func setItem(item: ItemEntity){
         self.itemEntity = item
-        itemName.text = itemEntity!.name
-        //itemCount.text = "\(itemEntity.id)"
+        self.itemName.text = itemEntity!.name
+        self.itemCountLabel.text = String(format: NSLocalizedString("Prompt.Item.CountLabel", comment: ""), "\(item.count!)")
+        self.likeCountLabel.text = "\(item.favoriteCount!)"
+        
+        if item.isList == true {
+            self.iconTypeImage.image = UIImage(named: "icon_type_list")
+        }else{
+            self.iconTypeImage.image = UIImage(named: "icon_type_item")
+        }
+        
         if let thumbnailPath = itemEntity!.thumbnail {
             let urlString = ApiManager.getBaseUrl() + thumbnailPath
             itemThumbnail.kf_setImageWithURL(NSURL(string: urlString)!)

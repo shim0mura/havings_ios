@@ -26,11 +26,18 @@ class ItemEntity: Mappable, EntityPostable {
     var hasNextItem: Bool?
     var nextPageForItem: Int?
     var tags: [String]?
+    var tagList: String?
     var itemImages: ItemImageListEntity?
     var countProperties: [CountDataEntity]?
     var favoriteCount: Int?
     var commentCount: Int?
+    var isFavorited: Bool?
     var owner: UserEntity?
+    var timers: [TimerEntity]?
+    
+    var errors: AnyObject?
+    
+    var imageDataForPost: [ItemImageEntity]?
     
     init(){}
     
@@ -58,7 +65,12 @@ class ItemEntity: Mappable, EntityPostable {
         countProperties <- map["count_properties"]
         favoriteCount <- map["favorite_count"]
         commentCount <- map["comment_count"]
+        isFavorited <- map["is_favorited"]
         owner <- map["owner"]
+        imageDataForPost <- map["image_data_for_post"]
+        tagList <- map["tag_list"]
+        timers <- map["timers"]
+        errors <- map["errors"]
     }
     
     func getNextOwningItem(page page: Int, callback: (ItemEntity) -> Void){
@@ -76,5 +88,20 @@ class ItemEntity: Mappable, EntityPostable {
             }
         }
     }
-
+    
+    func getNextFavoriteItem(userId userId: Int, page: Int, callback: (ItemEntity) -> Void){
+        API.call(Endpoint.Item.GetFavoriteItem(userId: userId, page: page)) { response in
+            switch response {
+            case .Success(let result):
+                
+                self.hasNextItem = result.hasNextItem
+                self.nextPageForItem = result.nextPageForItem
+                self.owningItems = [self.owningItems, result.owningItems].flatMap{$0}.flatMap{$0}
+                
+                callback(self)
+            case .Failure(let error):
+                print("failure \(error)")
+            }
+        }
+    }
 }

@@ -60,8 +60,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
                 print(result.token)
                 print(result.uid)
                 let tokenManager = TokenManager.sharedManager
-                if let token = result.token, let uid = result.uid {
-                    tokenManager.saveTokenAndUid(token: token, uid: uid)
+                if let token = result.token, let uid = result.uid, let userId = result.id {
+                    tokenManager.saveTokenAndUid(token: token, uid: uid, userId: userId)
                 }
                 
                 let storyboard : UIStoryboard = UIStoryboard(name: "Home", bundle: nil)
@@ -94,5 +94,17 @@ class SignupViewController: UIViewController, UITextFieldDelegate {
     @IBAction func loginByTwitter(sender: AnyObject) {
         
     }
+    
+    @IBAction func test(sender: AnyObject) {
+        let storyboard : UIStoryboard = UIStoryboard(name: "Form", bundle: nil)
+        let n = storyboard.instantiateViewControllerWithIdentifier("select_list_image") as? ListImagePickupViewController
+        if let listImageSelectVC = n {
+            listImageSelectVC.listName = "テストのlistName"
+            self.presentViewController(listImageSelectVC, animated: true, completion: nil)
+        }
+
+        
+    }
+    
     
 }

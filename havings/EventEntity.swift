@@ -25,7 +25,7 @@ class EventEntity: Mappable, EntityPostable {
     func mapping(map: Map) {
         id <- map["id"]
         eventType <- map["event_type"]
-        date <- (map["date"], APIDateTransform())
+        date <- (map["date"], APIDateTransform.manager)
         item <- map["item"]
     }
 }

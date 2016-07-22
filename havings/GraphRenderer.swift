@@ -112,3 +112,10 @@ class DoubleToIntFormatter : NSNumberFormatter {
         return "\(num)"
     }
 }
+
+public class PercentFormatter : NSNumberFormatter {
+    override public func stringFromNumber(number: NSNumber) -> String? {
+        let num: Int = number as Int
+        return "\(num)%"
+    }
+}

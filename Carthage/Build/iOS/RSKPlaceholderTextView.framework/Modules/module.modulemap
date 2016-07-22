@@ -1,0 +1,10 @@
+framework module RSKPlaceholderTextView {
+  umbrella header "RSKPlaceholderTextView.h"
+
+  export *
+  module * { export * }
+}
+
+module RSKPlaceholderTextView.Swift {
+    header "RSKPlaceholderTextView-Swift.h"
+}

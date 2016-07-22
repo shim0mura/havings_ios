@@ -10,6 +10,13 @@ import Foundation
 import RealmSwift
 
 class DefaultTagPresenter {
+    
+    static let TAG_TYPE_PLACE: Int = 1
+    static let TAG_TYPE_CATEGORY: Int = 3
+    static let TAG_TYPE_ITEM: Int = 2
+    static let TAG_TYPE_CLOSET: Int = 4
+    
+    static let MAX_SUBTEXT_TAG_COUNT = 3
 
     static func migrateTag(){
         
@@ -17,6 +24,84 @@ class DefaultTagPresenter {
         print(Realm.Configuration.defaultConfiguration.fileURL!)
 
         compareMigrationVersionToLocalVersion(localMigrationVersion)
+    }
+    
+    static func getDefaultTagsByType(type: Int) -> Results<TagEntity>{
+        let realm = try! Realm()
+        
+        let tags = realm.objects(TagEntity)
+            .filter("tagType == %@", type)
+            .filter("isDeleted == %@", false)
+        return tags
+    }
+    
+    static func getDefaultTagNamesByCategory() -> [Dictionary<String, [Dictionary<String, String>]>]{
+        var result: [Dictionary<String, [Dictionary<String, String>]>] = []
+        
+        let realm = try! Realm()
+        
+        let parentTags = realm.objects(TagEntity)
+            .filter("tagType == %@", TAG_TYPE_CATEGORY)
+            .filter("parentId == %@", 0)
+            .filter("isDeleted == %@", false)
+        
+        parentTags.forEach{
+            let childs = getChildTags($0)
+            result.append([$0.name!: childs])
+        }
+        
+        return result
+    }
+    
+    static func getDefaultTagStrings() -> [String]{
+        let realm = try! Realm()
+        
+        return realm.objects(TagEntity).filter("isDeleted == %@", false).map{
+            $0.name!
+        }
+
+    }
+    
+    static func getDefaultTags() -> [MultiAutoCompleteToken] {
+        let realm = try! Realm()
+        
+        return realm.objects(TagEntity).filter("isDeleted == %@", false).map{
+            
+            MultiAutoCompleteToken(top: $0.name!, subTexts: ($0.yomiJp ?? ""), ($0.yomiRoma ?? ""))
+        }
+    }
+    
+    private static func getChildTags(parentTag: TagEntity) -> [Dictionary<String, String>]{
+        let realm = try! Realm()
+        
+        var result: [Dictionary<String, String>] = []
+        let childTags = realm.objects(TagEntity)
+            .filter("parentId == %@", parentTag.id)
+            .filter("isDeleted == %@", false)
+        let tagCount = (childTags.count > MAX_SUBTEXT_TAG_COUNT ? MAX_SUBTEXT_TAG_COUNT : childTags.count)
+        
+        var str: String = ""
+        
+        for i in 0..<tagCount {
+            str += childTags[i].name!
+            
+            if i != (tagCount - 1) {
+                str += ", "
+            }else{
+                str += "など"
+            }
+        }
+        
+        let dict = ["name": parentTag.name!, "subtext": str]
+        result.append(dict)
+        
+        childTags.forEach{
+            if $0.tagType == TAG_TYPE_CATEGORY {
+                result += getChildTags($0)
+            }
+        }
+        
+        return result
     }
     
     private static func getLocalMigrationVersion() -> Int {

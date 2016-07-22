@@ -48,6 +48,13 @@
                                     <segue destination="nD7-fM-I8V" kind="show" id="crN-RL-m1K"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Luh-b0-6KG">
+                                <rect key="frame" x="184" y="204" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="test:" destination="TDe-0o-Ucz" eventType="touchUpInside" id="mhP-Ka-Hgv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>

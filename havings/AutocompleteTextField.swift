@@ -11,7 +11,7 @@ import UIKit
 
 public class AutoCompleteTextField:UITextField {
     /// Manages the instance of tableview
-    private var autoCompleteTableView:UITableView?
+    public var autoCompleteTableView:UITableView?
     /// Holds the collection of attributed strings
     //private lazy var attributedAutoCompleteStrings = [NSAttributedString]()
     /// Handles user selection action on autocomplete table view
@@ -32,13 +32,21 @@ public class AutoCompleteTextField:UITextField {
     //public var enableAttributedText = false
     
     private var targetToken:String = ""
-    private var inputTextTokens:[String] = []
+    public var inputTextTokens:[String] = []
     private var wordTokenizeChars = NSCharacterSet(charactersInString: " ,")
-    private var autoCompleteEntries:[String]? = []
+    private var autoCompleteEntries:[MultiAutoCompleteTokenComparable]? = []
+    public var autoCompleteTokens:[MultiAutoCompleteTokenComparable] = []
     public var autoCompleteWordTokenizers:[String] = [] {
         didSet{
             wordTokenizeChars = NSCharacterSet(charactersInString: autoCompleteWordTokenizers.joinWithSeparator("")
 )
+        }
+    }
+    
+    public var defaultText:String? {
+        didSet{
+            inputTextTokens = defaultText?.componentsSeparatedByCharactersInSet(wordTokenizeChars) ?? []
+            self.text = defaultText
         }
     }
     
@@ -56,9 +64,19 @@ public class AutoCompleteTextField:UITextField {
     /// The strings to be shown on as suggestions, setting the value of this automatically reload the tableview
     public var autoCompleteStrings:[String]?{
         didSet{
-            print("didset")
-            reload()
+            autoCompleteStrings?.forEach{
+                autoCompleteTokens.append(MultiAutoCompleteToken($0))
+            }
         }
+    }
+    
+    public func addInputToken(token: String){
+        if let text = self.text where !text.isEmpty {
+            self.text = text + "," + token + ","
+        }else{
+            self.text = token + ","
+        }
+        self.inputTextTokens.append(token)
     }
     
     
@@ -82,7 +100,9 @@ public class AutoCompleteTextField:UITextField {
     public override func willMoveToSuperview(newSuperview: UIView?) {
         super.willMoveToSuperview(newSuperview)
         commonInit()
-        setupAutocompleteTable(newSuperview!)
+        if let superView = newSuperview {
+            setupAutocompleteTable(superView)
+        }
     }
     
     private func commonInit(){
@@ -92,6 +112,7 @@ public class AutoCompleteTextField:UITextField {
         self.clearButtonMode = .Always
         self.addTarget(self, action: #selector(AutoCompleteTextField.textFieldDidChange), forControlEvents: .EditingChanged)
         self.addTarget(self, action: #selector(AutoCompleteTextField.textFieldDidEndEditing), forControlEvents: .EditingDidEnd)
+        
     }
     
     private func setupAutocompleteTable(view:UIView){
@@ -124,7 +145,6 @@ public class AutoCompleteTextField:UITextField {
             */
         
         autoCompleteEntries = []
-        
         inputTextTokens = text!.componentsSeparatedByCharactersInSet(wordTokenizeChars)
         
         /*
@@ -134,17 +154,20 @@ public class AutoCompleteTextField:UITextField {
         
         //targetToken = lastToken
         
-        if let autoCompleteStrings = autoCompleteStrings, let lastToken = inputTextTokens.last where !lastToken.isEmpty {
+        //if let autoCompleteStrings = autoCompleteStrings, let lastToken = inputTextTokens.last where !lastToken.isEmpty {
+        if let lastToken = inputTextTokens.last where !lastToken.isEmpty {
+
             targetToken = lastToken
             
-            for i in 0..<autoCompleteStrings.count{
-                let str = autoCompleteStrings[i] as NSString
-                let range = str.rangeOfString(targetToken, options: .CaseInsensitiveSearch)
+            for i in 0..<autoCompleteTokens.count{
+                let token = autoCompleteTokens[i]
+                //let range = str.rangeOfString(targetToken, options: .CaseInsensitiveSearch)
+                
                 //let attString = NSMutableAttributedString(string: autoCompleteStrings[i], attributes: attrs)
                 //attString.addAttributes(autoCompleteAttributes, range: range)
                 //attributedAutoCompleteStrings.append(attString)
-                if range.length > 0 && !inputTextTokens.contains(autoCompleteStrings[i]) {
-                    autoCompleteEntries!.append(autoCompleteStrings[i])
+                if token.matchToken(targetToken) && !inputTextTokens.contains(token.topText) {
+                    autoCompleteEntries!.append(token)
                 }
             }
         }
@@ -169,7 +192,6 @@ public class AutoCompleteTextField:UITextField {
     
     func textFieldDidEndEditing() {
         autoCompleteTableView?.hidden = true
-        print(autoCompleteStrings)
     }
 }
 
@@ -201,7 +223,7 @@ extension AutoCompleteTextField: UITableViewDataSource, UITableViewDelegate {
         */
         cell?.textLabel?.font = autoCompleteTextFont
         cell?.textLabel?.textColor = autoCompleteTextColor
-        cell?.textLabel?.text = autoCompleteEntries![indexPath.row]
+        cell?.textLabel?.text = autoCompleteEntries![indexPath.row].topText
         
         /*
         if indexPath.row == 0 {
@@ -223,6 +245,8 @@ extension AutoCompleteTextField: UITableViewDataSource, UITableViewDelegate {
         
         if let selectedText = cell?.textLabel?.text {
 
+            print("selected!!! \(targetToken), \(inputTextTokens)")
+            
             if targetToken.isEmpty {
                 self.text = selectedText
             }else{
@@ -239,6 +263,9 @@ extension AutoCompleteTextField: UITableViewDataSource, UITableViewDelegate {
                 }
                 
             }
+            targetToken = ""
+            inputTextTokens.popLast()
+            inputTextTokens.append(selectedText)
             
             onSelect(selectedText, indexPath)
         }
@@ -264,4 +291,37 @@ extension AutoCompleteTextField: UITableViewDataSource, UITableViewDelegate {
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return autoCompleteCellHeight
     }
+}
+
+public protocol MultiAutoCompleteTokenComparable {
+    var topText: String { get }
+    func matchToken(searchString: String) -> Bool
+}
+
+public class MultiAutoCompleteToken: MultiAutoCompleteTokenComparable {
+    
+    public var topText: String
+    var searchOptions: NSStringCompareOptions = .CaseInsensitiveSearch
+    private var texts: [String] = []
+    
+    init(top: String, subTexts: String...){
+        self.topText = top
+        self.texts.append(top)
+        texts += subTexts
+    }
+    
+    init(_ top: String){
+        self.topText = top
+        self.texts.append(top)
+    }
+    
+    public func matchToken(searchString: String) -> Bool {
+        let result = self.texts.contains{
+            let range = $0.rangeOfString(searchString, options: searchOptions, range: nil, locale: nil)
+            return range != nil
+        }
+        
+        return result
+    }
+
 }

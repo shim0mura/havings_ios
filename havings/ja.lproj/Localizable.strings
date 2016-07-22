@@ -1,0 +1,245 @@
+/* 
+  Localizable.string.strings
+  havings
+
+  Created by Tatsuhiko Shimomura on 2016/06/25.
+  Copyright © 2016年 Tatsuhiko Shimomura. All rights reserved.
+*/
+"welcome" = "ハローワールド！";
+
+"Format.Timer.MDHM" = "MM月dd日(%@) HH時mm分";
+"Format.Timer.YMD.WithWeekday" = "yyyy年MM月dd日(%@)";
+"Format.Timer.HM" = "HH時mm分";
+"Format.Timer.Full" = "yyyy年MM月dd日(%@) HH時mm分";
+
+"Prompt.ItemCount" = "%d items";
+"Prompt.Action.AddItem" = "アイテムの追加";
+"Prompt.Action.EditItem" = "アイテムの編集";
+"Prompt.Action.DumpItem" = "アイテムを手放す";
+"Prompt.Action.DeleteItem" = "アイテムを削除する";
+
+"Prompt.Action.AddList" = "リストの追加";
+"Prompt.Action.EditList" = "リストの編集";
+"Prompt.Action.DumpList" = "リストを手放す";
+"Prompt.Action.DeleteList" = "リストを削除する";
+
+"Prompt.Item.CountLabel" = "%@ items";
+"Prompt.Item.TimerHeader" = "設定中のタイマー";
+"Prompt.Item.AddTimer" = "タイマーの追加";
+
+"Prompt.Item.Image.AddForm" = "写真情報の編集";
+"Prompt.Item.Image.AddedAt" = "追加日: %@";
+"Prompt.Item.Image.Notfound" = "画像は存在しません";
+"Prompt.Item.Image.Delete" = "画像の削除";
+"Prompt.Item.Image.Delete.Detail" = "この画像を削除します";
+"Prompt.Item.Image.Memo.OverLength" = "メモは100字以上入力できません";
+"Prompt.Item.Image.CancelAdd" = "この画像の追加を取り消す";
+"Prompt.Item.Image.AddInfo" = "この写真のメモ・追加日を編集する";
+
+
+"Prompt.ItemForm.AddCameraImage" = "カメラから追加";
+"Prompt.ItemForm.AddGalleryImage" = "ギャラリーから追加";
+"Prompt.ItemForm.ListNameEmpty" = "リスト名が入力されていません";
+"Prompt.ItemForm.ItemNameEmpty" = "アイテム名が入力されていません";
+"Prompt.ItemForm.ImageEmpty" = "リストの画像が設定されていません";
+"Prompt.ItemForm.ImageEmpty.detail" = "リストは1枚以上の画像を設定してください";
+"Prompt.ItemForm.IsPublic" = "公開する";
+"Prompt.ItemForm.IsPublic.Detail" = "この%@は他の人も見ることが出来ます";
+"Prompt.ItemForm.IsPublic.NegativeDetail" = "この%@はあなた以外見ることが出来ません";
+"Prompt.ItemForm.IsPublic.ForceDetail" = "親リストが非公開の場合は公開できません";
+"Prompt.SelectItem" = "アイテムまたはリストの選択";
+"Prompt.SelectItem.NoItem" = "アイテムまたはリストがありません";
+"Prompt.SelectItem.NoItem.Detail" = "まずは片付けたい場所をリストとして追加してみましょう！";
+"Prompt.AddImage.NoImage" = "写真が追加されていません";
+"Prompt.AddImage.NoImage.Detail" = "カメラまたはギャラリーからこの%@に写真を追加出来ます";
+"Prompt.DumpItem.FellowIds" = "一緒に手放すアイテム/リストを選択";
+"Prompt.DumpItem.FellowIds.Detail1" = "このリストに含まれるアイテム・リストのうち、選択したものも同時に手放します。\n選択したリスト内のアイテムやリストも全て手放されます。";
+"Prompt.DumpItem.FellowIds.Detail2" = "選択しなかったアイテム・リストは手放されず、このリストの親リストの中に入ります";
+"Prompt.DumpItem.SelectAll" = "全て選択";
+"Prompt.DumpItem.DeselectAll" = "クリア";
+"Prompt.DeleteItem.Notice" = "削除を行うと、この%@と関係する全ての履歴や画像が見ることができなくなります。\n捨てたモノの履歴や情報を残しておきたい場合は、モノを「手放し」ましょう";
+"Prompt.DeleteItem.FellowIds" = "一緒に削除するアイテム/リストを選択";
+"Prompt.DeleteItem.FellowIds.Detail1" = "このリストに含まれるアイテム・リストのうち、選択したものも同時に削除します。\n選択したリスト内のアイテムやリストも全て削除されます。";
+"Prompt.DeleteItem.FellowIds.Detail2" = "選択しなかったアイテム・リストは削除されず、このリストの親リストの中に入ります";
+
+"Prompt.Timer.TaskName" = "タイマータスク名";
+"Prompt.Timer.TaskName.Placeholder" = "タスク名を入力...";
+"Prompt.Timer.TaskName.Empty" = "タイマータスク名は必須入力です";
+
+"Prompt.Timer.NoticeTime" = "通知時刻";
+"Prompt.Timer.NoticeDate" = "通知日";
+"Prompt.Timer.Notice" = "通知予定日時";
+"Prompt.Timer.NoticeAtNext" = "次の通知予定";
+"Prompt.Timer.NoticeAtNext.Repeat" = "その次の通知予定";
+"Prompt.Timer.NoticeDay" = "通知予定日";
+
+"Prompt.Timer.Repeat" = "繰り返し";
+"Prompt.Timer.NoRepeat" = "繰り返しなし";
+
+"Prompt.Timer.RepeatBy.Day" = "日にちで繰り返す";
+
+"Prompt.Timer.RepeatBy.Day.EveryMonth" = "毎月";
+"Prompt.Timer.RepeatBy.Day.EveryTwoMonth" = "2ヶ月に1回";
+"Prompt.Timer.RepeatBy.Day.EveryThreeMonth" = "3ヶ月に1回";
+"Prompt.Timer.RepeatBy.Day.EveryFourMonth" = "4ヶ月に1回";
+"Prompt.Timer.RepeatBy.Day.EverySixMonth" = "半年に1回";
+
+"Prompt.Timer.RepeatBy.Week" = "曜日で繰り返す";
+
+"Prompt.Timer.RepeatBy.Week.EveryWeek" = "毎週";
+"Prompt.Timer.RepeatBy.Week.FirstWeek" = "毎月第1週";
+"Prompt.Timer.RepeatBy.Week.SecondWeek" = "毎月第2週";
+"Prompt.Timer.RepeatBy.Week.ThirdWeek" = "毎月第3週";
+"Prompt.Timer.RepeatBy.Week.FourthWeek" = "毎月第4週";
+"Prompt.Timer.RepeatBy.Week.LastWeek" = "毎月最終週";
+
+"Prompt.Timer.RepeatBy.WeekDay.Sunday" = "日曜日";
+"Prompt.Timer.RepeatBy.WeekDay.Monday" = "月曜日";
+"Prompt.Timer.RepeatBy.WeekDay.Tuesday" = "火曜日";
+"Prompt.Timer.RepeatBy.WeekDay.Wednesday" = "水曜日";
+"Prompt.Timer.RepeatBy.WeekDay.Thursday" = "木曜日";
+"Prompt.Timer.RepeatBy.WeekDay.Friday" = "金曜日";
+"Prompt.Timer.RepeatBy.WeekDay.Saturday" = "土曜日";
+
+"Prompt.Timer.RepeatBy.WeekDay.Sunday.Short" = "日";
+"Prompt.Timer.RepeatBy.WeekDay.Monday.Short" = "月";
+"Prompt.Timer.RepeatBy.WeekDay.Tuesday.Short" = "火";
+"Prompt.Timer.RepeatBy.WeekDay.Wednesday.Short" = "水";
+"Prompt.Timer.RepeatBy.WeekDay.Thursday.Short" = "木";
+"Prompt.Timer.RepeatBy.WeekDay.Friday.Short" = "金";
+"Prompt.Timer.RepeatBy.WeekDay.Saturday.Short" = "土";
+
+"Prompt.Timer.Prefix.Remaining" = "残り";
+"Prompt.Timer.Postfix.Over" = "オーバー";
+"Prompt.Timer.NoticeAt" = "に通知";
+"Prompt.Timer.NoticeAgainAt" = "に再通知";
+
+"Prompt.Timer.DoneNow" = "今やった";
+"Prompt.Timer.DoneNow.Subtext" = "このタイマータスクを完了";
+"Prompt.Timer.DoneNow.Detail" = "タスクを完了します。\n次回通知予定: %@";
+"Prompt.Timer.DoLater" = "あとでやる";
+"Prompt.Timer.DoLater.Subtext" = "あとでやる日時を指定してタスクを延期";
+"Prompt.Timer.DoLater.Edit" = "あとでやる日時を選択";
+"Prompt.Timer.DoLater.InvalidDate" = "現在時刻より前の日付は指定できません";
+"Prompt.Timer.AlreadyDone.Edit" = "タスクを行った日時を選択";
+"Prompt.Timer.AlreadyDone.Subtext" = "日時を指定してタイマータスクを完了";
+"Prompt.Timer.AlreadyDone.InvalidDate" = "未来の日付は指定できません";
+
+"Prompt.Timer.Config" = "タイマーの設定";
+"Prompt.Timer.Edit" = "タイマーの編集";
+"Prompt.Timer.End" = "タイマーの終了";
+"Prompt.Timer.End.Detail" = "終了をすると、このタイマーからの通知は一切されなくなります。\nこのタイマーを終了しても、このタイマーのタスクを行った履歴は履歴ページから見ることが出来ます。";
+"Prompt.Timer.Delete" = "タイマーの削除";
+"Prompt.Timer.Delete.Detail" = "削除をすると、このタイマーからの通知は一切されなくなります。\nこのタイマーを削除すると、このタイマーのタスクを行った履歴は見ることが出来なくなります。履歴を後から確認したい場合は「タイマーの終了」を行ってください";
+"Prompt.Timer.ConfigTimer" = "%@の設定";
+
+"Prompt.Favorite.Failed" = "お気に入り登録に失敗しました。時間をおいてから再度お試しください";
+"Prompt.UnFavorite.Failed" = "お気に入り解除に失敗しました。時間をおいてから再度お試しください";
+
+"Prompt.Comment.PlaceHolder" = "コメントを入力...";
+"Prompt.Comment.isEmpty" = "空のコメントは投稿できません";
+
+"Prompt.UserList.ItemCount" = "having %@ items";
+"Prompt.UserList.ItemFavoritedUser" = "いいね!をしているユーザー";
+"Prompt.UserList.ItemFavoritedUser.Empty" = "いいね!をしているユーザーはいません";
+"Prompt.UserList.ImageFavoritedUser" = "いいね!をしているユーザー";
+"Prompt.UserList.ImageFavoritedUser.Empty" = "この画像にいいね!をしているユーザーはいません";
+"Prompt.UserList.FollowingUser" = "フォローしているユーザー";
+"Prompt.UserList.FollowingUser.Empty" = "フォローしているユーザーはいません";
+"Prompt.UserList.FollowedUser" = "フォロワー";
+"Prompt.UserList.FollowedUser.Empty" = "このユーザーをフォローしているユーザーはいません";
+
+"Prompt.User.itemCount" = "having %@ items";
+"Prompt.User.Following" = "フォロー";
+"Prompt.User.Follower" = "フォロワー";
+"Prompt.User.Favorite" = "お気に入り";
+"Prompt.User.Dump" = "手放したモノ";
+"Prompt.User.Action.Follow" = "フォロー";
+"Prompt.User.Action.Following" = "フォロー中";
+"Prompt.User.Action.Share" = "シェア";
+"Prompt.User.Action.Edit" = "編集";
+
+"Prompt.User.Follow.Failed" = "フォローできませんでした。時間をおいてから再度お試しください";
+"Prompt.User.UnFollow.Failed" = "フォローを解除できませんでした。時間をおいてから再度お試しください";
+
+"Prompt.User.Favorite.Item.Empty" = "いいね!をしているアイテムはありません";
+"Prompt.User.Favorite.Image.Empty" = "いいね!をしている画像はありません";
+
+"Prompt.User.Dump.Empty" = "手放したアイテムはありません";
+"Prompt.User.Honorific" = "さん";
+"Prompt.User.Honorific.Others" = "ほか%@人";
+
+"Prompt.Notifications.Timer.Item" = "のタスク: ";
+"Prompt.Notifications.Timer.Expire" = "の期限が切れました";
+"Prompt.Notifications.Favorite.Favorite" = "をいいね!しました";
+"Prompt.Notifications.ImageFavorite.Favorite" = "の画像をいいね!しました";
+"Prompt.Notifications.Comment" = "にコメントをしました";
+"Prompt.Notifications.Follow.You" = "があなたをフォローしました";
+"Prompt.Notifications.Act" = "が";
+"Prompt.Notifications.Empty" = "お知らせはありません";
+
+"Prompt.ProfileEdit" = "プロフィールの編集";
+"Prompt.ProfileEdit.FailedToGetUserInfo" = "ユーザー情報の取得に失敗しました。時間をおいてから再度お試しください";
+"Prompt.ProfileEdit.UserName" = "ユーザー名";
+"Prompt.ProfileEdit.UserName.isEmpty" = "ユーザー名は必須入力です";
+
+"Prompt.ProfileEdit.Profile" = "自己紹介";
+"Prompt.ProfileEdit.UserImage" = "プロフィール画像";
+"Prompt.ProfileEdit.UserImage.Change" = "プロフィール画像の変更";
+"Prompt.ProfileEdit.UserImage.fromCamera" = "カメラから追加";
+"Prompt.ProfileEdit.UserImage.fromGallery" = "ギャラリーから追加";
+"Prompt.ProfileEdit.UserImage.Choose" = "プロフィール画像の選択";
+"Prompt.ProfileEdit.UserImage.Clear"  = "プロフィール画像変更を取り消す";
+"Prompt.ProfileEdit.UserImage.Failed" = "画像を追加できません";
+"Prompt.ProfileEdit.UserImage.Before" = "変更前の画像";
+"Prompt.ProfileEdit.UserImage.After" = "変更後の画像";
+
+"Prompt.DoneTask.DoneDate" = "%@ に実行";
+"Prompt.DoneTask.DoneByDay" = "%@ にこなしたタスク";
+
+"Prompt.Dashboard.PieChart.TypeLegend" = "";
+
+"Prompt.Timeline.isEmpty" = "アクティビティはありません。 \n \n誰かをフォローすると、その人がいいね!したアイテムや追加したアイテムの情報がここに表示されます。 \n \n気になる人たちをフォローしてみましょう！";
+"Prompt.Timeline.Comment" = "にコメントしました";
+"Prompt.Timeline.Favorite" = "にいいね!しました";
+"Prompt.Timeline.ImageFavorite" = "の画像にいいね!しました";
+"Prompt.Timeline.Follow" = "さんをフォローしました";
+"Prompt.Timeline.CreateItem" = "を追加しました";
+"Prompt.Timeline.CreateItem.Item" = "アイテム:";
+"Prompt.Timeline.CreateList" = "を追加しました";
+"Prompt.Timeline.CreateList.List" = "リスト:";
+"Prompt.Timeline.AddImage" = "に画像を追加しました";
+"Prompt.Timeline.Dump" = "を手放しました";
+
+"Prompt.Search.Suggest" = "検索候補";
+
+"Prompt.PopularTag" = "人気のタグ";
+"Prompt.PopularTag.Count" = "%@件のアイテム";
+"Prompt.PopularList" = "人気のリスト";
+
+
+"Unit.Day" = "日";
+"Unit.Minute" = "分";
+"Unit.Hour" = "時間";
+"Prompt.Today" = "今日";
+"Prompt.Before" = "前";
+
+"Prompt.ItemForm.ItemCount" = "アイテムの数";
+"Unit.Item" = "items";
+
+"Unit.ItemCount" = "個";
+"Unit.GeneralItems" = "つ";
+"Unit.GeneralItems.Others" = "ほか%@つ";
+
+
+"Prompt.ItemForm.RegisterAsDumpItem" = "手放したアイテムとして登録";
+"Prompt.ItemForm.GarbageReason" = "手放した理由";
+
+"Prompt.WaitForPost" = "送信中です...\n\n";
+"Prompt.FailureToAceess" = "接続できません。時間をおいてから再度お試しください";
+"Prompt.Ok" = "OK";
+"Prompt.Back" = "戻る";
+"Prompt.Cancel" = "キャンセル";
+"Prompt.Item" = "アイテム";
+"Prompt.List" = "リスト";
+"Prompt.More" = "もっと見る";

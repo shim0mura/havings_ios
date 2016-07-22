@@ -44,20 +44,6 @@ class ApiManager {
     
 }
 
-class WeatherResponse: Mappable {
-    var location: String?
-    var testValue: Int?
-    
-    required init?(_ map: Map){
-        
-    }
-    
-    func mapping(map: Map) {
-        location <- map["location"]
-        testValue <- map["test_value"]
-    }
-}
-
 protocol RequestProtocol: URLRequestConvertible {
     associatedtype ResponseType
     
@@ -147,7 +133,7 @@ extension RequestProtocol {
 
 extension RequestProtocol where ResponseType: Mappable {
     
-    func fromJson(json: AnyObject) -> Result<ResponseType, NSError> {
+    func fromJson(json: AnyObject) -> Result<ResponseType, NSError> {        
         guard let value = Mapper<ResponseType>().map(json) else {
             let errorInfo = [ NSLocalizedDescriptionKey: "Mapping object failed" , NSLocalizedRecoverySuggestionErrorKey: "Rainy days never stay." ]
             let error = NSError(domain: "com.example.app", code: 0, userInfo: errorInfo)
@@ -173,6 +159,7 @@ class TokenManager {
     
     private var token : String? = nil
     private var uid : String? = nil
+    private var userId: Int? = nil
     
     private init(){
         isTokenAndUidSaved()
@@ -180,11 +167,13 @@ class TokenManager {
     
     private static let keyToToken : String = "accesstoken"
     private static let keyToUid : String = "uid"
+    private static let keyToUserId: String = "userid"
     private static let service : String = "work.t_s.havings"
     
-    private func setTokenAndUid(token t :String, uid u :String){
+    private func setTokenAndUid(token t :String, uid u :String, userId ui: Int){
         token = t
         uid = u
+        userId = ui
     }
     
     func getToken() -> String? {
@@ -195,11 +184,16 @@ class TokenManager {
         return uid
     }
     
-    func saveTokenAndUid(token t :String, uid u :String){
+    func getUserId() -> Int? {
+        return userId
+    }
+    
+    func saveTokenAndUid(token t :String, uid u :String, userId ui :Int){
         let keychain = Keychain(service: TokenManager.service)
         keychain[TokenManager.keyToToken] = t
         keychain[TokenManager.keyToUid] = u
-        setTokenAndUid(token: t, uid: u)
+        keychain[TokenManager.keyToUserId] = String(ui)
+        setTokenAndUid(token: t, uid: u, userId: ui)
     }
     
     func resetTokenAndUid(){
@@ -215,9 +209,10 @@ class TokenManager {
         do {
             let t : String? = try keychain.getString(TokenManager.keyToToken)
             let u : String? = try keychain.getString(TokenManager.keyToUid)
+            let ui: String? = try keychain.getString(TokenManager.keyToUserId)
             
-            if let rawToken = t , let rawUid = u{
-                setTokenAndUid(token: rawToken, uid: rawUid)
+            if let rawToken = t , let rawUid = u, let rawUserId = ui {
+                setTokenAndUid(token: rawToken, uid: rawUid, userId: Int(rawUserId)!)
                 return true
             }
             return false
@@ -232,15 +227,21 @@ class API {
     
     class func call<T: RequestProtocol, V where T.ResponseType == V>(request: T, completion: (Result<V, NSError>) -> Void) {
         ApiManager.sharedInstance.request(request)
-            .validate(statusCode: 200..<300)
+            .validate(statusCode: 200..<500)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
+                print("response ##########################")
                 print(response.result.value)
+                print("response end ######################")
                 switch response.result {
                 case .Success(let json):
-                    print("to json")
                     completion(request.fromJson(json))
                 case .Failure(let error):
+                    if let statusCode = response.response?.statusCode where 400..<500 ~= statusCode {
+                        print("error!!!!")
+                        print(error)
+                        //completion(.Failure(response.result.value))
+                    }
                     completion(.Failure(error))
                 }
         }
@@ -251,7 +252,10 @@ class API {
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
+                print("response array $$$$$$$$$$$$$$$$$$$")
                 print(response.result.value)
+                print("response array end $$$$$$$$$$$$$$$")
+
                 switch response.result {
                 case .Success(let json):
                     print("to json")

@@ -32,9 +32,9 @@ class OAuthViewController: UIViewController, UIWebViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func signin(token t : String, uid u : String){
+    func signin(token t : String, uid u : String, userId ui: String){
         let tokenManager = TokenManager.sharedManager
-        tokenManager.saveTokenAndUid(token: t, uid: u)
+        tokenManager.saveTokenAndUid(token: t, uid: u, userId: Int(ui)!)
         
         let storyboard : UIStoryboard = UIStoryboard(name: "Home", bundle: nil)
         if let next :UIViewController = storyboard.instantiateInitialViewController() {
@@ -47,9 +47,11 @@ class OAuthViewController: UIViewController, UIWebViewDelegate {
             if url.scheme == redirectScheme {
                 let comp: NSURLComponents? = NSURLComponents(string: request.URLString)
                 let fragments = generateDictionalyFromUrlComponents(comp!)
-                if let token = fragments["token"], let uid = fragments["uid"] {
+                print("aaaaaa")
+                print(fragments)
+                if let token = fragments["token"], let uid = fragments["uid"], let userId = fragments["userid"] {
                     
-                    signin(token: token, uid: uid)
+                    signin(token: token, uid: uid, userId: userId)
                     return false
                 }
             }
