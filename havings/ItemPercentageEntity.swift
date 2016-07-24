@@ -60,13 +60,17 @@ class ItemPercentageEntity: Mappable {
             case .UnCategorized:
                 return UIColor(red:0.75, green: 0.75, blue: 0.75, alpha: 1.0)
             case .Clothing:
-                return UIColor(red:0.3, green: 0.76, blue: 0.97, alpha: 1.0)
+                // #6EB7DB
+                return UIColor(red:0.43, green: 0.72, blue: 0.86, alpha: 1.0)
             case .Food:
-                return UIColor(red:1.0, green: 0.71, blue: 0.3, alpha: 1.0)
+                // #FFF280
+                return UIColor(red:0.98, green: 0.89, blue: 0.51, alpha: 1.0)
             case .Living:
-                return UIColor(red:0.6, green: 0.92, blue: 0.39, alpha: 1.0)
+                // #CFE283
+                return UIColor(red:0.81, green: 0.89, blue: 0.51, alpha: 1.0)
             case .Etc:
-                return UIColor(red:0.75, green: 0.75, blue: 0.75, alpha: 1.0)
+                // #E38692
+                return UIColor(red:0.89, green: 0.53, blue: 0.57, alpha: 1.0)
             }
         }
     }

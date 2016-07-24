@@ -43,6 +43,11 @@ class DoneTaskByCalendarViewController: UIViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView()
         
+        let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        let comps: NSDateComponents = calendar.components([.Year, .Month, .Day], fromDate: NSDate())
+        self.selectedDate = NSDate(year: comps.year, month: comps.month, day: comps.day, region: TimerPresenter.gregorianByRegion)
+
+        
         // Do any additional setup after loading the view.
     }
 
@@ -90,23 +95,10 @@ extension DoneTaskByCalendarViewController: UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        /*
-         if self.loadingNextItem {
-         let cell : UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("loading")! as UITableViewCell
-         return cell
-         }else{
-         let cell : ItemTableViewCell = self.tableView.dequeueReusableCellWithIdentifier("itemCell") as! ItemTableViewCell
-         
-         if let item = self.parentItem.owningItems?[indexPath.row] {
-         cell.setItem(item)
-         }
-         return cell
-         }*/
-        //let cell = UITableViewCell(style: .Default, reuseIdentifier: "cell")
-        //cell.textLabel?.text = "row \(indexPath.row)"
-        
         let cell : UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("doneEvent")! as UITableViewCell
+        
         let task = self.taskByEvent[self.selectedDate]![indexPath.row]
+
         let timer: UILabel = cell.viewWithTag(self.taskNameTag) as! UILabel
         let repeating: UILabel = cell.viewWithTag(self.taskRepeatTag) as! UILabel
         let list: UILabel = cell.viewWithTag(self.taskListTag) as! UILabel

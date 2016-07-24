@@ -145,6 +145,7 @@ class TimerEntity: Mappable {
     var id: Int?
     var name: String?
     var listId: Int?
+    var listName: String?
     var isActive: Bool?
     var isDeleted: Bool?
     var nextDueAt: NSDate?
@@ -201,6 +202,7 @@ class TimerEntity: Mappable {
         id <- map["id"]
         name <- map["name"]
         listId <- map["list_id"]
+        listName <- map["list_name"]
         isActive <- map["is_active"]
         isDeleted <- map["is_deleted"]
         nextDueAt <- (map["next_due_at"], APIDateTransform.manager)

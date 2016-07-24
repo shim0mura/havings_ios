@@ -278,6 +278,7 @@ class Endpoint {
     enum Timer: RequestProtocol {
         typealias ResponseType = TimerEntity
         
+        case GetAll
         case Post(timer: TimerEntity)
         case Done(timerId: Int, doneDate: NSDate?)
         case DoLater(timerId: Int, nextDue: NSDate)
@@ -287,6 +288,8 @@ class Endpoint {
         
         var method: Alamofire.Method {
             switch self {
+            case .GetAll:
+                return .GET
             case .Post, .End, .Done, .DoLater:
                 return .POST
             case .Edit:
@@ -298,6 +301,8 @@ class Endpoint {
         
         var path: String {
             switch self {
+            case .GetAll:
+                return "/timers"
             case .Post:
                 return "/timers/"
             case .Done(let timerId, _):
@@ -335,7 +340,7 @@ class Endpoint {
                 json["next_due_at"] = timerEntity.nextDueAt!.timeIntervalSince1970
                 json["latest_calc_at"] = timerEntity.latestCalcAt!.timeIntervalSince1970
                 return ["timer" : json]
-            case .End, .Delete:
+            case .End, .Delete, .GetAll:
                 return nil
             }
         }
@@ -519,17 +524,20 @@ class Endpoint {
     enum DoneTask: RequestProtocol {
         typealias ResponseType = DoneTaskWrapperEntity
         
+        case GetAllDoneTasks
         case GetDoneTaskByItem(itemId: Int)
         
         var method: Alamofire.Method {
             switch self {
-            case .GetDoneTaskByItem:
+            case .GetAllDoneTasks, .GetDoneTaskByItem:
                 return .GET
             }
         }
         
         var path: String {
             switch self {
+            case .GetAllDoneTasks:
+                return "/home/all_done_task/"
             case .GetDoneTaskByItem(let itemId):
                 return "/items/\(itemId)/done_task"
             }

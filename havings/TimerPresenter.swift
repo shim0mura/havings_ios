@@ -7,12 +7,42 @@
 //
 
 import Foundation
+import UIKit
 import SwiftDate
 
 class TimerPresenter {
     static let MAX_TIMERS_PER_LIST: Int = 3
     static let gregorianByRegion = DateRegion(calendarName: .Gregorian)
+    
+    static let timerNameTag: Int = 30
+    static let timerRepeatTag: Int = 31
+    static let timerAlarmTag: Int = 32
+    static let timerProgressTag: Int = 33
+    static let timerItemNameTag: Int = 34
 
+    static func setTimerDescription(cell: UITableViewCell, timer: TimerEntity){
+        let timerName: UILabel = cell.viewWithTag(timerNameTag) as! UILabel
+        let timerRepeat: UILabel = cell.viewWithTag(timerRepeatTag) as! UILabel
+        let timerAlarm: UILabel = cell.viewWithTag(timerAlarmTag) as! UILabel
+        let timerProgress: UIProgressView = cell.viewWithTag(timerProgressTag) as! UIProgressView
+        let timerItem: UILabel? = cell.viewWithTag(timerItemNameTag) as? UILabel
+        
+        let noticePrompt = (timer.overDueFrom == nil) ? NSLocalizedString("Prompt.Timer.NoticeAt", comment: "") : NSLocalizedString("Prompt.Timer.NoticeAgainAt", comment: "")
+        let percentage = timer.getPercentageUntilDueDate()
+        let weekday = DateTimeFormatter.getWeekday(timer.nextDueAt!)
+        let formatStr = String(format: NSLocalizedString("Format.Timer.MDHM", comment: ""), weekday)
+        timerName.text = timer.name
+        timerRepeat.text = timer.getIntervalString() + NSLocalizedString("Prompt.Timer.NoticeAt", comment: "") + " " + timer.getRemainingTimeString()
+        //timerRemaining.text = timer.getRemainingTimeString()
+        timerAlarm.text = DateTimeFormatter.getStrFromDate(timer.nextDueAt!, format: formatStr) + noticePrompt
+        timerProgress.progress = percentage
+        timerProgress.tintColor = timer.getProgressBarColor(percentage)
+        
+        if let ti = timerItem {
+            ti.text = timer.listName
+        }
+    }
+    
     static func getNextDueAtFromMonth(calcFrom: NSDate, monthInterval: TimerEntity.TimerRepeatByDayInterval, dayOfMonth: Int) -> NSDate {
         let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
         let comps: NSDateComponents = calendar.components([.Year, .Month, .Day, .Weekday, .Hour, .Minute, .Second, .Nanosecond], fromDate: calcFrom)

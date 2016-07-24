@@ -19,8 +19,9 @@ class DoneTaskViewController: UIViewController, PostAlertUtil {
     private var listVC: DoneTaskByListViewController!
     private var childVC: UIViewController!
     
-    private var taskByEvent: [NSDate: [(timer: TimerEntity, itemName: String, actrualDate: NSDate)]] = [:]
     private var taskByTupple: [(task: TaskEntity, list: ItemEntity)] = []
+    private var taskByEvent: [NSDate: [(timer: TimerEntity, itemName: String, actrualDate: NSDate)]] = [:]
+
     private var taskWrapper: DoneTaskWrapperEntity = DoneTaskWrapperEntity()
     var itemId: Int = 0
     
@@ -34,7 +35,7 @@ class DoneTaskViewController: UIViewController, PostAlertUtil {
                 result.tasks?.forEach{
                     self.taskByTupple.append((task: $0, list: result.list!))
                 }
-                self.setEventByDate()
+                self.taskByEvent = DoneTaskWrapperEntity.setEventByDate([result])
                 self.calendarVC.taskByEvent = self.taskByEvent
 
                 self.listVC.taskByTupple = self.taskByTupple
@@ -50,26 +51,6 @@ class DoneTaskViewController: UIViewController, PostAlertUtil {
         }
         
         self.setVC()
-    }
-    
-    func setEventByDate(){
-        let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-
-        self.taskWrapper.tasks?.forEach{ task in
-            task.events?.forEach{ event in
-                let comps: NSDateComponents = calendar.components([.Year, .Month, .Day], fromDate: event)
-                let keyDate = NSDate(year: comps.year, month: comps.month, day: comps.day, region: TimerPresenter.gregorianByRegion)
-                
-                let value: (TimerEntity, String, NSDate) = (timer: task.timer!, itemName: self.taskWrapper.list!.name!, actualDate: event)
-                if self.taskByEvent[keyDate] != nil {                    
-                    self.taskByEvent[keyDate]!.append(value)
-                }else{
-                    self.taskByEvent[keyDate] = [value]
-                }
-            }
-        }
-        
-        print(self.taskByEvent)
     }
     
     func setVC(){

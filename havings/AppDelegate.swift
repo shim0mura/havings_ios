@@ -20,6 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let downloader = KingfisherManager.sharedManager.downloader
         downloader.trustedHosts = Set(["havings.com"])
 
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().barTintColor = UIColorUtil.darkMainColor
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+        
+        UITabBar.appearance().translucent = false
+        UITabBar.appearance().barTintColor = UIColorUtil.darkMainColor
+        UITabBar.appearance().tintColor = UIColor.whiteColor()
+
         return true
     }
 
