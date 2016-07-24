@@ -28,6 +28,9 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
     private let doneTaskRepeatTag: Int = 44
     private let doneTaskItemNameTag: Int = 45
     private let doneTaskDateTag: Int = 46
+    private let moreTimerButtonTag: Int = 60
+    
+    private let maxTimer: Int = 3
     
     private var beforeLoadingChart: Bool = true
     private var beforeLoadingTimers: Bool = true
@@ -78,7 +81,7 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
         self.tableView.estimatedRowHeight = 60
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.tableFooterView = UIView()
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        //self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         
         let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
         let comps: NSDateComponents = calendar.components([.Year, .Month, .Day], fromDate: NSDate())
@@ -128,6 +131,8 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
             }
         }
         
+        DefaultTagPresenter.migrateTag()
+
         setUpLeftBarButton()
     }
 
@@ -191,6 +196,14 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
         self.tableView.reloadRowsAtIndexPaths(reloadPath, withRowAnimation: .Automatic)
         self.tableView.scrollToRowAtIndexPath(reloadPath.first!, atScrollPosition: .Top, animated: true)
     }
+    
+    @IBAction func toAllTimers(sender: AnyObject) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "TimerList", bundle: nil)
+        let next: TimerListViewController = storyboard.instantiateInitialViewController() as! TimerListViewController
+        next.timers = self.timers
+        self.navigationController?.pushViewController(next, animated: true)
+    }
+    
 }
 
 extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
@@ -207,8 +220,13 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
             if self.beforeLoadingTimers {
                 return 1
             }else{
-                let count = (self.timers.count == 0) ? 1 :self.timers.count
-                return count
+                if self.timers.count == 0 {
+                    return 1
+                }else if self.timers.count > self.maxTimer {
+                    return self.maxTimer
+                }else{
+                    return self.timers.count
+                }
             }
         }else if section == 2{
             if self.beforeLoadingTasks {
@@ -397,6 +415,12 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
             return cell.contentView
         }else if section == 1 {
             let cell : UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("timerHeader")! as UITableViewCell
+            let button = cell.viewWithTag(self.moreTimerButtonTag) as! UIButton
+            if self.beforeLoadingTimers || self.timers.count <= self.maxTimer {
+                button.hidden = true
+            }else{
+                button.hidden = false
+            }
             return cell.contentView
         }else if section == 2 {
             let cell : UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("doneTaskHeader")! as UITableViewCell

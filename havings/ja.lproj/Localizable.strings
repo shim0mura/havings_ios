@@ -226,6 +226,8 @@
 "Prompt.PopularTag.Count" = "%@件のアイテム";
 "Prompt.PopularList" = "人気のリスト";
 
+"Prompt.TimerList" = "稼働中のタイマー一覧";
+
 
 "Unit.Day" = "日";
 "Unit.Minute" = "分";
