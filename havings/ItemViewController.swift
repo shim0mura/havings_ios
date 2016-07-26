@@ -97,6 +97,10 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private let timerProgressTag: Int = 33
     
     private let toolContainerTag: Int = 70
+    private let emptyMainLabelTag: Int = 80
+    private let emptyDetailLabelTag: Int = 81
+    private let imageDateLabelTag: Int = 90
+    private let imageFavoriteCountTag: Int = 91
     
     private var itemEntity: ItemEntity?
     private var loadingNextItem: Bool = false
@@ -375,16 +379,16 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }else if section == 1 {
             switch self.segState {
             case .OwningItems:
-                if item.owningItems != nil {
-                    return (item.owningItems?.count)!
+                if let owningItems = item.owningItems where !owningItems.isEmpty {
+                    return owningItems.count
                 }else{
-                    return 0
+                    return 1
                 }
             case .ItemImages:
-                if item.itemImages?.images != nil {
-                    return (item.itemImages!.images!.count)
+                if let images = item.itemImages?.images where !images.isEmpty {
+                    return images.count
                 }else{
-                    return 0
+                    return 1
                 }
             case .Graph:
                 return 1
@@ -419,6 +423,21 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }else{
             switch self.segState {
             case .OwningItems:
+                guard let oi = self.itemEntity?.owningItems where !oi.isEmpty else {
+                    let cell = baseTable.dequeueReusableCellWithIdentifier("empty")!
+                    let main: UILabel = cell.viewWithTag(self.emptyMainLabelTag) as! UILabel
+                    main.text = NSLocalizedString("Prompt.Item.OwningItems.Empty", comment: "")
+                    
+                    if let uid = self.itemEntity?.owner?.id where uid == self.userId {
+                        if self.itemEntity?.isGarbage == false {
+                            let detail: UILabel = cell.viewWithTag(self.emptyDetailLabelTag) as! UILabel
+                            detail.text = NSLocalizedString("Prompt.Item.OwningItems.Empty.Detail", comment: "")
+                        }
+                    }
+
+                    return cell
+                }
+                
                 let cell : ItemTableViewCell = baseTable.dequeueReusableCellWithIdentifier("itemCell") as! ItemTableViewCell
                 let item = itemEntity.flatMap{(i: ItemEntity) -> ItemEntity? in
                     i.owningItems?[indexPath.row] ?? nil
@@ -429,11 +448,29 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 }
                 return cell
             case .ItemImages:
+                guard let oi = self.itemEntity?.itemImages?.images where !oi.isEmpty else {
+                    let cell = baseTable.dequeueReusableCellWithIdentifier("empty")!
+                    let main: UILabel = cell.viewWithTag(self.emptyMainLabelTag) as! UILabel
+                    main.text = NSLocalizedString("Prompt.Item.ItemImages.Empty", comment: "")
+                    
+                    if let uid = self.itemEntity?.owner?.id where uid == self.userId {
+                        let detail: UILabel = cell.viewWithTag(self.emptyDetailLabelTag) as! UILabel
+                        detail.text = NSLocalizedString("Prompt.Item.ItemImages.Empty.Detail", comment: "")
+                    }
+                    
+                    return cell
+                }
+                
                 let cell : ItemImageCell = baseTable.dequeueReusableCellWithIdentifier("itemImages") as! ItemImageCell
                 let itemImage: ItemImageEntity? = itemEntity?.itemImages?.images.flatMap{$0[indexPath.row] ?? nil}
                 
-                if itemImage != nil {
-                    cell.setItem(itemImage!)
+                if let ii = itemImage {
+                    cell.setItem(ii)
+                    
+                    let addDate: UILabel = cell.viewWithTag(self.imageDateLabelTag) as! UILabel
+                    addDate.text = String(format: NSLocalizedString("Prompt.Item.Image.AddedAt", comment: ""), DateTimeFormatter.getStrWithWeekday(ii.addedDate!))
+                    let favorite: UILabel = cell.viewWithTag(self.imageFavoriteCountTag) as! UILabel
+                    favorite.text = "\(ii.imageFavoriteCount!)"
                 }
                 
                 return cell
@@ -468,10 +505,13 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("touch!!")
+        baseTable.deselectRowAtIndexPath(indexPath, animated: true)
         
         // タイマー周りのtouchイベント
         if indexPath.section == 0 {
-            if timerState != TimerOwnState.CanNotHaveTimer && indexPath.section == 0 && 2...4 ~= indexPath.row {
+            if timerState == TimerOwnState.CanNotHaveTimer || timerState == TimerOwnState.NoTimer {
+                return
+            }else if indexPath.section == 0 && 2...4 ~= indexPath.row {
                 let selectedTimer:TimerEntity = self.itemEntity!.timers![indexPath.row - 2]
                 
                 let actionController: XLActionController = self.getTimerActionAlert(selectedTimer)
@@ -497,7 +537,6 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
         }
         
-        baseTable.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -638,7 +677,8 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
         let desc: UILabel = cell.contentView.viewWithTag(descriptionTag) as! UILabel
-        desc.text = itemEntity?.description
+        let itemDesc: String = itemEntity?.description ?? " "
+        desc.text = itemDesc
         
         let toolContainer = cell.contentView.viewWithTag(self.toolContainerTag)
         toolContainer?.addTopBorderWithColor(UIColor.lightGrayColor(), width: 0.5)
@@ -737,8 +777,8 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
             
         }else{
-            // タイマーなし(タイマーヘッダーと追加ボタンを置く)
-            result = result + 1 + 1
+            // タイマーなし(タイマーヘッダーと追加ボタンとemptyの表示を置く)
+            result = result + 1 + 1 + 1
             self.timerState = .NoTimer
         }
         self.section0rows = result
@@ -767,9 +807,18 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.setTimerDescription(cell, timer: self.itemEntity!.timers![indexPath.row - 2])
             return cell
         case .NoTimer:
-            let cell = baseTable.dequeueReusableCellWithIdentifier("timerAddButton")!
-            cell.selectionStyle = UITableViewCellSelectionStyle.None
-            return cell
+            if indexPath.row == 2{
+                let cell = baseTable.dequeueReusableCellWithIdentifier("empty")!
+                let main: UILabel = cell.viewWithTag(self.emptyMainLabelTag) as! UILabel
+                main.text = NSLocalizedString("Prompt.Item.Timer.Empty", comment: "")
+                let detail: UILabel = cell.viewWithTag(self.emptyDetailLabelTag) as! UILabel
+                detail.text = NSLocalizedString("Prompt.Item.Timer.Empty.Detail", comment: "")
+                return cell
+            }else{
+                let cell = baseTable.dequeueReusableCellWithIdentifier("timerAddButton")!
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
+                return cell
+            }
         case .CanNotHaveTimer:
             let cell = UITableViewCell(style: .Default, reuseIdentifier: "cell")
             cell.userInteractionEnabled = false

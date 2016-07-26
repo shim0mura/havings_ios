@@ -31,7 +31,15 @@
 
 "Prompt.Item.CountLabel" = "%@ items";
 "Prompt.Item.TimerHeader" = "設定中のタイマー";
+"Prompt.Item.Timer.Empty" = "設定中のタイマーはありません";
+"Prompt.Item.Timer.Empty.Detail" = "このリストの場所をキレイに保つために、定期的に行いたいタスク(整理、ホコリ取り、掃除機がけ等)のタイマーを作成しましょう!";
 "Prompt.Item.AddTimer" = "タイマーの追加";
+
+"Prompt.Item.OwningItems.Empty" = "このリストに属するモノはありません";
+"Prompt.Item.OwningItems.Empty.Detail" = "このリストの写真に写っているモノを追加してみましょう。\n片付けたい場所に今何があるかを記録すれば、片付けが効率的になるかも!?";
+"Prompt.Item.ItemImages.Empty" = "写真はありません";
+"Prompt.Item.ItemImages.Empty.Detail" = "写真を追加してみましょう。\n片付けの記録が後で役に立つかも!?";
+
 
 "Prompt.Item.Image.AddForm" = "写真情報の編集";
 "Prompt.Item.Image.AddedAt" = "追加日: %@";

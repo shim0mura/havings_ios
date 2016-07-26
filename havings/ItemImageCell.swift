@@ -17,7 +17,6 @@ class ItemImageCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        print("!!!!!!!!!!!!!!!!!!!")
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
