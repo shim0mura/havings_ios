@@ -84,11 +84,19 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private let userThumbnailTag: Int = 19
     private let favoriteImageTag: Int = 20
     private let commentImageTag: Int = 21
+    private let isPrivateTag: Int = 22
+    private let breadCrumbTag: Int = 23
+    private let doneTaskCountainerTag: Int = 24
+    private let doneTaskCountTag: Int = 25
+    private let shareImageTag: Int = 26
+    private let etcMenuImageTag: Int = 27
     
     private let timerNameTag: Int = 30
     private let timerRepeatTag: Int = 31
     private let timerAlarmTag: Int = 32
     private let timerProgressTag: Int = 33
+    
+    private let toolContainerTag: Int = 70
     
     private var itemEntity: ItemEntity?
     private var loadingNextItem: Bool = false
@@ -107,6 +115,7 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private var segState: SegmentState = .OwningItems
     private var itemType: ItemType = .List
     private var isSending: Bool = false
+    private var beforeLoading: Bool = true
     
     private var headerCell: UITableViewCell? = nil
     
@@ -192,6 +201,7 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         API.call(Endpoint.Item.Get(id: self.itemId)) { response in
             switch response {
             case .Success(let result):
+                self.beforeLoading = false
                 
                 self.itemEntity = result
                 if result.isList == true {
@@ -201,6 +211,8 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 }
                 self.segState.setState(0, itemType: self.itemType)
                 self.setSection0RowCount(result)
+                
+                self.title = result.name
                 
                 self.baseTable.reloadData()
             case .Failure(let error):
@@ -240,6 +252,113 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
+    @IBAction func tapOwner(sender: AnyObject) {
+        if let id = itemEntity?.owner?.id {
+            let storyboard: UIStoryboard = UIStoryboard(name: "User", bundle: nil)
+            let next: UINavigationController = storyboard.instantiateInitialViewController() as! UINavigationController
+            let nextVC: UserViewController = next.visibleViewController as! UserViewController
+            nextVC.userId = id
+            self.navigationController?.pushViewController(nextVC, animated: true)
+        }
+    }
+    
+    @IBAction func tapLikeCount(sender: AnyObject) {
+        if let id = itemEntity?.id {
+            let storyboard: UIStoryboard = UIStoryboard(name: "UserList", bundle: nil)
+            let next: UserListViewController = storyboard.instantiateInitialViewController() as! UserListViewController
+            next.userListStyle = UserListViewController.UserListStyle.ItemFavoritedUser
+            next.relatedId = id
+            self.navigationController?.pushViewController(next, animated: true)
+        }
+    }
+    
+    @IBAction func tapCommentCount(sender: AnyObject) {
+        if let id = itemEntity?.id {
+            let storyboard: UIStoryboard = UIStoryboard(name: "Comment", bundle: nil)
+            let next: CommentViewController = storyboard.instantiateInitialViewController() as! CommentViewController
+            next.itemId = id
+            self.navigationController?.pushViewController(next, animated: true)
+        }
+    }
+    
+    @IBAction func tapDoneCount(sender: AnyObject) {
+        if self.userId == self.itemEntity?.owner?.id {
+            let storyboard: UIStoryboard = UIStoryboard(name: "DoneTasks", bundle: nil)
+            let next: DoneTaskViewController = storyboard.instantiateInitialViewController() as! DoneTaskViewController
+            next.itemId = (self.itemEntity!.id)!
+            self.navigationController?.pushViewController(next, animated: true)
+        }
+    }
+    
+    @IBAction func tapShare(sender: AnyObject) {
+        print("ssss")
+    }
+    
+    @IBAction func tapEtcMenu(sender: AnyObject) {
+        let alert: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle:  UIAlertControllerStyle.ActionSheet)
+        
+        if self.itemEntity?.owner?.id == self.userId {
+            let type = (self.itemEntity?.isList == true) ? NSLocalizedString("Prompt.List", comment: "") : NSLocalizedString("Prompt.Item", comment: "")
+            let editTitle = String(format: NSLocalizedString("Prompt.Item.Edit.WithType", comment: ""), type)
+            
+            let edit: UIAlertAction = UIAlertAction(title: editTitle, style: UIAlertActionStyle.Default, handler:{(action: UIAlertAction!) -> Void in
+                let storyboard: UIStoryboard = UIStoryboard(name: "Form", bundle: nil)
+                let nav: UINavigationController? = storyboard.instantiateViewControllerWithIdentifier("edit_form_navigation") as? UINavigationController
+                
+                guard let navigationVC = nav, let formVC: AddFormViewController = navigationVC.viewControllers.first as? AddFormViewController else {
+                    return
+                }
+                formVC.item = self.itemEntity!
+                formVC.typeAdd = false
+                self.presentViewController(navigationVC, animated: true, completion: nil)
+            })
+            alert.addAction(edit)
+            
+            if self.itemEntity?.isGarbage == false {
+                let dumpTitle = String(format: NSLocalizedString("Prompt.Item.Dump.WithType", comment: ""), type)
+                let dump: UIAlertAction = UIAlertAction(title: dumpTitle, style: UIAlertActionStyle.Default, handler:{(action: UIAlertAction!) -> Void in
+                    let next: DumpItemViewController = UIStoryboard(name: "Form", bundle: nil).instantiateViewControllerWithIdentifier("dump_item") as! DumpItemViewController
+                    let item = ItemEntity()
+                    item.id = self.itemEntity!.id!
+                    item.isList = self.itemEntity!.isList!
+                    item.owningItems = self.itemEntity!.owningItems!
+                    next.item = item
+                    
+                    self.navigationController?.pushViewController(next, animated: true)
+                })
+                alert.addAction(dump)
+            }
+            
+            let deleteTitle = String(format: NSLocalizedString("Prompt.Item.Delete.WithType", comment: ""), type)
+            let delete: UIAlertAction = UIAlertAction(title: deleteTitle, style: UIAlertActionStyle.Default, handler:{(action: UIAlertAction!) -> Void in
+                let next: DeleteItemViewController = UIStoryboard(name: "Form", bundle: nil).instantiateViewControllerWithIdentifier("delete_item") as! DeleteItemViewController
+                let item = ItemEntity()
+                item.id = self.itemEntity!.id!
+                item.isList = self.itemEntity!.isList!
+                item.owningItems = self.itemEntity!.owningItems!
+                next.item = item
+                
+                self.navigationController?.pushViewController(next, animated: true)
+            })
+            alert.addAction(delete)
+            
+        }
+        
+        let copy: UIAlertAction = UIAlertAction(title: NSLocalizedString("Prompt.Item.CopyUrl", comment: ""), style: UIAlertActionStyle.Default, handler:{(action: UIAlertAction!) -> Void in
+            let board = UIPasteboard.generalPasteboard()
+            let url = ApiManager.getBaseUrl() + "/items/\(self.itemEntity!.id!)"
+            
+            board.setValue(url, forPasteboardType: "public.text")
+        })
+        alert.addAction(copy)
+        let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Prompt.Cancel", comment: ""), style: UIAlertActionStyle.Cancel, handler:{
+            (action: UIAlertAction!) -> Void in
+        })
+        alert.addAction(cancelAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // section0: item自体の情報(タイマー含む)
         // section1: 子アイテム、画像、グラフなどのsegmentControllで操作するもの
@@ -270,29 +389,6 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
             case .Graph:
                 return 1
             }
-            
-            
-            
-            /*
-            if segState == 0 {
-                if item.owningItems != nil {
-                    return (item.owningItems?.count)!
-                }else{
-                    return 0
-                }
-            }else if segState == 1 {
-                if item.itemImages?.images != nil {
-                    return (item.itemImages!.images!.count)
-                }else{
-                    return 0
-                }
-            }else {
-                return 1
-            }
-            */
- 
- 
- 
  
         }else{
             return 0
@@ -349,43 +445,16 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 return cell
             }
         }
-        
-        /*
-        }else if segState == 0{
-            
-            let cell : ItemTableViewCell = baseTable.dequeueReusableCellWithIdentifier("itemCell") as! ItemTableViewCell
-            let item = itemEntity.flatMap{(i: ItemEntity) -> ItemEntity? in
-                i.owningItems?[indexPath.row] ?? nil
-            }
-            
-            if let i = item {
-                cell.setItem(i)
-            }
-            
-            return cell
-        }else if segState == 1 {
-            let cell : ItemImageCell = baseTable.dequeueReusableCellWithIdentifier("itemImages") as! ItemImageCell
-            let itemImage: ItemImageEntity? = itemEntity?.itemImages?.images.flatMap{$0[indexPath.row] ?? nil}
-            
-            if itemImage != nil {
-                cell.setItem(itemImage!)                
-            }
-            
-            return cell
-        }else {
-            let cell = baseTable.dequeueReusableCellWithIdentifier("simpleChartCell") as! SimpleTableViewCell
-            cell.selectionStyle = UITableViewCellSelectionStyle.None
-            cell.setNavigationController(self.navigationController)
-            cell.setChart(self.itemEntity?.countProperties)
-            return cell
-        }
-        */
 
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        if section == 0 {
+        if self.beforeLoading {
+            let cell : UITableViewCell = baseTable.dequeueReusableCellWithIdentifier("loading")!
+            return cell.contentView
+
+        } else if section == 0 {
             print("page header")
             return nil
         }else{
@@ -426,21 +495,6 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 break
             }
             
-            
-            /*
-            if self.segState == 0 {
-                let nextItem = self.itemEntity!.owningItems![indexPath.row]
-                let next = self.storyboard?.instantiateInitialViewController() as! ItemViewController
-                next.itemId = nextItem.id
-                self.navigationController?.pushViewController(next, animated: true)
-            } else if self.segState == 1 {
-                print("tap picture")
-                let storyboard: UIStoryboard = UIStoryboard(name: "ItemImage", bundle: nil)
-                let next: ItemImageViewController = storyboard.instantiateViewControllerWithIdentifier("item_image") as! ItemImageViewController
-                next.itemImageEntity = self.itemEntity?.itemImages?.images![indexPath.row]
-                self.navigationController?.pushViewController(next, animated: true)
-            }
-            */
         }
         
         baseTable.deselectRowAtIndexPath(indexPath, animated: true)
@@ -513,7 +567,9 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         
         let itemTypeIcon: UIImageView = cell.contentView.viewWithTag(itemTypeIconTag) as! UIImageView
-        if itemEntity?.isList?.boolValue == true {
+        if itemEntity?.isGarbage == true {
+            itemTypeIcon.image = UIImage(named: "ic_delete_black_24dp")
+        } else if itemEntity?.isList?.boolValue == true {
             itemTypeIcon.image = UIImage(named: "icon_type_list_white")
         }else{
             itemTypeIcon.image = UIImage(named: "icon_type_item_white")
@@ -524,7 +580,18 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         let itemCount: UILabel = cell.contentView.viewWithTag(itemCountTag) as! UILabel
         itemCount.text = String(itemEntity?.count ?? 0)
+        itemCount.font = UIFont.boldSystemFontOfSize(20)
+
+        itemCount.sizeToFit()
         
+        let isPrivate = cell.contentView.viewWithTag(self.isPrivateTag)
+        if itemEntity?.privateType == 0 {
+            isPrivate?.hidden = true
+        }
+        
+        let breadcrumb: UILabel = cell.contentView.viewWithTag(self.breadCrumbTag) as! UILabel
+        breadcrumb.text = itemEntity?.breadcrumb?.stringByReplacingOccurrencesOfString(" > ", withString: " >\n")
+
         let userName: UILabel = cell.contentView.viewWithTag(userNameTag) as! UILabel
         userName.text = itemEntity?.owner?.name
         
@@ -544,16 +611,25 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let commentCount: UILabel = cell.contentView.viewWithTag(commentCountTag) as! UILabel
         commentCount.text = String(itemEntity?.commentCount ?? 0)
         
+        if itemEntity?.owner?.id == self.userId {
+        let doneCount:UILabel = cell.contentView.viewWithTag(self.doneTaskCountTag) as! UILabel
+        doneCount.text = String(itemEntity?.doneCount ?? 0)
+        }
+        
         let tagList: TagListView = cell.contentView.viewWithTag(tagListTag) as! TagListView
         tagList.textFont = UIFont.systemFontOfSize(17)
         itemEntity?.tags?.forEach{
             tagList.addTag($0)
         }
         
-        let favoriteImage: UIImageView = cell.contentView.viewWithTag(favoriteImageTag) as! UIImageView
+        let favoriteImage: UIImageView = cell.contentView.viewWithTag(self.favoriteImageTag) as! UIImageView
         favoriteImage.userInteractionEnabled = true
         let commentImage: UIImageView = cell.contentView.viewWithTag(self.commentImageTag) as! UIImageView
         commentImage.userInteractionEnabled = true
+        let shareImage: UIImageView = cell.contentView.viewWithTag(self.shareImageTag) as! UIImageView
+        shareImage.userInteractionEnabled = true
+        let etcImage: UIImageView = cell.contentView.viewWithTag(self.etcMenuImageTag) as! UIImageView
+        etcImage.userInteractionEnabled = true
         
         if itemEntity?.isFavorited == true {
             favoriteImage.image = UIImage(named: "ic_favorite_pink_300_36dp")
@@ -564,6 +640,9 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let desc: UILabel = cell.contentView.viewWithTag(descriptionTag) as! UILabel
         desc.text = itemEntity?.description
         
+        let toolContainer = cell.contentView.viewWithTag(self.toolContainerTag)
+        toolContainer?.addTopBorderWithColor(UIColor.lightGrayColor(), width: 0.5)
+        
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
         return cell
@@ -572,7 +651,6 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     @IBAction func tapFavoriteItem(sender: AnyObject) {
-        print("favorite")
         guard let alreadyFavorite = self.itemEntity?.isFavorited else {
             return
         }
@@ -626,11 +704,9 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     @IBAction func tapComment(sender: AnyObject) {
-        print("comment")
         let storyboard: UIStoryboard = UIStoryboard(name: "Comment", bundle: nil)
         let next: CommentViewController = storyboard.instantiateInitialViewController() as! CommentViewController
         next.itemId = self.itemEntity!.id!
-        //next.itemImageEntity = self.itemEntity?.itemImages?.images![indexPath.row]
         
         self.navigationController?.pushViewController(next, animated: true)
     }
@@ -639,11 +715,12 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func setSection0RowCount(item: ItemEntity){
         let isList = item.isList ?? false
+        let isGarbage = item.isGarbage ?? false
         // 通常ヘッダーがあるので、最低row1行必要
         
         var result: Int = 1
         
-        if !isList || (item.owner!.id != self.userId) {
+        if !isList || (item.owner!.id != self.userId) || isGarbage {
             // 自分のじゃないアイテム、またはリストじゃない
             // (タイマーを追加できないアイテム)
             self.timerState = .CanNotHaveTimer
@@ -742,6 +819,9 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 
                 let spinnerAlert = self.showConnectingSpinner()
                 
+                let tmpNext = timer.nextDueAt
+                timer.nextDueAt = next
+                
                 API.call(Endpoint.Timer.Done(timerId: timer.id!, doneDate: nil)){ response in
                     switch response {
                     case .Success(let result):
@@ -752,7 +832,7 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
                                 return
                             }
                             
-                            timer.nextDueAt = next
+                            timer.overDueFrom = nil
                             self.changeTimer()
                             
                             print(result)
@@ -762,6 +842,7 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     case .Failure(let error):
                         print(error)
                         
+                        timer.nextDueAt = tmpNext
                         spinnerAlert.dismissViewControllerAnimated(false, completion: nil)
                         self.simpleAlertDialog(NSLocalizedString("Prompt.FailureToAceess", comment: ""), message: nil)
                         

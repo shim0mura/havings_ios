@@ -23,6 +23,12 @@
 "Prompt.Action.DumpList" = "リストを手放す";
 "Prompt.Action.DeleteList" = "リストを削除する";
 
+"Prompt.Item.isPrivate" = "非公開のアイテム";
+"Prompt.Item.Edit.WithType" = "この%@を編集する";
+"Prompt.Item.Dump.WithType" = "この%@を手放す";
+"Prompt.Item.Delete.WithType" = "この%@を削除する";
+"Prompt.Item.CopyUrl" = "URLをコピーする";
+
 "Prompt.Item.CountLabel" = "%@ items";
 "Prompt.Item.TimerHeader" = "設定中のタイマー";
 "Prompt.Item.AddTimer" = "タイマーの追加";
@@ -201,11 +207,9 @@
 "Prompt.Dashboard.PieChart" = "あなたのアイテムの分類グラフ";
 "Prompt.Dashboard.PieChart.Empty" = "グラフはありません。\n \nアイテムやリストを追加すると、グラフが自動的に作成されます";
 "Prompt.Dashboard.PieChart.TypeLegend" = "";
-"Prompt.Dashboard.Timers" = "設定中のタイマー";
+"Prompt.Dashboard.Timers" = "稼働中のタイマー";
 "Prompt.Dashboard.Timers.Empty" = "設定中のタイマーはありません。\n \n整理したいリストから、定期的に行いたいタスク(整理、ホコリ取り、掃除機がけ等)を作成してみましょう!";
 "Prompt.Dashboard.DoneTasks" = "タスクの履歴";
-
-
 
 
 "Prompt.Timeline.isEmpty" = "アクティビティはありません。 \n \n誰かをフォローすると、その人がいいね!したアイテムや追加したアイテムの情報がここに表示されます。 \n \n気になる人たちをフォローしてみましょう！";

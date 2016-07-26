@@ -62,8 +62,10 @@ class ItemTableViewCell: UITableViewCell  {
         self.itemCountLabel.text = String(format: NSLocalizedString("Prompt.Item.CountLabel", comment: ""), "\(item.count!)")
         self.likeCountLabel.text = "\(item.favoriteCount!)"
         
-        if item.isList == true {
-            self.iconTypeImage.image = UIImage(named: "icon_type_list")
+        if item.isGarbage == true {
+            self.iconTypeImage.image = UIImage(named: "ic_delete_black_24dp")
+        }else if item.isList == true {
+            self.iconTypeImage.image = UIImage(named: "icon_type_list_light")
         }else{
             self.iconTypeImage.image = UIImage(named: "icon_type_item")
         }

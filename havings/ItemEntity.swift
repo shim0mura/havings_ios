@@ -31,9 +31,11 @@ class ItemEntity: Mappable, EntityPostable {
     var countProperties: [CountDataEntity]?
     var favoriteCount: Int?
     var commentCount: Int?
+    var doneCount: Int?
     var isFavorited: Bool?
     var owner: UserEntity?
     var timers: [TimerEntity]?
+    var breadcrumb: String?
     
     var errors: AnyObject?
     
@@ -65,11 +67,13 @@ class ItemEntity: Mappable, EntityPostable {
         countProperties <- map["count_properties"]
         favoriteCount <- map["favorite_count"]
         commentCount <- map["comment_count"]
+        doneCount <- map["done_count"]
         isFavorited <- map["is_favorited"]
         owner <- map["owner"]
         imageDataForPost <- map["image_data_for_post"]
         tagList <- map["tag_list"]
         timers <- map["timers"]
+        breadcrumb <- map["breadcrumb"]
         errors <- map["errors"]
     }
     
