@@ -28,6 +28,7 @@ class ItemEntity: Mappable, EntityPostable {
     var tags: [String]?
     var tagList: String?
     var itemImages: ItemImageListEntity?
+    var itemImageId: Int?
     var countProperties: [CountDataEntity]?
     var favoriteCount: Int?
     var commentCount: Int?
@@ -64,6 +65,7 @@ class ItemEntity: Mappable, EntityPostable {
         nextPageForItem <- map["next_page_for_item"]
         tags <- map["tags"]
         itemImages <- map["item_images"]
+        itemImageId <- map["item_image_id"]
         countProperties <- map["count_properties"]
         favoriteCount <- map["favorite_count"]
         commentCount <- map["comment_count"]

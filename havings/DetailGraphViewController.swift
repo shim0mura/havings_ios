@@ -18,6 +18,7 @@ class DetailGraphViewController: UIViewController, UITableViewDataSource, UITabl
     var countData: [CountDataEntity]?
     var rowsBySection: [Int] = []
     var xIndexBySection: [Int] = []
+    var itemName: String?
 
     
     override func viewDidLoad() {
@@ -34,8 +35,16 @@ class DetailGraphViewController: UIViewController, UITableViewDataSource, UITabl
             let data = GraphRenderer.appendTodaysData(self.countData!)
             self.countData = data
             setRowsBySection(data)
+            
+            let start = data.first!.date!
+            let end = data.last!.date!
+            chartView.descriptionText = String(format: NSLocalizedString("Prompt.Item.Graph.Period", comment: ""), DateTimeFormatter.getStrFromDate(start, format: DateTimeFormatter.formatYMD), DateTimeFormatter.getStrFromDate(end, format: DateTimeFormatter.formatYMD))
         }else{
-            chartView.noDataText = "アイテムの追加、手放しなどはされていません"
+            chartView.noDataText = NSLocalizedString("Prompt.Item.Graph.Empty", comment: "")
+        }
+        
+        if let name = self.itemName {
+            self.title = name
         }
         
         chartView.pinchZoomEnabled = true
@@ -43,19 +52,13 @@ class DetailGraphViewController: UIViewController, UITableViewDataSource, UITabl
         chartView.drawBordersEnabled = true
         chartView.delegate = self
 
-        let marker = BalloonMarker(color: UIColor.cyanColor(), font: UIFont.systemFontOfSize(UIFont.systemFontSize()), insets: UIEdgeInsets(top: 8, left: 8, bottom: 20, right: 8))
+        let marker = BalloonMarker(color: UIColorUtil.mainColor, font: UIFont.systemFontOfSize(UIFont.systemFontSize()), insets: UIEdgeInsets(top: 8, left: 8, bottom: 20, right: 8))
         chartView.marker = marker
         
         let right = chartView.getAxis(ChartYAxis.AxisDependency.Right)
         right.drawLabelsEnabled = false
         let left = chartView.getAxis(ChartYAxis.AxisDependency.Left)
         left.valueFormatter = DoubleToIntFormatter()
-        
-        chartView.descriptionText = "京都府の月毎の降水量グラフ"
-        
-        print("count by row \(self.rowsBySection.count)")
-        print(self.rowsBySection)
-        print(self.countData?.count)
         
         if self.countData != nil {
             let lineChartData = GraphRenderer.createChartData(self.countData!)
@@ -68,6 +71,8 @@ class DetailGraphViewController: UIViewController, UITableViewDataSource, UITabl
             activityTableView.hidden = true
             activityTableHeightConstraint.constant = 0
         }
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
 
     }
 
@@ -114,6 +119,7 @@ class DetailGraphViewController: UIViewController, UITableViewDataSource, UITabl
             return cell
         }
         
+        cell.vc = self.navigationController
         cell.setData(e)
         return cell
     }
@@ -253,6 +259,7 @@ public class BalloonMarker: ChartMarker
         _drawAttributes.removeAll()
         _drawAttributes[NSFontAttributeName] = self.font
         _drawAttributes[NSParagraphStyleAttributeName] = _paragraphStyle
+        _drawAttributes[NSForegroundColorAttributeName] = UIColorUtil.accentColor
         
         _labelSize = labelns?.sizeWithAttributes(_drawAttributes) ?? CGSizeZero
         _size.width = _labelSize.width + self.insets.left + self.insets.right

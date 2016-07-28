@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                             </scrollView>
                             <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nkp-aC-Pir" userLabel="layer">
-                                <rect key="frame" x="0.0" y="656" width="414" height="80"/>
+                                <rect key="frame" x="0.0" y="646" width="414" height="90"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="fU2-1R-c0L"/>
@@ -33,10 +33,10 @@
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="alK-ek-OES" userLabel="container">
-                                <rect key="frame" x="0.0" y="656" width="414" height="80"/>
+                                <rect key="frame" x="0.0" y="646" width="414" height="90"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_favorite_border_white_36dp" translatesAutoresizingMaskIntoConstraints="NO" id="pW3-op-wEG">
-                                        <rect key="frame" x="362" y="22" width="36" height="36"/>
+                                        <rect key="frame" x="362" y="27" width="36" height="36"/>
                                         <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="Vxt-tD-HMS"/>
@@ -53,13 +53,13 @@
                                         </connections>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ur5-N8-paK">
-                                        <rect key="frame" x="16" y="8" width="338" height="18"/>
+                                        <rect key="frame" x="16" y="26" width="338" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="1" green="0.98032764260000005" blue="0.96895211329999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZAe-uE-WGd" userLabel="favoritedUsersContainer">
-                                        <rect key="frame" x="16" y="28" width="72" height="24"/>
+                                        <rect key="frame" x="16" y="46" width="72" height="24"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_favorite_white_36dp" translatesAutoresizingMaskIntoConstraints="NO" id="j7A-4z-9lh">
                                                 <rect key="frame" x="0.0" y="2" width="20" height="20"/>
@@ -94,10 +94,20 @@
                                         </connections>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UhD-vB-UNa">
-                                        <rect key="frame" x="16" y="52" width="338" height="12"/>
+                                        <rect key="frame" x="16" y="70" width="338" height="12"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dPW-qi-mY2">
+                                        <rect key="frame" x="16" y="8" width="338" height="18"/>
+                                        <gestureRecognizers/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="uAa-Hi-ho5" appends="YES" id="cV1-9n-8lP"/>
+                                        </connections>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -105,19 +115,24 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="pW3-op-wEG" secondAttribute="trailing" constant="16" id="621-1w-gH0"/>
                                     <constraint firstItem="UhD-vB-UNa" firstAttribute="leading" secondItem="alK-ek-OES" secondAttribute="leading" constant="16" id="7Ys-D5-yi3"/>
-                                    <constraint firstItem="Ur5-N8-paK" firstAttribute="top" secondItem="alK-ek-OES" secondAttribute="top" constant="8" id="Df0-OV-Q2G"/>
+                                    <constraint firstItem="pW3-op-wEG" firstAttribute="leading" secondItem="dPW-qi-mY2" secondAttribute="trailing" constant="8" id="ARu-IO-Kjh"/>
+                                    <constraint firstItem="Ur5-N8-paK" firstAttribute="top" secondItem="alK-ek-OES" secondAttribute="top" constant="28" id="Df0-OV-Q2G"/>
                                     <constraint firstItem="pW3-op-wEG" firstAttribute="leading" secondItem="Ur5-N8-paK" secondAttribute="trailing" constant="8" id="Jdv-Z5-IK1"/>
                                     <constraint firstItem="pW3-op-wEG" firstAttribute="centerY" secondItem="alK-ek-OES" secondAttribute="centerY" id="MzA-8b-Og3"/>
                                     <constraint firstItem="ZAe-uE-WGd" firstAttribute="leading" secondItem="Ur5-N8-paK" secondAttribute="leading" id="OwF-6Z-hNl"/>
+                                    <constraint firstItem="dPW-qi-mY2" firstAttribute="top" secondItem="alK-ek-OES" secondAttribute="top" constant="8" id="RWa-NW-Fsy"/>
                                     <constraint firstItem="pW3-op-wEG" firstAttribute="leading" secondItem="UhD-vB-UNa" secondAttribute="trailing" constant="8" id="T31-h4-uYS"/>
                                     <constraint firstItem="Ur5-N8-paK" firstAttribute="leading" secondItem="alK-ek-OES" secondAttribute="leading" constant="16" id="YO2-7P-sbU"/>
                                     <constraint firstItem="UhD-vB-UNa" firstAttribute="top" secondItem="ZAe-uE-WGd" secondAttribute="bottom" id="cOO-QR-ohP"/>
                                     <constraint firstItem="ZAe-uE-WGd" firstAttribute="top" secondItem="Ur5-N8-paK" secondAttribute="bottom" constant="2" id="dfG-UQ-qTi"/>
+                                    <constraint firstItem="Ur5-N8-paK" firstAttribute="top" secondItem="dPW-qi-mY2" secondAttribute="bottom" id="e1P-QY-kyQ"/>
+                                    <constraint firstItem="dPW-qi-mY2" firstAttribute="leading" secondItem="alK-ek-OES" secondAttribute="leading" constant="16" id="pln-p0-won"/>
                                     <constraint firstItem="ZAe-uE-WGd" firstAttribute="top" secondItem="Ur5-N8-paK" secondAttribute="bottom" constant="2" id="rR9-Ol-Xg7"/>
-                                    <constraint firstAttribute="height" constant="80" id="yI2-gh-j3H"/>
+                                    <constraint firstAttribute="height" constant="90" id="yI2-gh-j3H"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
+                                        <exclude reference="Df0-OV-Q2G"/>
                                         <exclude reference="rR9-Ol-Xg7"/>
                                     </mask>
                                 </variation>
@@ -154,6 +169,7 @@
                         <outlet property="favoritedUsersContainer" destination="ZAe-uE-WGd" id="Gmc-C0-iIc"/>
                         <outlet property="imageLabel" destination="Ur5-N8-paK" id="sQb-L8-Rvk"/>
                         <outlet property="imageMemoLabel" destination="UhD-vB-UNa" id="u3m-oO-QA9"/>
+                        <outlet property="itemNameLabel" destination="dPW-qi-mY2" id="ItQ-NB-Lha"/>
                         <outlet property="navBar" destination="m22-2t-MdC" id="Swl-Yx-Nhq"/>
                         <outlet property="scrollView" destination="shv-ju-CvR" id="9s0-jQ-bd0"/>
                     </connections>
@@ -167,6 +183,11 @@
                 <tapGestureRecognizer id="kQu-mK-FJb" userLabel="favoritedUsers">
                     <connections>
                         <action selector="tapFavoritedUsers:" destination="cgO-TY-VZW" id="CmD-YI-y9L"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="uAa-Hi-ho5" userLabel="itemName">
+                    <connections>
+                        <action selector="tapItemName:" destination="cgO-TY-VZW" id="OL1-gF-tMh"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

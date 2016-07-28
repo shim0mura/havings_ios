@@ -27,7 +27,10 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="44" id="9OI-Wu-Woe"/>
                         </constraints>
-                        <state key="normal" title="Button"/>
+                        <state key="normal" title="グラフを詳しく見る"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedTitle" value="Prompt.Item.Graph.ToDetail"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <action selector="navigateToDetailGraph:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Otn-dQ-VsG"/>
                         </connections>

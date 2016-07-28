@@ -13,10 +13,7 @@ class SimpleTableViewCell: UITableViewCell {
     
     @IBOutlet weak var chartView: LineChartView!
  
-    
-    let months = ["1月", "2月", "3月", "4月", "5月", "", "", "", "9月", "10月", "11月", "12月"]
-    let unitsSold = [50.3, 68.3, 113.3, 115.7, 160.8, 214.0, 220.4, 132.1, 176.2, 120.9, 71.3, 48.0]
-    
+    var itemName: String?
     private var countData: [CountDataEntity]?
     private var sectionCount: Int?
     private var rowsBySection: [Int]?
@@ -70,11 +67,13 @@ class SimpleTableViewCell: UITableViewCell {
 
         
         guard let data = countProperty else {
-            chartView.noDataText = "アイテムの追加、手放しなどはされていません"
+            chartView.noDataText = NSLocalizedString("Prompt.Item.Graph.Empty", comment: "")
             return
         }
         
-        chartView.descriptionText = "京都府の月毎の降水量グラフ"
+        if let start = countProperty?.first?.date, let end = countProperty?.last?.date {
+            chartView.descriptionText = String(format: NSLocalizedString("Prompt.Item.Graph.Period", comment: ""), DateTimeFormatter.getStrFromDate(start, format: DateTimeFormatter.formatYMD), DateTimeFormatter.getStrFromDate(end, format: DateTimeFormatter.formatYMD))
+        }
         
         /*
         var dataEntries: [ChartDataEntry] = []
@@ -99,63 +98,9 @@ class SimpleTableViewCell: UITableViewCell {
         let storyboard: UIStoryboard = UIStoryboard(name: "DetailGraph", bundle: nil)
         let next: DetailGraphViewController = storyboard.instantiateInitialViewController()! as! DetailGraphViewController
         next.countData = self.countData
+        next.itemName = self.itemName
         self.navigationController?.pushViewController(next, animated: true)
     }
-    
-    /*
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("row num")
-        if let data = countData {
-            let c = data[data.count - 1 - section].events?.count ?? 0
-            if c >= MAX_SHOW_ACTIVITY {
-                print("row count \(c)")
-
-                return MAX_SHOW_ACTIVITY
-            }else{
-                print("row count \(c)")
-                return c
-            }
-        }else{
-            
-            return 0
-        }
-    }
-    
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let cell = activityTableView.dequeueReusableCellWithIdentifier("activityHeader")! as! ActivityTableViewCellHeader
-        print("section header")
-
-        guard let c = countData?.count, let cd = countData?[c - 1 - section] else {
-            print("header nil!!")
-            return nil
-        }
-        
-        cell.setHeader(cd.date!, count: cd.count!)
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = activityTableView.dequeueReusableCellWithIdentifier("activity")! as! ActivityTableViewCell
-        print("row")
-        guard let c = countData?.count, let cd = countData?[c - 1 - indexPath.section], let e = cd.events?[indexPath.row] else {
-            print("row nil!!")
-
-            return cell
-        }
-        
-        cell.setData(e)
-        return cell
-    }
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        print("section mmm \(sectionCount)")
-        if sectionCount != nil {
-            return sectionCount!
-        }else{
-            return 0
-        }
-    }
-    */
         
     func setSectionCount(data: [CountDataEntity]){
         if data.isEmpty {

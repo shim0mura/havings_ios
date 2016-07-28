@@ -134,6 +134,8 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
         DefaultTagPresenter.migrateTag()
 
         setUpLeftBarButton()
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+
     }
 
     override func didReceiveMemoryWarning() {

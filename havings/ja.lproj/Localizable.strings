@@ -40,7 +40,7 @@
 "Prompt.Item.ItemImages.Empty" = "写真はありません";
 "Prompt.Item.ItemImages.Empty.Detail" = "写真を追加してみましょう。\n片付けの記録が後で役に立つかも!?";
 
-
+"Prompt.Item.Image" = "%@の画像";
 "Prompt.Item.Image.AddForm" = "写真情報の編集";
 "Prompt.Item.Image.AddedAt" = "追加日: %@";
 "Prompt.Item.Image.Notfound" = "画像は存在しません";
@@ -49,6 +49,14 @@
 "Prompt.Item.Image.Memo.OverLength" = "メモは100字以上入力できません";
 "Prompt.Item.Image.CancelAdd" = "この画像の追加を取り消す";
 "Prompt.Item.Image.AddInfo" = "この写真のメモ・追加日を編集する";
+"Prompt.Item.Graph.ToDetail" = "グラフを詳しく見る";
+"Prompt.Item.Graph.Empty" = "アイテムの追加・手放しなどはされていません";
+"Prompt.Item.Graph.Period" = "%@ から %@ のアイテム数の変化";
+
+"Prompt.Item.Graph.Event.CreateList" = "リストを追加しました";
+"Prompt.Item.Graph.Event.CreateItem" = "アイテムを追加しました";
+"Prompt.Item.Graph.Event.AddImage" = "%@に画像を追加しました";
+"Prompt.Item.Graph.Event.Dump" = "%@を手放しました";
 
 
 "Prompt.ItemForm.AddCameraImage" = "カメラから追加";

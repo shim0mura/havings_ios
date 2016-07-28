@@ -21,6 +21,7 @@ class ItemImageViewController: UIViewController, PostAlertUtil {
     private var userId: Int = 0
     private var isSending = false
     
+    @IBOutlet weak var itemNameLabel: UILabel!
     @IBOutlet weak var imageLabel: UILabel!
     @IBOutlet weak var favoriteCountLabel: UILabel!
     @IBOutlet weak var favoriteButtonImage: UIImageView!
@@ -68,7 +69,10 @@ class ItemImageViewController: UIViewController, PostAlertUtil {
         tap.numberOfTapsRequired = 2
         self.scrollView.addGestureRecognizer(tap)
         
-        //self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+        self.itemNameLabel.userInteractionEnabled = true
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+
     }
     
     private func setImage(){
@@ -80,9 +84,16 @@ class ItemImageViewController: UIViewController, PostAlertUtil {
         }
         
         if self.itemImageEntity!.userId == self.userId {
-            let imageDeleteNavbarButton = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: #selector(ItemImageViewController.deleteImage))
+            let imageDeleteNavbarButton = UIBarButtonItem(title: "Delete", style: .Plain, target: self, action: #selector(ItemImageViewController.deleteImage))
             let imageEditNavbarButton = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(ItemImageViewController.editImageInfo))
             self.navBar.setRightBarButtonItems([imageDeleteNavbarButton, imageEditNavbarButton], animated: true)
+        }
+        
+        if let itemName = self.itemImageEntity?.itemName {
+            self.title = String(format: NSLocalizedString("Prompt.Item.Image", comment: ""), itemName)
+            self.itemNameLabel.text = itemName
+        }else{
+            self.itemNameLabel.hidden = true
         }
         
         self.imageLabel.text = String(format: NSLocalizedString("Prompt.Item.Image.AddedAt", comment: ""), DateTimeFormatter.getStrWithWeekday(self.itemImageEntity!.addedDate!))
@@ -195,6 +206,15 @@ class ItemImageViewController: UIViewController, PostAlertUtil {
         }else{
             self.isSending = true
             API.call(Endpoint.Favorite.FavoriteItemImage(itemImageId: self.itemImageEntity!.id!), completion: completeHandler)
+        }
+    }
+    
+    @IBAction func tapItemName(sender: AnyObject) {
+        if let id = self.itemImageEntity?.itemId {
+            let storyboard: UIStoryboard = UIStoryboard(name: "Item", bundle: nil)
+            let next: ItemViewController = storyboard.instantiateInitialViewController() as! ItemViewController
+            next.itemId = id
+            self.navigationController?.pushViewController(next, animated: true)
         }
     }
     

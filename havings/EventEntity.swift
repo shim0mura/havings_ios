@@ -15,6 +15,7 @@ class EventEntity: Mappable, EntityPostable {
     var eventType: String?
     var date: NSDate?
     var item: ItemEntity?
+    var type: NotificationEntity.EventType?
     
     init(){}
     
@@ -25,6 +26,7 @@ class EventEntity: Mappable, EntityPostable {
     func mapping(map: Map) {
         id <- map["id"]
         eventType <- map["event_type"]
+        type = NotificationEntity.EventType(rawValue: (eventType ?? "nothing"))
         date <- (map["date"], APIDateTransform.manager)
         item <- map["item"]
     }

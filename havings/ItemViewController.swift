@@ -230,6 +230,9 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if let ui = tokenManager.getUserId() {
             self.userId = ui
         }
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -479,6 +482,7 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 cell.selectionStyle = UITableViewCellSelectionStyle.None
                 cell.setNavigationController(self.navigationController)
                 cell.setChart(self.itemEntity?.countProperties)
+                cell.itemName = self.itemEntity?.name
                 return cell
             }
         }
