@@ -26,6 +26,7 @@ class DumpItemViewController: UIViewController, PostAlertUtil {
     @IBOutlet weak var fellowContainer: UIView!
     @IBOutlet weak var tableView: UITableView!
     
+    weak var finishDelegate: FinishItemUpdateDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,12 +35,7 @@ class DumpItemViewController: UIViewController, PostAlertUtil {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.garbageReasonTextView.delegate = self
-        /*
-        if let childItems = item.owningItems {
-            self.fellowContainer.hidden = true
-            self.tableView.hidden = true
-            break
-        }*/
+
         let childItems = item.owningItems ?? []
         let isList = item.isList ?? false
         
@@ -55,6 +51,8 @@ class DumpItemViewController: UIViewController, PostAlertUtil {
         }
         
         self.title = isList ? NSLocalizedString("Prompt.Action.DumpList", comment: "") : NSLocalizedString("Prompt.Action.DumpItem", comment: "")
+        self.garbageReasonTextView.superview?.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -120,6 +118,8 @@ class DumpItemViewController: UIViewController, PostAlertUtil {
                 
                 self.navigationController?.dismissViewControllerAnimated(true){
                     print("dismiss controller")
+                    self.finishDelegate?.finish(String(format: NSLocalizedString("Prompt.DumpItem.Success", comment: ""), self.item.name!))
+
                 }
             case .Failure(let error):
                 print(error)
@@ -129,6 +129,7 @@ class DumpItemViewController: UIViewController, PostAlertUtil {
                 self.isSending = false
             }
         }
+        
     }
     
 }
@@ -191,6 +192,13 @@ extension DumpItemViewController: UITextViewDelegate {
     func textViewShouldEndEditing(textView: UITextView) -> Bool {
         textView.resignFirstResponder()
         print("text view end")
+        textView.superview?.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+
         return true
+    }
+
+    func textViewDidBeginEditing(textView: UITextView) {
+        print("text view start")
+        textView.superview?.removeBorder()
     }
 }

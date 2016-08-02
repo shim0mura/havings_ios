@@ -13,6 +13,8 @@ class ListImagePickupViewController: UIViewController, QBImagePickerControllerDe
 UINavigationControllerDelegate {
     
     var listName: String?
+    var listTags: [String]?
+    weak var finishDelegate: FinishItemUpdateDelegate?
     
     deinit {
         print("deinit image")
@@ -45,14 +47,16 @@ UINavigationControllerDelegate {
         picker.mediaType = QBImagePickerMediaType.Image
         picker.allowsMultipleSelection = true
         picker.showsNumberOfSelectedAssets = true
-        picker.prompt = "test prompt!!!"
         
         self.presentViewController(picker, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("listname \(listName)")
+        self.title = NSLocalizedString("Prompt.ListImageChoose", comment: "")
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+        self.navigationController?.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+
         // Do any additional setup after loading the view.
     }
 
@@ -96,6 +100,7 @@ UINavigationControllerDelegate {
         let itemEntity = ItemEntity()
         itemEntity.isList = true
         itemEntity.name = self.listName
+        itemEntity.tags = self.listTags
         itemEntity.imageDataForPost = []
         
         let manager: PHImageManager = PHImageManager()
@@ -126,6 +131,8 @@ UINavigationControllerDelegate {
         }
         //addFormVC.selectedImages = images
         addFormVC.item = itemEntity
+        addFormVC.finishDelegate = self.finishDelegate
+
         
         self.navigationController?.pushViewController(addFormVC, animated: true)
 

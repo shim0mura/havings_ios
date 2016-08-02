@@ -14,6 +14,15 @@ enum TargetItemSelectType {
     case AddImage
     case DumpItem
     case DeleteItem
+    
+    func includeDump() -> Int {
+        switch  self {
+        case .EditItem, .AddImage, .DeleteItem:
+            return 1
+        case .DumpItem:
+            return 0
+        }
+    }
 }
 
 class TargetItemSelectViewController: UIViewController {
@@ -28,6 +37,8 @@ class TargetItemSelectViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    weak var finishDelegate: FinishItemUpdateDelegate?
+    
     var selectType:TargetItemSelectType = .EditItem
     
     override func viewDidLoad() {
@@ -41,7 +52,7 @@ class TargetItemSelectViewController: UIViewController {
 
         self.automaticallyAdjustsScrollViewInsets = false
         
-        API.call(Endpoint.Item.GetUserItemTree(userId: 10)) { response in
+        API.call(Endpoint.Item.GetUserItemTree(userId: 10, includeDump: self.selectType.includeDump())) { response in
             switch response {
             case .Success(let result):
                 self.loadingEnd = true
@@ -71,8 +82,8 @@ class TargetItemSelectViewController: UIViewController {
     }
     
     @IBAction func cancelTapped(sender: AnyObject) {
-        print("cancel")
-        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        //self.navigationController?.popViewControllerAnimated(true)
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     // http://qiita.com/AcaiBowl/items/8f71ca67da4c6f4b78d2
@@ -112,8 +123,10 @@ extension TargetItemSelectViewController: UITableViewDelegate, UITableViewDataSo
             let privateImage: UIImageView = cell.viewWithTag(privateTypeImageTag) as! UIImageView
             
             itemName.text = itemInfo.item.name
-            if itemInfo.item.isList == true {
-                itemTypeImage.image = UIImage(named: "icon_type_list")
+            if itemInfo.item.isGarbage == true {
+                itemTypeImage.image = UIImage(named: "ic_delete_black_24dp")
+            }else if itemInfo.item.isList == true {
+                itemTypeImage.image = UIImage(named: "icon_type_list_light")
             }else{
                 itemTypeImage.image = UIImage(named: "icon_type_item")
             }
@@ -147,12 +160,15 @@ extension TargetItemSelectViewController: UITableViewDelegate, UITableViewDataSo
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedItem = itemList[indexPath.row].item
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         switch self.selectType {
         case .EditItem:
             let next: AddFormViewController = self.storyboard?.instantiateViewControllerWithIdentifier("add_form") as! AddFormViewController
             next.typeAdd = false
             next.item = selectedItem
+            next.finishDelegate = self.finishDelegate
+            
             self.navigationController?.pushViewController(next, animated: true)
         case .AddImage:
             let next: AddImageViewController = self.storyboard?.instantiateViewControllerWithIdentifier("add_image") as! AddImageViewController
@@ -160,24 +176,29 @@ extension TargetItemSelectViewController: UITableViewDelegate, UITableViewDataSo
             item.id = selectedItem.id
             item.isList = selectedItem.isList
             next.item = item
+            next.finishDelegate = self.finishDelegate
             
             self.navigationController?.pushViewController(next, animated: true)
         case .DumpItem:
             let next: DumpItemViewController = self.storyboard?.instantiateViewControllerWithIdentifier("dump_item") as! DumpItemViewController
             let item = ItemEntity()
             item.id = selectedItem.id
+            item.name = selectedItem.name
             item.isList = selectedItem.isList
             item.owningItems = selectedItem.owningItems
             next.item = item
+            next.finishDelegate = self.finishDelegate
             
             self.navigationController?.pushViewController(next, animated: true)
         case .DeleteItem:
             let next: DeleteItemViewController = self.storyboard?.instantiateViewControllerWithIdentifier("delete_item") as! DeleteItemViewController
             let item = ItemEntity()
             item.id = selectedItem.id
+            item.name = selectedItem.name
             item.isList = selectedItem.isList
             item.owningItems = selectedItem.owningItems
             next.item = item
+            next.finishDelegate = self.finishDelegate
             
             self.navigationController?.pushViewController(next, animated: true)
         }

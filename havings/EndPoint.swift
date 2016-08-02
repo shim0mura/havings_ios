@@ -131,8 +131,9 @@ class Endpoint {
         case Put(itemId: Int, item: ItemEntity)
         case Dump(itemId: Int, item: ItemEntity, fellowIds: [Int])
         case Delete(itemId: Int, item: ItemEntity, fellowIds: [Int])
+        case AddImage(itemId: Int, item: ItemEntity)
         
-        case GetUserItemTree(userId: Int)
+        case GetUserItemTree(userId: Int, includeDump: Int)
         
         case GetFavoriteItem(userId: Int, page: Int)
         case GetFavoriteImage(userId: Int, page: Int)
@@ -143,7 +144,7 @@ class Endpoint {
             switch self {
             case .Get, .GetNextItem, .GetUserItemTree, .GetFavoriteItem, .GetFavoriteImage, .GetDumpItem:
                 return .GET
-            case .Post:
+            case .Post, .AddImage:
                 return .POST
             case .Put, .Dump:
                 return .PUT
@@ -169,8 +170,10 @@ class Endpoint {
             case .Delete(let itemInfo):
                 let id: Int = itemInfo.itemId
                 return "/items/\(id)"
-            case .GetUserItemTree(let userId):
-                return "/user/\(userId)/item_tree"
+            case .AddImage(let itemId, _):
+                return "/items/\(itemId)/image"
+            case .GetUserItemTree(let userId, let includeDump):
+                return "/user/\(userId)/item_tree?include_dump=\(includeDump)"
             case .GetFavoriteItem(let userId, let page):
                 return "/user/\(userId)/favorite_items?page=\(page)"
             case .GetFavoriteImage(let userId, let page):
@@ -206,6 +209,8 @@ class Endpoint {
                 var json = item.toJSON()
                 json["fellow_ids"] = itemInfo.fellowIds
                 return ["item" : json]
+            case .AddImage(_, let item):
+                return ["item" : item.toJSON()]
             }
             
         }
@@ -441,7 +446,6 @@ class Endpoint {
                 item.id = itemId
                 item.imageDataForPost = [itemImageEntity]
                 var json = item.toJSON()
-                print(json["image_data_for_post"])
                 if var jsonImage = json["image_data_for_post"] as? [String : AnyObject] {
                     jsonImage["added_date"] = itemImageEntity.addedDate?.timeIntervalSince1970
                 }

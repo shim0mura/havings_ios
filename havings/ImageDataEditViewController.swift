@@ -17,6 +17,10 @@ class ImageDataEditViewController: UIViewController, PostAlertUtil {
     var addedDatePicker: UIDatePicker!
     let currentDate = NSDate()
     
+    @IBOutlet weak var addedDateContainer: UIView!
+    
+    @IBOutlet weak var memoContainer: UIView!
+    
     weak var editDelegate: ImageDataEditViewDelegate?
     var imageEntity: ItemImageEntity?
     
@@ -42,6 +46,7 @@ class ImageDataEditViewController: UIViewController, PostAlertUtil {
         
         memoTextView.text = imageEntity?.memo
         memoTextView.editable = true
+        memoTextView.delegate = self
         
         selectedDate.userInteractionEnabled = true
         selectDateField.inputView = addedDatePicker
@@ -60,6 +65,9 @@ class ImageDataEditViewController: UIViewController, PostAlertUtil {
         toolBar.items = [toolBarBtn, toolBarBtnToday]
         
         selectDateField.inputAccessoryView = toolBar
+        
+        addedDateContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+        memoContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
         
     }
 
@@ -123,21 +131,20 @@ class ImageDataEditViewController: UIViewController, PostAlertUtil {
             }
         }
     }
+
+}
+
+extension ImageDataEditViewController: UITextViewDelegate {
     
-    /*
-    @IBAction func doneInput(sender: AnyObject) {
-        dismissViewControllerAnimated(true){
-            self.imageEntity?.addedDate = self.addedDatePicker.date
-            let tx = self.memoTextView.text
-            if !tx.isEmpty {
-                self.imageEntity?.memo = self.memoTextView.text
-            }
-            
-            if let im = self.imageEntity {
-                self.editDelegate?.editImageData(im)                
-            }
-        }
+    func textViewDidEndEditing(textView: UITextView) {
+        print("end")
+        textView.superview?.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+        
     }
-    */
+    
+    func textViewDidBeginEditing(textView: UITextView) {
+        print("text view start")
+        textView.superview?.removeBorder()
+    }
 
 }

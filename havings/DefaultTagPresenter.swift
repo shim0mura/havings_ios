@@ -149,20 +149,20 @@ class DefaultTagPresenter {
 
         let realm = try! Realm()
         
-        try! realm.write(){
+        try! realm.write {
             tagMigration.updatedTags.forEach{
                 realm.add($0, update: true)
             }
         }
         
         if let tagMigrationVersion = realm.objects(TagMigrationEntity).last {
-            try! realm.write() {
+            try! realm.write {
                 tagMigrationVersion.migrationVersion = tagMigration.migrationVersion
             }
         }else {
             let tagMigrationVersion = TagMigrationEntity()
             tagMigrationVersion.migrationVersion = tagMigration.migrationVersion
-            try! realm.write() {
+            try! realm.write {
                 realm.add(tagMigrationVersion)
             }
         }

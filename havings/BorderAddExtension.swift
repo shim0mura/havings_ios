@@ -37,6 +37,10 @@ extension UIView {
         border.frame = CGRectMake(0, 0, width, self.frame.size.height)
         self.layer.addSublayer(border)
     }
+    
+    func removeBorder(){
+        self.layer.sublayers?.removeLast()
+    }
 }
 
 class BorderedUIView: UIView {
@@ -138,7 +142,38 @@ class BorderedUIView: UIView {
     
 }
 
-
+class RadiusButton: UIButton {
+    @IBInspectable var cornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set {
+            layer.cornerRadius = newValue
+            layer.masksToBounds = newValue > 0
+        }
+    }
+    
+    @IBInspectable
+    var borderWidth: CGFloat {
+        get {
+            return self.layer.borderWidth
+        }
+        set {
+            self.layer.borderWidth = newValue
+        }
+    }
+    
+    @IBInspectable
+    var borderColor: UIColor? {
+        get {
+            return UIColor(CGColor: self.layer.borderColor!)
+        }
+        set {
+            self.layer.borderColor = newValue?.CGColor
+        }
+    }
+    
+}
 
 extension UIProgressView {
     

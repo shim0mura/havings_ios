@@ -38,6 +38,7 @@ class ListNameSelectViewController: UIViewController {
     var categoryCollapse: [Int: Bool] = [:]
     
     var selfInputCell: UITableViewCell? = nil
+    weak var finishDelegate: FinishItemUpdateDelegate?
     
     deinit {
         print("deinit list")
@@ -46,12 +47,16 @@ class ListNameSelectViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = NSLocalizedString("Prompt.ListNameSelect", comment: "")
+        
         tableView.delegate = self
         tableView.dataSource = self
         fromPlaceView.delegate = self
         fromClosetView.delegate = self
         fromCategoryView.delegate = self
         selfInputView.delegate = self
+        self.tableView.estimatedRowHeight = 80
+        self.tableView.rowHeight = UITableViewAutomaticDimension
         
         defaultTagByPlace = DefaultTagPresenter.getDefaultTagsByType(DefaultTagPresenter.TAG_TYPE_PLACE)
         defaultTagByCloset = DefaultTagPresenter.getDefaultTagsByType(DefaultTagPresenter.TAG_TYPE_CLOSET)
@@ -80,6 +85,14 @@ class ListNameSelectViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
 
+}
+
+extension ListNameSelectViewController: UITextFieldDelegate {
+
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
 
 extension ListNameSelectViewController: UITableViewDelegate, UITableViewDataSource {
@@ -120,10 +133,12 @@ extension ListNameSelectViewController: UITableViewDelegate, UITableViewDataSour
         case .FromPlace:
             let cell = createTableViewCell(UITableViewCellStyle.Default)
             cell.textLabel?.text = defaultTagByPlace?[indexPath.row].name ?? nil
+            cell.accessoryType = .DisclosureIndicator
             return cell
         case .FromCloset:
             let cell = createTableViewCell(UITableViewCellStyle.Default)
             cell.textLabel?.text = defaultTagByCloset?[indexPath.row].name ?? nil
+            cell.accessoryType = .DisclosureIndicator
             return cell
         case .FromCategory:
             let cell = createTableViewCell(UITableViewCellStyle.Subtitle)
@@ -131,6 +146,7 @@ extension ListNameSelectViewController: UITableViewDelegate, UITableViewDataSour
             let value = key?.1[indexPath.row]
             cell.textLabel?.text = value?["name"]
             cell.detailTextLabel?.text = value?["subtext"]
+            cell.accessoryType = .DisclosureIndicator
             return cell
         case .SelfInput:
             if selfInputCell == nil {
@@ -138,10 +154,10 @@ extension ListNameSelectViewController: UITableViewDelegate, UITableViewDataSour
                 
                 let textField = selfInputCell!.contentView.viewWithTag(tagSelfInputTextField) as! AutoCompleteTextField
                 textField.autoCompleteStrings = defaultTagStrings
+                textField.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+                textField.delegate = self
                 selfInputCell!.selectionStyle = UITableViewCellSelectionStyle.None
             }
-            
-            
             
             return selfInputCell!
         }
@@ -170,7 +186,7 @@ extension ListNameSelectViewController: UITableViewDelegate, UITableViewDataSour
             let value = key?.1.first
             cell.textLabel?.text = value!["name"]
             cell.detailTextLabel?.text = value!["subtext"]
-            cell.backgroundColor = UIColor.redColor()
+            cell.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)
             cell.frame = frame
             
             let gesture = UITapGestureRecognizer(target: self, action: #selector(ListNameSelectViewController.sectionTapped(_:)))
@@ -195,12 +211,46 @@ extension ListNameSelectViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print(selectedState)
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         let next: ListImagePickupViewController? = self.storyboard?.instantiateViewControllerWithIdentifier("select_list_image") as? ListImagePickupViewController
-        if let listImageSelectVC = next {
-            listImageSelectVC.listName = "テストのlistName \(indexPath.row)"
-            self.navigationController?.pushViewController(listImageSelectVC, animated: true)
+        
+        switch selectedState {
+        case .FromPlace:
+            let listName: String = (self.defaultTagByPlace?[indexPath.row].name)!
+
+            if let listImageSelectVC = next {
+                listImageSelectVC.listName = listName
+                listImageSelectVC.listTags = [listName]
+                listImageSelectVC.finishDelegate = self.finishDelegate
+                self.navigationController?.pushViewController(listImageSelectVC, animated: true)
+            }
+        case .FromCloset:
+            let listName: String = (self.defaultTagByCloset?[indexPath.row].name)!
+            
+            if let listImageSelectVC = next {
+                listImageSelectVC.listName = listName
+                listImageSelectVC.listTags = [listName]
+                listImageSelectVC.finishDelegate = self.finishDelegate
+                self.navigationController?.pushViewController(listImageSelectVC, animated: true)
+            }
+        case .FromCategory:
+            
+            let key = defaultTagByCategory?[indexPath.section].first
+            let value = key?.1[indexPath.row]
+            
+            let listName: String = value!["name"]!
+            
+            if let listImageSelectVC = next {
+                listImageSelectVC.listName = listName
+                listImageSelectVC.listTags = [listName]
+                listImageSelectVC.finishDelegate = self.finishDelegate
+                self.navigationController?.pushViewController(listImageSelectVC, animated: true)
+            }
+        default:
+            break
         }
+        
     }
     
     func sectionTapped(sender: UIGestureRecognizer){
@@ -224,6 +274,20 @@ extension ListNameSelectViewController: UITableViewDelegate, UITableViewDataSour
         return cell
     }
     
+    @IBAction func tapInputComplete(sender: AnyObject) {
+        let textField = selfInputCell!.contentView.viewWithTag(tagSelfInputTextField) as! AutoCompleteTextField
+        let next: ListImagePickupViewController? = self.storyboard?.instantiateViewControllerWithIdentifier("select_list_image") as? ListImagePickupViewController
+        
+        if let listImageSelectVC = next, let listName = textField.text where !listName.isEmpty {
+            listImageSelectVC.listName = listName
+            listImageSelectVC.listTags = textField.inputTextTokens
+            listImageSelectVC.finishDelegate = self.finishDelegate
+            self.navigationController?.pushViewController(listImageSelectVC, animated: true)
+        }
+
+    }
+    
+    
 }
 
 extension ListNameSelectViewController: TouchableUIViewDelegate {
@@ -245,7 +309,7 @@ extension ListNameSelectViewController: TouchableUIViewDelegate {
     private func setContainerColor(view: TouchableUIView, state: ListSelect){
         let imageView: UIImageView  = view.viewWithTag(tagStateImage) as! UIImageView
         let label: UILabel = view.viewWithTag(tagStateText) as! UILabel
-        label.textColor = UIColorUtil.selectedStateInListTags
+        label.textColor = UIColorUtil.accentColor
         
         switch state {
         case .FromPlace:
@@ -264,7 +328,7 @@ extension ListNameSelectViewController: TouchableUIViewDelegate {
             let container: TouchableUIView = self.view.viewWithTag($0.rawValue) as! TouchableUIView
             let imageView: UIImageView = container.viewWithTag(tagStateImage) as! UIImageView
             let label: UILabel = container.viewWithTag(tagStateText) as! UILabel
-            label.textColor = UIColor.darkGrayColor()
+            label.textColor = UIColorUtil.mainTextColor
             
             switch $0 {
             case .FromPlace:

@@ -58,6 +58,9 @@
 		E0A5D1D31D40F7D500FD60E8 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A5D1D21D40F7D500FD60E8 /* SearchResultViewController.swift */; };
 		E0A5D1D51D44AF9C00FD60E8 /* TimerList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0A5D1D41D44AF9C00FD60E8 /* TimerList.storyboard */; };
 		E0A5D1D71D44B02B00FD60E8 /* TimerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A5D1D61D44B02B00FD60E8 /* TimerListViewController.swift */; };
+		E0A5D1D91D4EE6E200FD60E8 /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A5D1D81D4EE6E200FD60E8 /* InputViewController.swift */; };
+		E0A5D1DB1D50476600FD60E8 /* ToastSwiftFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A5D1DA1D50476600FD60E8 /* ToastSwiftFramework.framework */; };
+		E0A5D1DC1D50476600FD60E8 /* ToastSwiftFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E0A5D1DA1D50476600FD60E8 /* ToastSwiftFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E0CC8E1F1D24C9DC006F01CE /* PostAlertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC8E1E1D24C9DC006F01CE /* PostAlertUtil.swift */; };
 		E0CC8E211D24E37F006F01CE /* DumpItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC8E201D24E37F006F01CE /* DumpItemViewController.swift */; };
 		E0CC8E231D2520A6006F01CE /* DeleteItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC8E221D2520A6006F01CE /* DeleteItemViewController.swift */; };
@@ -167,6 +170,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				E0E36F881D0FCF2E003F46CF /* Realm.framework in Embed Frameworks */,
+				E0A5D1DC1D50476600FD60E8 /* ToastSwiftFramework.framework in Embed Frameworks */,
 				E0E36F031CF51C92003F46CF /* KeychainAccess.framework in Embed Frameworks */,
 				E0E36F8B1D0FCF42003F46CF /* RealmSwift.framework in Embed Frameworks */,
 				E08C62731CF01CE700F3DBCB /* ObjectMapper.framework in Embed Frameworks */,
@@ -236,6 +240,8 @@
 		E0A5D1D21D40F7D500FD60E8 /* SearchResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		E0A5D1D41D44AF9C00FD60E8 /* TimerList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TimerList.storyboard; sourceTree = "<group>"; };
 		E0A5D1D61D44B02B00FD60E8 /* TimerListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerListViewController.swift; sourceTree = "<group>"; };
+		E0A5D1D81D4EE6E200FD60E8 /* InputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
+		E0A5D1DA1D50476600FD60E8 /* ToastSwiftFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ToastSwiftFramework.framework; path = Carthage/Build/iOS/ToastSwiftFramework.framework; sourceTree = "<group>"; };
 		E0CC8E1E1D24C9DC006F01CE /* PostAlertUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostAlertUtil.swift; sourceTree = "<group>"; };
 		E0CC8E201D24E37F006F01CE /* DumpItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DumpItemViewController.swift; sourceTree = "<group>"; };
 		E0CC8E221D2520A6006F01CE /* DeleteItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteItemViewController.swift; sourceTree = "<group>"; };
@@ -335,6 +341,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0E36F871D0FCF2E003F46CF /* Realm.framework in Frameworks */,
+				E0A5D1DB1D50476600FD60E8 /* ToastSwiftFramework.framework in Frameworks */,
 				E0E36F021CF51C92003F46CF /* KeychainAccess.framework in Frameworks */,
 				E0E36F8A1D0FCF42003F46CF /* RealmSwift.framework in Frameworks */,
 				E08C62721CF01CE700F3DBCB /* ObjectMapper.framework in Frameworks */,
@@ -356,6 +363,7 @@
 		E08C62491CF0030900F3DBCB = {
 			isa = PBXGroup;
 			children = (
+				E0A5D1DA1D50476600FD60E8 /* ToastSwiftFramework.framework */,
 				E0A5D1911D34D61700FD60E8 /* RSKPlaceholderTextView.framework */,
 				E0CC8E551D34D2AF006F01CE /* RSKPlaceholderTextView.framework */,
 				E0CC8E3C1D2BB5C8006F01CE /* FSCalendar.framework */,
@@ -520,6 +528,7 @@
 				E0A5D1CC1D40F2C000FD60E8 /* PopularListViewController.swift */,
 				E0A5D1D21D40F7D500FD60E8 /* SearchResultViewController.swift */,
 				E0A5D1D61D44B02B00FD60E8 /* TimerListViewController.swift */,
+				E0A5D1D81D4EE6E200FD60E8 /* InputViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -698,6 +707,7 @@
 				E0CC8E521D348863006F01CE /* CommentViewController.swift in Sources */,
 				E0E36F991D12618C003F46CF /* UIColorUtil.swift in Sources */,
 				E0CC8E281D26033F006F01CE /* TimerEntity.swift in Sources */,
+				E0A5D1D91D4EE6E200FD60E8 /* InputViewController.swift in Sources */,
 				E0E36EFC1CF440FC003F46CF /* EndPoint.swift in Sources */,
 				E0E36F9B1D142196003F46CF /* ListImagePickupViewController.swift in Sources */,
 				E08C62581CF0030900F3DBCB /* ViewController.swift in Sources */,

@@ -12,6 +12,7 @@ class UIColorUtil {
     
     static let mainTextColor: UIColor = UIColor(red: 0.45, green: 0.45, blue: 0.45, alpha: 1.0)
     static let selectedStateInListTags: UIColor = UIColor(red: 0.27, green: 0.80, blue: 0.67, alpha: 1.0)
+    static let borderColor: UIColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
     
     static let mainColor: UIColor = UIColor(red: 0.64, green: 0.51, blue: 0.45, alpha: 1.0)
     static let accentColor: UIColor = UIColor(red: 0.96, green: 0.79, blue: 0.02, alpha: 1.0)

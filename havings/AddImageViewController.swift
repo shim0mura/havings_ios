@@ -21,6 +21,7 @@ class AddImageViewController: UIViewController, PostAlertUtil {
     var currentDate = NSDate()
     
     @IBOutlet weak var imageCollectionView: UICollectionView!
+    weak var finishDelegate: FinishItemUpdateDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,9 +30,12 @@ class AddImageViewController: UIViewController, PostAlertUtil {
         
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
+        imageCollectionView.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)
         
         self.imageCollectionView.emptyDataSetSource = self
         self.imageCollectionView.emptyDataSetDelegate = self
+        
+        self.title = NSLocalizedString("Prompt.ItemForm.AddImage", comment: "")
 
     }
 
@@ -55,11 +59,9 @@ class AddImageViewController: UIViewController, PostAlertUtil {
         }
         
         self.isSending = true
-        
         let spinnerAlert = self.showConnectingSpinner()
         
-        
-        API.call(Endpoint.Item.Put(itemId: itemId, item: self.item)){ response in
+        API.call(Endpoint.Item.AddImage(itemId: itemId, item: self.item)){ response in
             switch response {
             case .Success(let result):
                 spinnerAlert.dismissViewControllerAnimated(false, completion: nil)
@@ -72,6 +74,7 @@ class AddImageViewController: UIViewController, PostAlertUtil {
                 
                 self.navigationController?.dismissViewControllerAnimated(true){
                     print("dismiss controller")
+                    self.finishDelegate?.finish(String(format: NSLocalizedString("Prompt.AddImage.Success", comment: ""), self.item.name!))
                     self.item.imageDataForPost = nil
                 }
             case .Failure(let error):
@@ -111,7 +114,6 @@ class AddImageViewController: UIViewController, PostAlertUtil {
         picker.mediaType = QBImagePickerMediaType.Image
         picker.allowsMultipleSelection = true
         picker.showsNumberOfSelectedAssets = true
-        picker.prompt = "test prompt!!!"
         
         self.presentViewController(picker, animated: true, completion: nil)
     }

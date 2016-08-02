@@ -62,13 +62,15 @@ extension BelongListSelectViewController: UITableViewDelegate, UITableViewDataSo
 
             cell.backgroundColor = UIColor(red: CGFloat(colorBase), green: CGFloat(colorBase), blue: CGFloat(colorBase), alpha: 1.0)
         }
-        cell.preservesSuperviewLayoutMargins = false
+        //cell.preservesSuperviewLayoutMargins = false
         return cell
     }
     
+    /*
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
+    */
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0

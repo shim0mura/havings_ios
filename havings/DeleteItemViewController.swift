@@ -20,7 +20,7 @@ class DeleteItemViewController: UIViewController, PostAlertUtil {
     let privateTypeImageTag: Int = 13
     
     var itemList: [(item: ItemEntity, isFellow: Bool)] = []
-    
+    weak var finishDelegate: FinishItemUpdateDelegate?
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var fellowContainer: UIView!
@@ -109,6 +109,8 @@ class DeleteItemViewController: UIViewController, PostAlertUtil {
                 
                 self.navigationController?.dismissViewControllerAnimated(true){
                     print("dismiss controller")
+                    self.finishDelegate?.finish(String(format: NSLocalizedString("Prompt.DeleteItem.Success", comment: ""), self.item.name!))
+
                 }
             case .Failure(let error):
                 print(error)

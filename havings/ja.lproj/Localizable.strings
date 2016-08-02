@@ -23,6 +23,13 @@
 "Prompt.Action.DumpList" = "リストを手放す";
 "Prompt.Action.DeleteList" = "リストを削除する";
 
+"Prompt.Action" = "入力";
+"Prompt.Action.AddImage" = "画像を追加する";
+"Prompt.Action.Edit" = "編集する";
+"Prompt.Action.Dump" = "手放す";
+"Prompt.Action.Delete" = "削除する";
+
+
 "Prompt.Item.isPrivate" = "非公開のアイテム";
 "Prompt.Item.Edit.WithType" = "この%@を編集する";
 "Prompt.Item.Dump.WithType" = "この%@を手放す";
@@ -58,28 +65,62 @@
 "Prompt.Item.Graph.Event.AddImage" = "%@に画像を追加しました";
 "Prompt.Item.Graph.Event.Dump" = "%@を手放しました";
 
+"Prompt.ListNameSelect" = "片付けたいところを選択";
+"Prompt.ListNameSelect.Text1" = "片付けたいところを選んで、リストとして登録しましょう。";
+"Prompt.ListNameSelect.Text2" = "片付けたいモノをアイテムとしてリストの中に追加することができます。\nまた、リスト自体も別のリストの中に追加することが出来ます。";
+"Prompt.ListNameSelect.Input" = "片付けたいところを入力...";
 
+"Prompt.ListImageChoose" = "画像を選択";
+"Prompt.ListImageChoose.Text1" = "片付けたいところの「今」を記録しよう";
+"Prompt.ListImageChoose.Text2" = "片付けを始める前に、その場所が今どうなっているかを写真で記録しておきましょう。\n片付けを始めた時の状態が分かれば、後でどれだけ片付けが進んだかがわかりやすくなるはずです！";
+"Prompt.ListImageChoose.FromCamera" = "写真を撮る";
+"Prompt.ListImageChoose.FromGallery" = "ギャラリーから選択";
+
+"Prompt.ItemForm.ListPlaceHolder" = "リスト名を入力...";
+"Prompt.ItemForm.ItemPlaceHolder" = "アイテム名を入力...";
 "Prompt.ItemForm.AddCameraImage" = "カメラから追加";
 "Prompt.ItemForm.AddGalleryImage" = "ギャラリーから追加";
 "Prompt.ItemForm.ListNameEmpty" = "リスト名が入力されていません";
 "Prompt.ItemForm.ItemNameEmpty" = "アイテム名が入力されていません";
 "Prompt.ItemForm.ImageEmpty" = "リストの画像が設定されていません";
 "Prompt.ItemForm.ImageEmpty.detail" = "リストは1枚以上の画像を設定してください";
+"Prompt.ItemForm.Tag" = "分類タグ";
+"Prompt.ItemForm.ImageList" = "画像";
+
+
 "Prompt.ItemForm.IsPublic" = "公開する";
 "Prompt.ItemForm.IsPublic.Detail" = "この%@は他の人も見ることが出来ます";
 "Prompt.ItemForm.IsPublic.NegativeDetail" = "この%@はあなた以外見ることが出来ません";
 "Prompt.ItemForm.IsPublic.ForceDetail" = "親リストが非公開の場合は公開できません";
+"Prompt.ItemForm.CreateItem" = "追加する";
+"Prompt.ItemForm.EditItem" = "編集する";
+"Prompt.ItemForm.Success" = "%@を追加しました";
+
+"Prompt.ItemForm.AddImage" = "写真を追加する";
+"Prompt.ItemForm.AddImage.Button" = "追加する";
+
+
+
+
+
 "Prompt.SelectItem" = "アイテムまたはリストの選択";
 "Prompt.SelectItem.NoItem" = "アイテムまたはリストがありません";
 "Prompt.SelectItem.NoItem.Detail" = "まずは片付けたい場所をリストとして追加してみましょう！";
+"Prompt.AddImage.Success" = "%@に画像を追加しました";
 "Prompt.AddImage.NoImage" = "写真が追加されていません";
 "Prompt.AddImage.NoImage.Detail" = "カメラまたはギャラリーからこの%@に写真を追加出来ます";
+
+"Prompt.DumpItem.Success" = "%@を手放しました。";
+"Prompt.DumpItem.Button" = "手放す";
 "Prompt.DumpItem.FellowIds" = "一緒に手放すアイテム/リストを選択";
 "Prompt.DumpItem.FellowIds.Detail1" = "このリストに含まれるアイテム・リストのうち、選択したものも同時に手放します。\n選択したリスト内のアイテムやリストも全て手放されます。";
 "Prompt.DumpItem.FellowIds.Detail2" = "選択しなかったアイテム・リストは手放されず、このリストの親リストの中に入ります";
 "Prompt.DumpItem.SelectAll" = "全て選択";
 "Prompt.DumpItem.DeselectAll" = "クリア";
 "Prompt.DeleteItem.Notice" = "削除を行うと、この%@と関係する全ての履歴や画像が見ることができなくなります。\n捨てたモノの履歴や情報を残しておきたい場合は、モノを「手放し」ましょう";
+
+"Prompt.DeleteItem.Success" = "%@を削除しました。";
+"Prompt.DeleteItem.Button" = "削除する";
 "Prompt.DeleteItem.FellowIds" = "一緒に削除するアイテム/リストを選択";
 "Prompt.DeleteItem.FellowIds.Detail1" = "このリストに含まれるアイテム・リストのうち、選択したものも同時に削除します。\n選択したリスト内のアイテムやリストも全て削除されます。";
 "Prompt.DeleteItem.FellowIds.Detail2" = "選択しなかったアイテム・リストは削除されず、このリストの親リストの中に入ります";
@@ -239,6 +280,8 @@
 "Prompt.Timeline.CreateList.List" = "リスト:";
 "Prompt.Timeline.AddImage" = "に画像を追加しました";
 "Prompt.Timeline.Dump" = "を手放しました";
+
+"Prompt.Input" = "入力";
 
 "Prompt.Search.Suggest" = "検索候補";
 

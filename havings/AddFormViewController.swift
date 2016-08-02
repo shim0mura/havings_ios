@@ -59,6 +59,7 @@ class AddFormViewController: UIViewController {
     @IBOutlet weak var itemCountStepper: UIStepper!
     @IBOutlet weak var counterContainerConstraint: NSLayoutConstraint!
     
+    //@IBOutlet weak var counterContainerMarginConstraint: NSLayoutConstraint!
     @IBOutlet weak var counterContainerMarginConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var nameField: AutoCompleteTextField!
@@ -69,6 +70,7 @@ class AddFormViewController: UIViewController {
     @IBOutlet weak var tagShowingView: TagListView!
     
     @IBOutlet weak var tagViewHeightConstraint: NSLayoutConstraint!
+    //@IBOutlet weak var marginBetweenAutoComp: NSLayoutConstraint!
     @IBOutlet weak var marginBetweenAutoComp: NSLayoutConstraint!
     
     @IBOutlet weak var privateTypeDetailLabel: UILabel!
@@ -84,6 +86,25 @@ class AddFormViewController: UIViewController {
     @IBOutlet weak var garbageReasonField: UITextView!
     
     @IBOutlet weak var garbageReasonLabel: UILabel!
+    
+    @IBOutlet weak var postButton: UIButton!
+    
+    
+    @IBOutlet weak var nameContainer: UIView!
+    
+    @IBOutlet weak var imageContainer: UIView!
+    
+    @IBOutlet weak var tagContainer: UIView!
+
+    @IBOutlet weak var memoContainer: UIView!
+    
+    @IBOutlet weak var belongListContainer: UIView!
+    
+    @IBOutlet weak var privateTypeContainer: UIView!
+    
+    @IBOutlet weak var imageContainerHeightConstraint: NSLayoutConstraint!
+    
+    weak var finishDelegate: FinishItemUpdateDelegate?
     
     deinit {
         print("deinit!! add form")
@@ -101,7 +122,8 @@ class AddFormViewController: UIViewController {
 
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
-        
+        imageCollectionView.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1.0)
+                
         nameField.delegate = self
         tagInputField.delegate = self
         memoField.delegate = self
@@ -140,13 +162,30 @@ class AddFormViewController: UIViewController {
         if self.typeAdd {
         
         }else{
-            imageCollectionView.hidden = true
+            imageContainer.hidden = true
             marginBetweenAutoComp.constant = 0
+            /*
             imageCollectionHeightConstraint.constant = 0
             addCameraContainer.hidden = true
             addCameraHeightConstraint.constant = 0
             addGalleryContainer.hidden = true
             addGalleryHeightConstraint.constant = 0
+            */
+            imageContainerHeightConstraint.constant = 0
+            postButton.setTitle(NSLocalizedString("Prompt.ItemForm.EditItem", comment: ""), forState: .Normal)
+            postButton.setTitle(NSLocalizedString("Prompt.ItemForm.EditItem", comment: ""), forState: .Selected)
+            
+            garbageContainer.hidden = true
+            garbageReasonField.hidden = true
+            garbageReasonLabel.hidden = true
+            garbageReasonHeightConstraint.constant = 0
+            
+            if item.isGarbage == true {
+                counterContainer.hidden = true
+                counterContainerConstraint.constant = 0
+                counterContainerMarginConstraint.constant = 0
+            }
+
         }
         
         let isList: Bool = self.item.isList ?? false
@@ -167,6 +206,7 @@ class AddFormViewController: UIViewController {
 
         }else{
             self.itemTypeIcon.image = UIImage(named: "icon_type_item")
+            self.nameField.placeholder = NSLocalizedString("Prompt.ItemForm.ItemPlaceHolder", comment: "")
             
             itemCountStepper.value = Double(self.item.count ?? 1)
             setItemCounter()
@@ -211,6 +251,10 @@ class AddFormViewController: UIViewController {
                 tagShowingView.addTag($0)
             }
         }
+        tagInputField.onTextChange = {[weak self] str in
+            self?.tagContainer.removeBorder()
+            self?.tagContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+        }
         //tagInputField.text? = self.tags?.joinWithSeparator(" ") ?? ""
         
         if self.item.privateType == nil || self.item.privateType == 0 {
@@ -222,6 +266,15 @@ class AddFormViewController: UIViewController {
         }
         
         self.memoField.text = self.item.description
+        
+        self.nameContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+        self.imageContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+        self.counterContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+        self.belongListContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+        self.privateTypeContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+        self.tagContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+        self.memoContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+        self.garbageContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
         
     }
 
@@ -270,10 +323,10 @@ class AddFormViewController: UIViewController {
                     
                 }else if self.activeInput == memoInputFieldTag {
                     let originY = self.memoField.superview?.frame.maxY ?? 0
-                    shownY = originY + 20
+                    shownY = originY + 70
                 }else if self.activeInput == garbageReasonInputFieldTag {
                     let originY = self.garbageReasonField.superview?.frame.maxY ?? 0
-                    shownY = originY + 20
+                    shownY = originY + 70
                 }
                 
                 let offsetY: CGFloat = shownY - CGRectGetMinY(convertedKeyboardFrame)
@@ -382,8 +435,8 @@ class AddFormViewController: UIViewController {
             return
         }
         
-        if self.item.isList! && (self.item.imageDataForPost == nil || self.item.imageDataForPost!.isEmpty) {
-            self.simpleAlertDialog(NSLocalizedString("Prompt.ItemForm.ListNameEmpty", comment: ""), message: NSLocalizedString("Prompt.ItemForm.ImageEmpty.detail", comment: ""))
+        if self.typeAdd && self.item.isList! && (self.item.imageDataForPost == nil || self.item.imageDataForPost!.isEmpty) {
+            self.simpleAlertDialog(NSLocalizedString("Prompt.ItemForm.ImageEmpty", comment: ""), message: NSLocalizedString("Prompt.ItemForm.ImageEmpty.detail", comment: ""))
             
             return
         }
@@ -426,6 +479,8 @@ class AddFormViewController: UIViewController {
                     
                     self.navigationController?.dismissViewControllerAnimated(true){
                         print("dismiss controller")
+                        self.finishDelegate?.finish(String(format: NSLocalizedString("Prompt.ItemForm.Success", comment: ""), self.item.name!))
+
                     }
                 case .Failure(let error):
                     print(error)
@@ -452,6 +507,8 @@ class AddFormViewController: UIViewController {
                     
                     self.navigationController?.dismissViewControllerAnimated(true){
                         print("dismiss controller")
+                        self.finishDelegate?.finish(String(format: NSLocalizedString("Prompt.ItemForm.Success", comment: ""), self.item.name!))
+
                     }
                 case .Failure(let error):
                     print(error)
@@ -613,7 +670,7 @@ extension AddFormViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate 
     func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
         let image = UIImage(named: "housekeeping")!
         
-        let newHeight:CGFloat = 55
+        let newHeight:CGFloat = 50
         let scale = newHeight / image.size.height
         let newWidth = image.size.width * scale
         UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
@@ -668,7 +725,6 @@ UINavigationControllerDelegate {
         picker.mediaType = QBImagePickerMediaType.Image
         picker.allowsMultipleSelection = true
         picker.showsNumberOfSelectedAssets = true
-        picker.prompt = "test prompt!!!"
         
         self.presentViewController(picker, animated: true, completion: nil)
     }
@@ -766,10 +822,14 @@ extension AddFormViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(textView: UITextView) {
         print("end")
+        textView.superview?.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+
     }
     
     func textViewDidBeginEditing(textView: UITextView) {
         print("text view start \(self.activeInput)")
+        //textView.superview?.addBottomBorderWithColor(UIColor.clearColor(), width: 0)
+        textView.superview?.removeBorder()
     }
     
     func textViewShouldBeginEditing(textView: UITextView) -> Bool {
