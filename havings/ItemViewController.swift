@@ -858,9 +858,17 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let next: NSDate
             switch repeatType {
             case .ByDay:
-                next = TimerPresenter.getNextDueAtFromMonth(timer.nextDueAt!, monthInterval: TimerEntity.TimerRepeatByDayInterval(rawValue: timer.repeatMonthInterval!)!, dayOfMonth: timer.repeatDayOfMonth!)
+                if timer.overDueFrom == nil {
+                    next = TimerPresenter.getNextDueAtFromMonth(timer.nextDueAt!, monthInterval: TimerEntity.TimerRepeatByDayInterval(rawValue: timer.repeatMonthInterval!)!, dayOfMonth: timer.repeatDayOfMonth!)
+                }else{
+                    next = timer.nextDueAt!
+                }
             case .ByWeek:
-                next = TimerPresenter.getNextDueAtFromWeek(timer.nextDueAt!, weekInterval: TimerEntity.TimerRepeatByWeekInterval(rawValue: timer.repeatWeek!)!, weekday: DayOfWeek(rawValue: timer.repeatDayOfWeek!)!)
+                if timer.overDueFrom == nil {
+                    next = TimerPresenter.getNextDueAtFromWeek(timer.nextDueAt!, weekInterval: TimerEntity.TimerRepeatByWeekInterval(rawValue: timer.repeatWeek!)!, weekday: DayOfWeek(rawValue: timer.repeatDayOfWeek!)!)
+                }else{
+                    next = timer.nextDueAt!
+                }
             }
             
             let message = String(format: NSLocalizedString("Prompt.Timer.DoneNow.Detail", comment: ""), DateTimeFormatter.getFullStr(next))

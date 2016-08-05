@@ -82,6 +82,8 @@ class TimerFormViewController: UIViewController, PostAlertUtil {
         toolBarBtn.tag = 1
         toolBar.items = [toolBarBtn]
         
+        self.title = NSLocalizedString("Prompt.Timer.Edit", comment: "")
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -363,7 +365,14 @@ extension TimerFormViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "セクション \(section)"
+        
+        if let timerName = self.timer.name {
+            return String(format: NSLocalizedString("Prompt.Timer.EditTimerOf", comment: ""), timerName)
+        }else{
+            return NSLocalizedString("Prompt.Timer.Edit", comment: "")
+        }
+        
+        //return "セクション \(section)"
     }
     func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return " "

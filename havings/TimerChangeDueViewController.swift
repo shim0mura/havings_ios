@@ -59,7 +59,18 @@ class TimerChangeDueViewController: UIViewController, PostAlertUtil {
             self.timerDuePicker.date = current
             self.timerDuePicker.maximumDate = current
             self.repeatNextDueContainer.hidden = true
-            let next = TimerPresenter.getNextDueAtFromWeek(self.timer.nextDueAt!, weekInterval: TimerEntity.TimerRepeatByWeekInterval(rawValue: self.timer.repeatWeek!)!, weekday: DayOfWeek(rawValue: self.timer.repeatDayOfWeek!)!)
+            
+            
+            let repeatBy: TimerEntity.TimerRepeatBy = TimerEntity.TimerRepeatBy(rawValue: self.timer.repeatBy!)!
+            
+            let next: NSDate
+            switch repeatBy {
+            case .ByDay:
+                next = TimerPresenter.getNextDueAtFromMonth(self.timer.nextDueAt!, monthInterval: TimerEntity.TimerRepeatByDayInterval(rawValue: self.timer.repeatMonthInterval!)!, dayOfMonth: self.timer.repeatDayOfMonth!)
+            case .ByWeek:
+                next = TimerPresenter.getNextDueAtFromWeek(self.timer.nextDueAt!, weekInterval: TimerEntity.TimerRepeatByWeekInterval(rawValue: self.timer.repeatWeek!)!, weekday: DayOfWeek(rawValue: self.timer.repeatDayOfWeek!)!)
+            }
+            
             self.setNextDueAt(next)
         }
     }

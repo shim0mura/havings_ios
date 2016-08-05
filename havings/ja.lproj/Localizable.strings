@@ -138,6 +138,9 @@
 
 "Prompt.Timer.Repeat" = "繰り返し";
 "Prompt.Timer.NoRepeat" = "繰り返しなし";
+"Prompt.Timer.RepeatTypeSelect" = "繰り返しのタイプを選択";
+"Prompt.Timer.RepeatEditSelect" = "繰り返す頻度を選択";
+
 
 "Prompt.Timer.RepeatBy.Day" = "日にちで繰り返す";
 
@@ -184,17 +187,24 @@
 "Prompt.Timer.DoLater.Subtext" = "あとでやる日時を指定してタスクを延期";
 "Prompt.Timer.DoLater.Edit" = "あとでやる日時を選択";
 "Prompt.Timer.DoLater.InvalidDate" = "現在時刻より前の日付は指定できません";
+"Prompt.Timer.AlreadyDone" = "もうやった";
 "Prompt.Timer.AlreadyDone.Edit" = "タスクを行った日時を選択";
 "Prompt.Timer.AlreadyDone.Subtext" = "日時を指定してタイマータスクを完了";
 "Prompt.Timer.AlreadyDone.InvalidDate" = "未来の日付は指定できません";
 
 "Prompt.Timer.Config" = "タイマーの設定";
 "Prompt.Timer.Edit" = "タイマーの編集";
+"Prompt.Timer.EditTimerOf" = "%@の編集";
+
 "Prompt.Timer.End" = "タイマーの終了";
 "Prompt.Timer.End.Detail" = "終了をすると、このタイマーからの通知は一切されなくなります。\nこのタイマーを終了しても、このタイマーのタスクを行った履歴は履歴ページから見ることが出来ます。";
 "Prompt.Timer.Delete" = "タイマーの削除";
 "Prompt.Timer.Delete.Detail" = "削除をすると、このタイマーからの通知は一切されなくなります。\nこのタイマーを削除すると、このタイマーのタスクを行った履歴は見ることが出来なくなります。履歴を後から確認したい場合は「タイマーの終了」を行ってください";
 "Prompt.Timer.ConfigTimer" = "%@の設定";
+"Prompt.Timer.Update.Button" = "タイマーを更新する";
+"Prompt.Timer.Edit.Button" = "タイマーを編集する";
+
+
 
 "Prompt.Favorite.Failed" = "お気に入り登録に失敗しました。時間をおいてから再度お試しください";
 "Prompt.UnFavorite.Failed" = "お気に入り解除に失敗しました。時間をおいてから再度お試しください";

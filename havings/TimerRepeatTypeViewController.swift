@@ -17,7 +17,7 @@ class TimerRepeatTypeViewController: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        print(timer.nextDueAt)
+        self.title = NSLocalizedString("Prompt.Timer.RepeatTypeSelect", comment: "")
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,12 +53,12 @@ extension TimerRepeatTypeViewController: UITableViewDelegate, UITableViewDataSou
         }else if indexPath.row == 1 {
             let cell : UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("repeatType")! as UITableViewCell
             cell.textLabel?.text = TimerEntity.TimerRepeatBy.ByDay.description
-            
+            cell.accessoryType = .DisclosureIndicator
             return cell
         }else{
             let cell : UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("repeatType")! as UITableViewCell
             cell.textLabel?.text = TimerEntity.TimerRepeatBy.ByWeek.description
-            
+            cell.accessoryType = .DisclosureIndicator
             return cell
         }
         
@@ -72,7 +72,6 @@ extension TimerRepeatTypeViewController: UITableViewDelegate, UITableViewDataSou
      func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
      return 0
      }
-     */
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -84,6 +83,7 @@ extension TimerRepeatTypeViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return " "
     }
+    */
     
     
 }

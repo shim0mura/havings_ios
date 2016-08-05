@@ -36,6 +36,7 @@ class TimerRepeatEditViewController: UIViewController, FSCalendarDataSource, FSC
         
         self.repeatPicker.delegate = self
         self.repeatPicker.dataSource = self
+        self.title = NSLocalizedString("Prompt.Timer.RepeatEditSelect", comment: "")
         
         calendarView.appearance.cellShape = .Rectangle
         //calendarView.appearance.borderDefaultColor = UIColor.redColor()
@@ -55,6 +56,7 @@ class TimerRepeatEditViewController: UIViewController, FSCalendarDataSource, FSC
             self.repeatWeekInterval.append(TimerEntity.TimerRepeatByWeekInterval.LastWeek)
         }
         
+        
         self.nextDueLabel.text = DateTimeFormatter.getFullStr(self.timer.nextDueAt!)
         let repeatIntervalIndex: Int
         switch repeatType {
@@ -73,6 +75,8 @@ class TimerRepeatEditViewController: UIViewController, FSCalendarDataSource, FSC
         }
         
         showCandidate(self.calendarView.currentPage)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+
     }
 
     override func didReceiveMemoryWarning() {

@@ -288,12 +288,13 @@ class TimerEntity: Mappable {
     
     func getPercentageUntilDueDate() -> Float {
         let current = NSDate()
+
         if self.overDueFrom != nil {
-            return 100
+            return 1
         }
         
         guard let nextDue = self.nextDueAt where nextDue > current else{
-            return 100
+            return 1
         }
         
         guard let startAt = self.latestCalcAt where current > startAt else{
@@ -305,10 +306,16 @@ class TimerEntity: Mappable {
     }
     
     func getProgressBarColor(per: Float) -> UIColor {
+        // http://stackoverflow.com/questions/340209/generate-colors-between-red-and-green-for-a-power-meter
+        let h = CGFloat((1 - per) * 0.4)
+        let s = CGFloat(0.9)
+        let b = CGFloat(0.9)
+        /*
         let percent = Int(per * 100)
         let r = CGFloat((255 * percent) / 100) / 255.0
         let g = CGFloat((255 * (100 - percent)) / 100) / 255.0
-        return UIColor(red: r, green: g, blue: CGFloat(0), alpha: CGFloat(0.8))
-
+        */
+        //return UIColor(red: r, green: g, blue: CGFloat(0), alpha: CGFloat(0.8))
+        return UIColor(hue: h, saturation: s, brightness: b, alpha: 1.0)
     }
 }

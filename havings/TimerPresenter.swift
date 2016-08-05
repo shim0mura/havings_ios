@@ -106,7 +106,6 @@ class TimerPresenter {
         
         var day: Int
         var month: Int
-        print(calcFrom)
         switch weekInterval {
         case .EveryWeek:
             var val = (7 - (comps.weekday - 1) + weekday.rawValue) % 7
