@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YYe-jz-PHa">
-                                <rect key="frame" x="0.0" y="20" width="414" height="666"/>
+                                <rect key="frame" x="0.0" y="36" width="414" height="650"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="comment" id="ibU-0I-QDM">
@@ -140,7 +140,7 @@
                                                 </constraints>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.96470588239999999" green="0.79215686269999996" blue="0.023529411760000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="46" id="1dE-2t-Wii"/>
@@ -188,7 +188,7 @@
                             <constraint firstItem="YYe-jz-PHa" firstAttribute="leading" secondItem="hbY-t4-fyM" secondAttribute="leading" id="4sM-J5-KaP"/>
                             <constraint firstItem="hYk-Cy-sO0" firstAttribute="top" secondItem="YYe-jz-PHa" secondAttribute="bottom" id="Eee-n1-uDd"/>
                             <constraint firstItem="hYk-Cy-sO0" firstAttribute="leading" secondItem="hbY-t4-fyM" secondAttribute="leading" id="NHG-FM-fLQ"/>
-                            <constraint firstItem="YYe-jz-PHa" firstAttribute="top" secondItem="Wis-Bb-WIf" secondAttribute="bottom" id="e9A-dm-VMb"/>
+                            <constraint firstItem="YYe-jz-PHa" firstAttribute="top" secondItem="Wis-Bb-WIf" secondAttribute="bottom" constant="16" id="e9A-dm-VMb"/>
                             <constraint firstItem="61L-FJ-SWT" firstAttribute="top" secondItem="YYe-jz-PHa" secondAttribute="bottom" constant="50" id="kCz-RH-bvb"/>
                             <constraint firstAttribute="trailing" secondItem="hYk-Cy-sO0" secondAttribute="trailing" id="uT0-FB-qua"/>
                         </constraints>

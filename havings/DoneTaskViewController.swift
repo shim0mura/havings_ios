@@ -24,6 +24,7 @@ class DoneTaskViewController: UIViewController, PostAlertUtil {
 
     private var taskWrapper: DoneTaskWrapperEntity = DoneTaskWrapperEntity()
     var itemId: Int = 0
+    var itemName: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +50,7 @@ class DoneTaskViewController: UIViewController, PostAlertUtil {
                 print("failure \(error)")
             }
         }
+        self.title = String(format: NSLocalizedString("Prompt.DoneTask", comment: ""), itemName)
         
         self.setVC()
     }

@@ -46,6 +46,8 @@ class DoneTaskByCalendarViewController: UIViewController {
         let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
         let comps: NSDateComponents = calendar.components([.Year, .Month, .Day], fromDate: NSDate())
         self.selectedDate = NSDate(year: comps.year, month: comps.month, day: comps.day, region: TimerPresenter.gregorianByRegion)
+        
+
 
         
         // Do any additional setup after loading the view.
@@ -59,6 +61,8 @@ class DoneTaskByCalendarViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.calendarView.reloadData()
+        calendarView.selectDate(selectedDate)
+
     }
 
 }
@@ -121,7 +125,7 @@ extension DoneTaskByCalendarViewController: UITableViewDelegate, UITableViewData
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return (self.taskByEvent.count > 0) ? 1 : 0
+        return (self.taskByEvent.count > 0) ? 1 : 1
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

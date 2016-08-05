@@ -447,7 +447,6 @@
                                                             </variation>
                                                         </view>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="8kL-H2-pIJ" firstAttribute="leading" secondItem="CBW-A6-IbX" secondAttribute="leading" constant="8" id="DWa-Fn-psS"/>
                                                         <constraint firstItem="8kL-H2-pIJ" firstAttribute="top" secondItem="CBW-A6-IbX" secondAttribute="top" constant="8" id="Dbx-LK-JMW"/>
@@ -498,10 +497,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="40" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="smu-9F-4i0">
-                                                    <rect key="frame" x="8" y="4" width="28" height="28"/>
+                                                    <rect key="frame" x="12" y="4" width="24" height="24"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="28" id="iTJ-z0-zd6"/>
-                                                        <constraint firstAttribute="width" constant="28" id="niI-af-LhT"/>
+                                                        <constraint firstAttribute="height" constant="24" id="iTJ-z0-zd6"/>
+                                                        <constraint firstAttribute="width" constant="24" id="niI-af-LhT"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="41" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="05h-xK-La2" userLabel="UserName">
@@ -522,7 +521,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Zi0-Nb-8rD" firstAttribute="leading" secondItem="H7T-LP-GpA" secondAttribute="leadingMargin" constant="36" id="6fT-kP-SYx"/>
-                                                <constraint firstItem="smu-9F-4i0" firstAttribute="leading" secondItem="H7T-LP-GpA" secondAttribute="leadingMargin" id="7C4-0i-Cz2"/>
+                                                <constraint firstItem="smu-9F-4i0" firstAttribute="leading" secondItem="H7T-LP-GpA" secondAttribute="leadingMargin" constant="4" id="7C4-0i-Cz2"/>
                                                 <constraint firstAttribute="bottom" secondItem="smu-9F-4i0" secondAttribute="bottom" constant="4" id="BLm-N5-6yG"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Zi0-Nb-8rD" secondAttribute="trailing" constant="8" id="L6S-kS-c3j"/>
                                                 <constraint firstItem="smu-9F-4i0" firstAttribute="centerY" secondItem="H7T-LP-GpA" secondAttribute="centerY" id="LZH-jA-vUt"/>

@@ -280,10 +280,11 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func tapCommentCount(sender: AnyObject) {
-        if let id = itemEntity?.id {
+        if let id = itemEntity?.id, let name = itemEntity?.name {
             let storyboard: UIStoryboard = UIStoryboard(name: "Comment", bundle: nil)
             let next: CommentViewController = storyboard.instantiateInitialViewController() as! CommentViewController
             next.itemId = id
+            next.itemName = name
             self.navigationController?.pushViewController(next, animated: true)
         }
     }
@@ -293,6 +294,7 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let storyboard: UIStoryboard = UIStoryboard(name: "DoneTasks", bundle: nil)
             let next: DoneTaskViewController = storyboard.instantiateInitialViewController() as! DoneTaskViewController
             next.itemId = (self.itemEntity!.id)!
+            next.itemName = (self.itemEntity!.name)!
             self.navigationController?.pushViewController(next, animated: true)
         }
     }

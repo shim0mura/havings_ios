@@ -55,6 +55,8 @@ class UserFavoriteViewController: UIViewController, PostAlertUtil {
 
         self.initFavoriteItem()
         self.tableView.tableFooterView = UIView()
+        
+        self.title = NSLocalizedString("Prompt.LikeList", comment: "")
 
     }
 

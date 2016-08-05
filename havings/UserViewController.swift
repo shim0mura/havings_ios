@@ -88,6 +88,7 @@ class UserViewController: UIViewController, PostAlertUtil {
     private var loadingNextImage: Bool = false
     
     var userId: Int = 0
+    var selfUserId: Int = 0
     var userEntity: UserEntity? = UserEntity()
     private var headerCell: UITableViewCell? = nil
     private var headerHeight: Double = 0
@@ -126,7 +127,7 @@ class UserViewController: UIViewController, PostAlertUtil {
         
         let tokenManager = TokenManager.sharedManager
         if let ui = tokenManager.getUserId() {
-            self.userId = ui
+            self.selfUserId = ui
         }
         
         API.call(Endpoint.User.Get(userId: self.userId)) { response in
@@ -139,6 +140,7 @@ class UserViewController: UIViewController, PostAlertUtil {
                     self.setNestedItem(home, depth: 0)
                     self.setSortButton()
                 }
+                self.title = result.name
                 self.tableView.reloadData()
             case .Failure(let error):
                 self.userEntity = nil
@@ -408,7 +410,7 @@ extension UserViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 if self.nestedItems.count == 0 {
                     let cell = UITableViewCell(style: .Default, reuseIdentifier: "cell")
-                    cell.textLabel?.text = "item empty"
+                    cell.textLabel?.text = NSLocalizedString("Prompt.User.Item.Empty", comment: "")
                     return cell
                 }
                 
@@ -429,7 +431,7 @@ extension UserViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.backgroundColor = UIColor(red: CGFloat(colorBase), green: CGFloat(colorBase), blue: CGFloat(colorBase), alpha: 1.0)
                     
                     if i.item.isList == true {
-                        iconImage.image = UIImage(named: "icon_type_list")
+                        iconImage.image = UIImage(named: "icon_type_list_light")
                     }else{
                         iconImage.image = UIImage(named: "icon_type_item")
                     }
@@ -450,7 +452,7 @@ extension UserViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 guard let imageList = self.userEntity?.homeList?.itemImages, let images = imageList.images where !images.isEmpty else {
                     let cell = UITableViewCell(style: .Default, reuseIdentifier: "cell")
-                    cell.textLabel?.text = "image empty"
+                    cell.textLabel?.text = NSLocalizedString("Prompt.User.Image.Empty", comment: "")
                     return cell
                 }
 
@@ -603,6 +605,8 @@ extension UserViewController: UITableViewDelegate, UITableViewDataSource {
             userThumbnail.image = UIImage(named: "user_thumb")
         }
         userThumbnail.layer.cornerRadius = userThumbnail.frame.size.width * 0.5
+        userThumbnail.layer.borderWidth = 2.0
+        userThumbnail.layer.borderColor = UIColor.lightGrayColor().CGColor
         userThumbnail.clipsToBounds = true
         
         let followingContainer = cell.contentView.viewWithTag(self.followCountContainerTag)

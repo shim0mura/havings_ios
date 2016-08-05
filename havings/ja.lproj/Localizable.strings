@@ -204,11 +204,12 @@
 "Prompt.Timer.Update.Button" = "タイマーを更新する";
 "Prompt.Timer.Edit.Button" = "タイマーを編集する";
 
-
+"Prompt.DoneTask" = "%@の行ったタスク一覧";
 
 "Prompt.Favorite.Failed" = "お気に入り登録に失敗しました。時間をおいてから再度お試しください";
 "Prompt.UnFavorite.Failed" = "お気に入り解除に失敗しました。時間をおいてから再度お試しください";
 
+"Prompt.Comment" = "%@のコメント";
 "Prompt.Comment.PlaceHolder" = "コメントを入力...";
 "Prompt.Comment.isEmpty" = "空のコメントは投稿できません";
 
@@ -221,6 +222,9 @@
 "Prompt.UserList.FollowingUser.Empty" = "フォローしているユーザーはいません";
 "Prompt.UserList.FollowedUser" = "フォロワー";
 "Prompt.UserList.FollowedUser.Empty" = "このユーザーをフォローしているユーザーはいません";
+
+"Prompt.DumpList" = "手放したモノ";
+"Prompt.LikeList" = "いいね!したモノ";
 
 "Prompt.User.itemCount" = "having %@ items";
 "Prompt.User.Following" = "フォロー";
@@ -241,6 +245,9 @@
 "Prompt.User.Dump.Empty" = "手放したアイテムはありません";
 "Prompt.User.Honorific" = "さん";
 "Prompt.User.Honorific.Others" = "ほか%@人";
+
+"Prompt.User.Item.Empty" = "アイテムはありません";
+"Prompt.User.Image.Empty" = "画像はありません";
 
 "Prompt.Notifications.Timer.Item" = "のタスク: ";
 "Prompt.Notifications.Timer.Expire" = "の期限が切れました";

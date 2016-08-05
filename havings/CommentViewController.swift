@@ -21,6 +21,7 @@ class CommentViewController: UIViewController, PostAlertUtil {
     @IBOutlet weak var tableBottomConstraint: NSLayoutConstraint!
     
     var itemId: Int = 0
+    var itemName: String = ""
     
     private let defaultCommentContainerHeight: CGFloat = 50
     
@@ -50,6 +51,8 @@ class CommentViewController: UIViewController, PostAlertUtil {
         if let ui = tokenManager.getUserId() {
             self.userId = ui
         }
+        
+        self.title = String(format: NSLocalizedString("Prompt.Comment", comment: ""), self.itemName)
         
         API.callArray(Endpoint.Comment.Get(itemId: self.itemId)){response in
             self.beforeLoad = false
@@ -209,36 +212,6 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
         self.commentInputView.resignFirstResponder()
     }
-    
-    /*
-     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-     return 0
-     }
-     */
-    
-    /*
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        
-        let comment = self.commentList[indexPath.row]
-        
-        print(comment.commenter!.id, self.userId)
-        if comment.commenter!.id == self.userId {
-            print("aaa")
-            return nil
-        }
-        
-        let delete = UITableViewRowAction(style: .Destructive, title: "Delete") {
-            (action, indexPath) in
-            
-            
-            print("delete!! \(indexPath.row)")
-            self.simpleAlertDialog("aaa", message: nil)
-            self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        }
-        
-        return [delete]
-    }
-    */
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         
