@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DZNEmptyDataSet
 
 class SearchResultViewController: UIViewController {
 
@@ -20,12 +21,15 @@ class SearchResultViewController: UIViewController {
 
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.emptyDataSetSource = self
+        self.tableView.emptyDataSetDelegate = self
         
         self.tableView.estimatedRowHeight = 80
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.registerNib(UINib(nibName: "ItemTableViewCell", bundle: nil), forCellReuseIdentifier: "itemCell")
         
         if !tag.isEmpty {
+            self.title = String(format:NSLocalizedString("Prompt.SearchResult", comment: ""), tag)
             let footer = tableView.dequeueReusableCellWithIdentifier("loading")!
             self.loadingNextItem = true
             self.tableView.tableFooterView = footer.contentView
@@ -36,6 +40,8 @@ class SearchResultViewController: UIViewController {
                 self.tableView.reloadData()
             })
         }
+        
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -92,4 +98,17 @@ extension SearchResultViewController: UITableViewDataSource, UITableViewDelegate
         }
     }
     
+}
+
+extension SearchResultViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
+    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+        return UIImage(named: "icon_type_item")
+    }
+    
+    func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let text: String = NSLocalizedString("Prompt.SearchResult.Empty", comment: "")
+        
+        let font = UIFont.systemFontOfSize(16)
+        return NSAttributedString(string: text, attributes: [NSFontAttributeName: font, NSForegroundColorAttributeName : UIColor.darkGrayColor()])
+    }
 }

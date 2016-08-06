@@ -37,7 +37,7 @@ class SearchViewController: UIViewController {
         self.searchController.searchBar.delegate = self
 
         self.searchController.hidesNavigationBarDuringPresentation = false
-        self.searchController.searchBar.placeholder = "search!!!"
+        self.searchController.searchBar.placeholder = NSLocalizedString("Prompt.Search", comment: "")
         self.searchController.searchBar.autocapitalizationType = .None
         self.searchController.dimsBackgroundDuringPresentation = false
         self.navigationItem.titleView = self.searchController.searchBar
@@ -68,7 +68,6 @@ class SearchViewController: UIViewController {
     }
     
     @IBAction func tapMoreHotTag(sender: AnyObject) {
-        print("more tag")
         let storyboard: UIStoryboard = UIStoryboard(name: "Pickup", bundle: nil)
         let next: PopularTagViewController = storyboard.instantiateViewControllerWithIdentifier("PopularTag") as! PopularTagViewController
         if let pickup = self.pickup {
@@ -78,7 +77,6 @@ class SearchViewController: UIViewController {
     }
     
     @IBAction func tapMoreList(sender: AnyObject) {
-        print("more list")
         let storyboard: UIStoryboard = UIStoryboard(name: "Pickup", bundle: nil)
         let next: PopularListViewController = storyboard.instantiateViewControllerWithIdentifier("PopularList") as! PopularListViewController
         if let pickup = self.pickup {
@@ -127,7 +125,6 @@ extension SearchViewController: UISearchResultsUpdating, UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        print("search!!")
         if let t = searchBar.text {
             self.toSearchResult(t)
         }

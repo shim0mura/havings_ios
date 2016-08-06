@@ -22,6 +22,8 @@ class PopularListViewController: UIViewController {
         self.tableView.estimatedRowHeight = 80
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.registerNib(UINib(nibName: "ItemTableViewCell", bundle: nil), forCellReuseIdentifier: "itemCell")
+        self.title = NSLocalizedString("Prompt.PopularList", comment: "")
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
     }
 
     override func didReceiveMemoryWarning() {

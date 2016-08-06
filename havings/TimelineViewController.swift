@@ -38,6 +38,9 @@ class TimelineViewController: UIViewController {
             self.beforeLoad = false
             self.tableView.reloadData()
         })
+        
+        self.title = NSLocalizedString("Prompt.Timeline", comment: "")
+        self.tableView.tableFooterView = UIView()
     }
 
     override func didReceiveMemoryWarning() {

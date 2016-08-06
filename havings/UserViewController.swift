@@ -128,6 +128,9 @@ class UserViewController: UIViewController, PostAlertUtil {
         let tokenManager = TokenManager.sharedManager
         if let ui = tokenManager.getUserId() {
             self.selfUserId = ui
+            if self.userId == 0 {
+                self.userId = ui
+            }
         }
         
         API.call(Endpoint.User.Get(userId: self.userId)) { response in
@@ -145,6 +148,20 @@ class UserViewController: UIViewController, PostAlertUtil {
             case .Failure(let error):
                 self.userEntity = nil
                 print("failure \(error)")
+                
+                let alert: UIAlertController = UIAlertController(title: NSLocalizedString("Prompt.Error", comment: ""), message: NSLocalizedString("Prompt.FailureToAceess", comment: ""), preferredStyle:  UIAlertControllerStyle.Alert)
+                let defaultAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Prompt.Ok", comment: ""), style: UIAlertActionStyle.Default, handler:{
+                    (action: UIAlertAction!) -> Void in
+                    if let nav = self.navigationController {
+                        nav.popViewControllerAnimated(true)
+                    }else{
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    }
+                })
+                
+                alert.addAction(defaultAction)
+                
+                self.presentViewController(alert, animated: true, completion: nil)
             }
         }
 

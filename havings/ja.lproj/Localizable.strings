@@ -285,7 +285,7 @@
 "Prompt.Dashboard.Timers.Empty" = "設定中のタイマーはありません。\n \n整理したいリストから、定期的に行いたいタスク(整理、ホコリ取り、掃除機がけ等)を作成してみましょう!";
 "Prompt.Dashboard.DoneTasks" = "タスクの履歴";
 
-
+"Prompt.Timeline" = "タイムライン";
 "Prompt.Timeline.isEmpty" = "アクティビティはありません。 \n \n誰かをフォローすると、その人がいいね!したアイテムや追加したアイテムの情報がここに表示されます。 \n \n気になる人たちをフォローしてみましょう！";
 "Prompt.Timeline.Comment" = "にコメントしました";
 "Prompt.Timeline.Favorite" = "にいいね!しました";
@@ -299,6 +299,9 @@
 "Prompt.Timeline.Dump" = "を手放しました";
 
 "Prompt.Input" = "入力";
+"Prompt.Search" = "検索";
+"Prompt.SearchResult" = "%@の検索結果";
+"Prompt.SearchResult.Empty" = "アイテムは見つかりませんでした。";
 
 "Prompt.Search.Suggest" = "検索候補";
 
@@ -307,7 +310,7 @@
 "Prompt.PopularList" = "人気のリスト";
 
 "Prompt.TimerList" = "稼働中のタイマー一覧";
-
+"Prompt.Profile" = "プロフィール";
 
 "Unit.Day" = "日";
 "Unit.Minute" = "分";
@@ -328,6 +331,7 @@
 
 "Prompt.WaitForPost" = "送信中です...\n\n";
 "Prompt.FailureToAceess" = "接続できません。時間をおいてから再度お試しください";
+"Prompt.Error" = "接続エラー";
 "Prompt.Ok" = "OK";
 "Prompt.Back" = "戻る";
 "Prompt.Cancel" = "キャンセル";

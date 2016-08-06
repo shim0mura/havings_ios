@@ -25,6 +25,8 @@ class PopularTagViewController: UIViewController {
         
         self.tableView.estimatedRowHeight = 80
         self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.title = NSLocalizedString("Prompt.PopularTag", comment: "")
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
     }
 
     override func didReceiveMemoryWarning() {

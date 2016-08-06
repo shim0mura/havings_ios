@@ -593,9 +593,9 @@
                                                     </userDefinedRuntimeAttributes>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="p4I-1O-7L1"/>
                                                             <exclude reference="Gpb-l1-MyZ"/>
                                                             <exclude reference="iLY-DZ-Ilo"/>
+                                                            <exclude reference="p4I-1O-7L1"/>
                                                         </mask>
                                                     </variation>
                                                 </progressView>
@@ -1016,7 +1016,7 @@
         <scene sceneID="PdX-6V-hFN">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2iS-tm-sGF" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="HOME" image="ic_home_white_36dp" id="o9L-DI-sZt"/>
+                    <tabBarItem key="tabBarItem" title="HOME" image="ic_home_white_24dp" id="o9L-DI-sZt"/>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="mlL-Yj-ktH">
@@ -1088,7 +1088,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_hot_tag_36dp" translatesAutoresizingMaskIntoConstraints="NO" id="xIn-oe-hfa">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_label_outline_yellow_600_24dp" translatesAutoresizingMaskIntoConstraints="NO" id="xIn-oe-hfa">
                                                     <rect key="frame" x="8" y="8" width="28" height="27.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="OvH-og-rw5"/>
@@ -1098,7 +1098,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="人気のタグ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mUa-dY-WZK">
                                                     <rect key="frame" x="44" y="11" width="269" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="Prompt.PopularTag"/>
@@ -1110,7 +1110,9 @@
                                                         <constraint firstAttribute="width" constant="85" id="uPB-ze-tJp"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <state key="normal" title="もっと見る"/>
+                                                    <state key="normal" title="もっと見る">
+                                                        <color key="titleColor" red="0.96470588239999999" green="0.79215686269999996" blue="0.023529411760000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedTitle" value="Prompt.More"/>
                                                     </userDefinedRuntimeAttributes>
@@ -1119,7 +1121,7 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.64313725489999995" green="0.50588235290000005" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="kb5-cW-jvq" firstAttribute="centerY" secondItem="xIn-oe-hfa" secondAttribute="centerY" id="4c7-FT-IjR"/>
                                                 <constraint firstAttribute="trailing" secondItem="kb5-cW-jvq" secondAttribute="trailing" constant="8" id="E0h-ua-AmJ"/>
@@ -1138,7 +1140,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_hot_list_36dp" translatesAutoresizingMaskIntoConstraints="NO" id="Gey-5V-YfV">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_whatshot_yellow_600_24dp" translatesAutoresizingMaskIntoConstraints="NO" id="Gey-5V-YfV">
                                                     <rect key="frame" x="8" y="8" width="28" height="27.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="8JT-oF-1IL"/>
@@ -1148,7 +1150,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="人気のリスト" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AA7-8f-oE2">
                                                     <rect key="frame" x="44" y="11" width="269" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="Prompt.PopularList"/>
@@ -1160,7 +1162,9 @@
                                                         <constraint firstAttribute="width" constant="85" id="AUf-4n-NwC"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <state key="normal" title="もっと見る"/>
+                                                    <state key="normal" title="もっと見る">
+                                                        <color key="titleColor" red="0.96470588239999999" green="0.79215686269999996" blue="0.023529411760000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedTitle" value="Prompt.More"/>
                                                     </userDefinedRuntimeAttributes>
@@ -1169,7 +1173,7 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.64313725489999995" green="0.50588235290000005" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="Gey-5V-YfV" firstAttribute="leading" secondItem="SCL-SL-qqO" secondAttribute="leading" constant="8" id="H7h-0h-NXL"/>
                                                 <constraint firstItem="AA7-8f-oE2" firstAttribute="leading" secondItem="Gey-5V-YfV" secondAttribute="trailing" constant="8" id="O7k-1W-d8r"/>
@@ -1377,11 +1381,15 @@
             </objects>
             <point key="canvasLocation" x="-348" y="5088"/>
         </scene>
-        <!--Item-->
+        <!--タイムライン-->
         <scene sceneID="02H-iw-QYs">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="AYF-z7-cxB" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Ya8-xH-2wd"/>
+                    <tabBarItem key="tabBarItem" title="タイムライン" image="ic_face_white_24dp" id="Ya8-xH-2wd">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedTitle" value="Prompt.Timeline"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="h6Y-on-riO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1396,11 +1404,15 @@
             </objects>
             <point key="canvasLocation" x="-1131" y="4220"/>
         </scene>
-        <!--Item-->
+        <!--検索-->
         <scene sceneID="85a-9k-MpD">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BcM-RY-VuZ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="LU7-PU-x57"/>
+                    <tabBarItem key="tabBarItem" title="検索" image="ic_search_white_24dp" id="LU7-PU-x57">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedTitle" value="Prompt.Search"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gzM-xH-Lpt">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1855,7 +1867,6 @@
                                                             </variation>
                                                         </view>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="LB8-CX-75n" firstAttribute="trailing" secondItem="Gpw-8H-DkI" secondAttribute="centerX" constant="-8" id="3Uh-2u-c4m"/>
                                                         <constraint firstItem="mf3-LX-LjL" firstAttribute="top" secondItem="Gpw-8H-DkI" secondAttribute="top" constant="8" id="6mJ-Bu-vAC"/>
@@ -1892,8 +1903,8 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="ZRL-67-lx5"/>
                                                     <exclude reference="CFI-Qy-jMj"/>
+                                                    <exclude reference="ZRL-67-lx5"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -1906,10 +1917,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="40" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pvf-tM-ycp">
-                                                    <rect key="frame" x="8" y="4" width="28" height="28"/>
+                                                    <rect key="frame" x="8" y="8" width="24" height="24"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="28" id="hMY-Do-1wa"/>
-                                                        <constraint firstAttribute="width" constant="28" id="xdP-MG-TSk"/>
+                                                        <constraint firstAttribute="height" constant="24" id="hMY-Do-1wa"/>
+                                                        <constraint firstAttribute="width" constant="24" id="xdP-MG-TSk"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="41" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AN8-o5-aHz" userLabel="UserName">
@@ -1929,7 +1940,7 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="pvf-tM-ycp" firstAttribute="top" secondItem="XeM-c2-PkW" secondAttribute="top" constant="4" id="6WY-pf-ivF"/>
+                                                <constraint firstItem="pvf-tM-ycp" firstAttribute="top" secondItem="XeM-c2-PkW" secondAttribute="top" constant="8" id="6WY-pf-ivF"/>
                                                 <constraint firstItem="AN8-o5-aHz" firstAttribute="leading" secondItem="XeM-c2-PkW" secondAttribute="leadingMargin" constant="36" id="BnC-c2-Oy4"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="tVa-JR-JDR" secondAttribute="bottom" id="GLd-SI-TD9"/>
                                                 <constraint firstItem="AN8-o5-aHz" firstAttribute="top" secondItem="XeM-c2-PkW" secondAttribute="topMargin" id="M7b-gb-L0J"/>
@@ -1947,12 +1958,12 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="gEc-aE-4Ey"/>
                                                     <exclude reference="T4u-Jv-HEu"/>
-                                                    <exclude reference="urc-cN-Jai"/>
+                                                    <exclude reference="gEc-aE-4Ey"/>
                                                     <exclude reference="Rff-56-gGf"/>
-                                                    <exclude reference="cWp-cK-9pw"/>
+                                                    <exclude reference="urc-cN-Jai"/>
                                                     <exclude reference="bLj-8W-PBN"/>
+                                                    <exclude reference="cWp-cK-9pw"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -2184,11 +2195,15 @@
             </objects>
             <point key="canvasLocation" x="-358" y="6904"/>
         </scene>
-        <!--Item-->
+        <!--プロフィール-->
         <scene sceneID="BS9-B9-QBZ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qpC-gK-6hW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="n1c-Uy-9oV"/>
+                    <tabBarItem key="tabBarItem" title="プロフィール" image="ic_account_circle_white_24dp" id="n1c-Uy-9oV">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="localizedTitle" value="Prompt.Profile"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FZp-Fr-GXq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2229,19 +2244,22 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ic_account_circle_white_24dp" width="48" height="48"/>
         <image name="ic_alarm_light_gray_18dp" width="36" height="36"/>
         <image name="ic_done_black_36dp" width="72" height="72"/>
         <image name="ic_done_white_24dp" width="48" height="48"/>
+        <image name="ic_face_white_24dp" width="48" height="48"/>
         <image name="ic_favorite_white_36dp" width="72" height="72"/>
-        <image name="ic_home_white_36dp" width="72" height="72"/>
-        <image name="ic_hot_list_36dp" width="72" height="72"/>
-        <image name="ic_hot_tag_36dp" width="72" height="72"/>
+        <image name="ic_home_white_24dp" width="48" height="48"/>
+        <image name="ic_label_outline_yellow_600_24dp" width="48" height="48"/>
         <image name="ic_loop_light_gray_18dp" width="36" height="36"/>
         <image name="ic_mode_edit_white_24dp" width="48" height="48"/>
         <image name="ic_person_add_black_18dp" width="36" height="36"/>
         <image name="ic_pie_chart_white" width="24" height="24"/>
         <image name="ic_schedule_white_24dp" width="48" height="48"/>
+        <image name="ic_search_white_24dp" width="48" height="48"/>
         <image name="ic_share_black_36dp" width="72" height="72"/>
+        <image name="ic_whatshot_yellow_600_24dp" width="48" height="48"/>
         <image name="icon_type_list_light" width="100" height="100"/>
     </resources>
 </document>
