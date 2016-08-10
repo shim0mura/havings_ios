@@ -858,6 +858,99 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="countGraphHeader" id="M4Q-Ns-2Cl">
+                                        <rect key="frame" x="0.0" y="1091" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="M4Q-Ns-2Cl" id="xu2-BU-88l">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_timeline_white_24dp" translatesAutoresizingMaskIntoConstraints="NO" id="rGP-tg-4ft">
+                                                    <rect key="frame" x="8" y="8" width="24" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="24" id="W7D-b6-fUR"/>
+                                                        <constraint firstAttribute="width" constant="24" id="WCa-zJ-5GA"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="モノの個数グラフ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="40e-ZD-YBr">
+                                                    <rect key="frame" x="40" y="11" width="366" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="Prompt.Dashboard.CountGraph"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.64313725489999995" green="0.50588235290000005" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="40e-ZD-YBr" firstAttribute="centerY" secondItem="xu2-BU-88l" secondAttribute="centerY" id="IiZ-Dj-82u"/>
+                                                <constraint firstAttribute="trailing" secondItem="40e-ZD-YBr" secondAttribute="trailing" constant="8" id="Kz9-hi-9w8"/>
+                                                <constraint firstItem="rGP-tg-4ft" firstAttribute="top" secondItem="xu2-BU-88l" secondAttribute="top" constant="8" id="q1y-5c-AB1"/>
+                                                <constraint firstItem="40e-ZD-YBr" firstAttribute="leading" secondItem="rGP-tg-4ft" secondAttribute="trailing" constant="8" id="u4f-0L-yYH"/>
+                                                <constraint firstItem="rGP-tg-4ft" firstAttribute="leading" secondItem="xu2-BU-88l" secondAttribute="leading" constant="8" id="vo8-x3-vsS"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="countGraph" rowHeight="261" id="veG-eX-MYI">
+                                        <rect key="frame" x="0.0" y="1135" width="414" height="261"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="veG-eX-MYI" id="ScV-R8-zpu">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="260.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view tag="70" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gmP-kY-WG7" customClass="LineChartView" customModule="Charts">
+                                                    <rect key="frame" x="0.0" y="8" width="414" height="200"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="200" id="deS-on-k9i"/>
+                                                    </constraints>
+                                                </view>
+                                                <button opaque="NO" tag="71" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="llE-u3-Wc8" customClass="RadiusButton" customModule="havings" customModuleProvider="target">
+                                                    <rect key="frame" x="28" y="216" width="358" height="28.5"/>
+                                                    <color key="tintColor" red="0.52941176469999995" green="0.30588235289999999" blue="0.2156862745" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <state key="normal" title="もっと見る"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="2"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                            <color key="value" red="0.52941176469999995" green="0.30588235289999999" blue="0.2156862745" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedTitle" value="Prompt.More"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="toDetailGraph:" destination="emJ-A8-R6P" eventType="touchUpInside" id="W0t-iO-SPs"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gmP-kY-WG7" firstAttribute="top" secondItem="ScV-R8-zpu" secondAttribute="top" constant="8" id="1EE-YL-U9b"/>
+                                                <constraint firstItem="llE-u3-Wc8" firstAttribute="leading" secondItem="ScV-R8-zpu" secondAttribute="leadingMargin" constant="20" id="1HO-I8-vf8"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="gmP-kY-WG7" secondAttribute="bottom" constant="-8.5" id="1yU-dz-GWS"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="gmP-kY-WG7" secondAttribute="bottom" constant="8" id="3Ir-DS-VZK"/>
+                                                <constraint firstItem="llE-u3-Wc8" firstAttribute="trailing" secondItem="ScV-R8-zpu" secondAttribute="trailingMargin" constant="-20" id="LWL-cI-pda"/>
+                                                <constraint firstItem="llE-u3-Wc8" firstAttribute="centerY" secondItem="ScV-R8-zpu" secondAttribute="centerY" id="MgQ-by-DbM"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="gmP-kY-WG7" secondAttribute="bottom" constant="6.5" id="YX9-ZE-rCa"/>
+                                                <constraint firstItem="llE-u3-Wc8" firstAttribute="centerX" secondItem="ScV-R8-zpu" secondAttribute="centerX" id="abi-H8-bhc"/>
+                                                <constraint firstItem="llE-u3-Wc8" firstAttribute="top" secondItem="gmP-kY-WG7" secondAttribute="bottom" constant="8" id="baz-tZ-Q0C"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="llE-u3-Wc8" secondAttribute="bottom" constant="8" id="byq-OL-3n6"/>
+                                                <constraint firstItem="gmP-kY-WG7" firstAttribute="leading" secondItem="ScV-R8-zpu" secondAttribute="leading" id="fLZ-Hc-arq"/>
+                                                <constraint firstAttribute="trailing" secondItem="gmP-kY-WG7" secondAttribute="trailing" id="sSN-qD-3lU"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="1yU-dz-GWS"/>
+                                                    <exclude reference="3Ir-DS-VZK"/>
+                                                    <exclude reference="YX9-ZE-rCa"/>
+                                                    <exclude reference="MgQ-by-DbM"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
@@ -2259,6 +2352,7 @@
         <image name="ic_schedule_white_24dp" width="48" height="48"/>
         <image name="ic_search_white_24dp" width="48" height="48"/>
         <image name="ic_share_black_36dp" width="72" height="72"/>
+        <image name="ic_timeline_white_24dp" width="48" height="48"/>
         <image name="ic_whatshot_yellow_600_24dp" width="48" height="48"/>
         <image name="icon_type_list_light" width="100" height="100"/>
     </resources>

@@ -71,7 +71,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="jKj-WL-RU6"/>
                                 </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -219,9 +218,22 @@
                                     <constraint firstItem="ASD-ix-IyR" firstAttribute="trailing" secondItem="g3I-hi-DGv" secondAttribute="centerX" constant="-8" id="pCP-6a-dyK"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1U-78-PDG">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1U-78-PDG" customClass="RadiusButton" customModule="havings" customModuleProvider="target">
                                 <rect key="frame" x="16" y="698" width="382" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <color key="tintColor" red="0.52941176469999995" green="0.30588235289999999" blue="0.2156862745" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="更新"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.52941176469999995" green="0.30588235289999999" blue="0.2156862745" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="localizedTitle" value="Prompt.Update"/>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="updateProfile:" destination="MNt-LS-sZm" eventType="touchUpInside" id="AOi-nc-L6d"/>
                                 </connections>

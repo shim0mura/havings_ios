@@ -25,6 +25,7 @@ class ProfileEditViewController: UIViewController, PostAlertUtil {
         
         let spinner = self.showConnectingSpinner()
         self.isSending = true
+        self.userProfileTextView.addBottomBorderWithColor(UIColorUtil.borderColor, width: 0.5)
         
         API.call(Endpoint.User.GetSelf) { response in
             spinner.dismissViewControllerAnimated(true, completion: nil)

@@ -88,6 +88,11 @@
 		E0CC8E501D34825D006F01CE /* Comment.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0CC8E4F1D34825D006F01CE /* Comment.storyboard */; };
 		E0CC8E521D348863006F01CE /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC8E511D348863006F01CE /* CommentViewController.swift */; };
 		E0CC8E541D34A453006F01CE /* CommentEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC8E531D34A453006F01CE /* CommentEntity.swift */; };
+		E0D653441D581FC0000F1BE7 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0D653431D581FC0000F1BE7 /* Setting.storyboard */; };
+		E0D653461D5822D9000F1BE7 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D653451D5822D9000F1BE7 /* SettingViewController.swift */; };
+		E0D653491D599042000F1BE7 /* EasyTipView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0D653481D599042000F1BE7 /* EasyTipView.framework */; };
+		E0D6534A1D599042000F1BE7 /* EasyTipView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E0D653481D599042000F1BE7 /* EasyTipView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E0D6534C1D599804000F1BE7 /* TooltipManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D6534B1D599804000F1BE7 /* TooltipManager.swift */; };
 		E0E36EFC1CF440FC003F46CF /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E36EFB1CF440FC003F46CF /* EndPoint.swift */; };
 		E0E36EFE1CF44A86003F46CF /* SessionEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E36EFD1CF44A86003F46CF /* SessionEntity.swift */; };
 		E0E36F001CF47370003F46CF /* EntityPostable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E36EFF1CF47370003F46CF /* EntityPostable.swift */; };
@@ -170,6 +175,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				E0E36F881D0FCF2E003F46CF /* Realm.framework in Embed Frameworks */,
+				E0D6534A1D599042000F1BE7 /* EasyTipView.framework in Embed Frameworks */,
 				E0A5D1DC1D50476600FD60E8 /* ToastSwiftFramework.framework in Embed Frameworks */,
 				E0E36F031CF51C92003F46CF /* KeychainAccess.framework in Embed Frameworks */,
 				E0E36F8B1D0FCF42003F46CF /* RealmSwift.framework in Embed Frameworks */,
@@ -267,6 +273,10 @@
 		E0CC8E511D348863006F01CE /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		E0CC8E531D34A453006F01CE /* CommentEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentEntity.swift; sourceTree = "<group>"; };
 		E0CC8E551D34D2AF006F01CE /* RSKPlaceholderTextView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RSKPlaceholderTextView.framework; path = Carthage/Build/iOS/RSKPlaceholderTextView.framework; sourceTree = "<group>"; };
+		E0D653431D581FC0000F1BE7 /* Setting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
+		E0D653451D5822D9000F1BE7 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		E0D653481D599042000F1BE7 /* EasyTipView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EasyTipView.framework; path = Carthage/Build/iOS/EasyTipView.framework; sourceTree = "<group>"; };
+		E0D6534B1D599804000F1BE7 /* TooltipManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TooltipManager.swift; sourceTree = "<group>"; };
 		E0E36EFB1CF440FC003F46CF /* EndPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		E0E36EFD1CF44A86003F46CF /* SessionEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionEntity.swift; sourceTree = "<group>"; };
 		E0E36EFF1CF47370003F46CF /* EntityPostable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntityPostable.swift; sourceTree = "<group>"; };
@@ -341,6 +351,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0E36F871D0FCF2E003F46CF /* Realm.framework in Frameworks */,
+				E0D653491D599042000F1BE7 /* EasyTipView.framework in Frameworks */,
 				E0A5D1DB1D50476600FD60E8 /* ToastSwiftFramework.framework in Frameworks */,
 				E0E36F021CF51C92003F46CF /* KeychainAccess.framework in Frameworks */,
 				E0E36F8A1D0FCF42003F46CF /* RealmSwift.framework in Frameworks */,
@@ -363,6 +374,7 @@
 		E08C62491CF0030900F3DBCB = {
 			isa = PBXGroup;
 			children = (
+				E0D653481D599042000F1BE7 /* EasyTipView.framework */,
 				E0A5D1DA1D50476600FD60E8 /* ToastSwiftFramework.framework */,
 				E0A5D1911D34D61700FD60E8 /* RSKPlaceholderTextView.framework */,
 				E0CC8E551D34D2AF006F01CE /* RSKPlaceholderTextView.framework */,
@@ -433,6 +445,7 @@
 				E0A5D1C81D40EF0300FD60E8 /* Pickup.storyboard */,
 				E0A5D1D01D40F73700FD60E8 /* SearchResult.storyboard */,
 				E0A5D1D41D44AF9C00FD60E8 /* TimerList.storyboard */,
+				E0D653431D581FC0000F1BE7 /* Setting.storyboard */,
 			);
 			name = Storyboard;
 			sourceTree = "<group>";
@@ -452,6 +465,7 @@
 			children = (
 				E08C626C1CF01BF600F3DBCB /* ApiManager.swift */,
 				E0E36EFB1CF440FC003F46CF /* EndPoint.swift */,
+				E0D6534B1D599804000F1BE7 /* TooltipManager.swift */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -529,6 +543,7 @@
 				E0A5D1D21D40F7D500FD60E8 /* SearchResultViewController.swift */,
 				E0A5D1D61D44B02B00FD60E8 /* TimerListViewController.swift */,
 				E0A5D1D81D4EE6E200FD60E8 /* InputViewController.swift */,
+				E0D653451D5822D9000F1BE7 /* SettingViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -682,6 +697,7 @@
 				E08C62761CF01E4C00F3DBCB /* Signup.storyboard in Resources */,
 				E0E36F281CF7DD31003F46CF /* Item.storyboard in Resources */,
 				E0A5D19B1D39D2A900FD60E8 /* UserFavorite.storyboard in Resources */,
+				E0D653441D581FC0000F1BE7 /* Setting.storyboard in Resources */,
 				E0A5D1C91D40EF0300FD60E8 /* Pickup.storyboard in Resources */,
 				E0E36F111CF6B321003F46CF /* FirstViewController.xib in Resources */,
 				E0E36FBB1D1D8665003F46CF /* Localizable.strings in Resources */,
@@ -741,6 +757,7 @@
 				E0CC8E401D2F910B006F01CE /* TimerChangeDueViewController.swift in Sources */,
 				E0CC8E541D34A453006F01CE /* CommentEntity.swift in Sources */,
 				E0E36F6A1D07EF7B003F46CF /* EventEntity.swift in Sources */,
+				E0D653461D5822D9000F1BE7 /* SettingViewController.swift in Sources */,
 				E05EC8A91D240CBD0028C611 /* AddImageViewController.swift in Sources */,
 				E0E36F511D027BC7003F46CF /* TagListView.swift in Sources */,
 				E0E36FB11D1AD3D1003F46CF /* BorderAddExtension.swift in Sources */,
@@ -792,6 +809,7 @@
 				E0E36F6C1D07F0AA003F46CF /* CountDataEntity.swift in Sources */,
 				E0E36FB61D1CF6C0003F46CF /* ImageDataEditViewController.swift in Sources */,
 				E0E36F0B1CF5771B003F46CF /* OAuthViewController.swift in Sources */,
+				E0D6534C1D599804000F1BE7 /* TooltipManager.swift in Sources */,
 				E0E36F851D0FCE42003F46CF /* TagEntity.swift in Sources */,
 				E0CC8E2A1D2612B1006F01CE /* TimerPresenter.swift in Sources */,
 				E0E36F8F1D10049C003F46CF /* RealmArrayTransform.swift in Sources */,

@@ -182,6 +182,7 @@ class UserViewController: UIViewController, PostAlertUtil {
             }else{
                 let buttonSort = UIBarButtonItem()
                 buttonSort.image = UIImage(named: "ic_swap_horiz_black_36dp")?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+                buttonSort
                 buttonSort.target = self
                 buttonSort.action = #selector(UserViewController.changeItemSort)
                 self.buttonSort = buttonSort
@@ -308,9 +309,45 @@ class UserViewController: UIViewController, PostAlertUtil {
         }
         
         if self.userEntity?.relation == 3 {
+            let alert: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle:  UIAlertControllerStyle.ActionSheet)
+
+            let notificationSetting: UIAlertAction = UIAlertAction(title: NSLocalizedString("Prompt.Setting.Choose.Notification", comment: ""), style: UIAlertActionStyle.Default, handler:{(action: UIAlertAction!) -> Void in
+                let storyboard: UIStoryboard = UIStoryboard(name: "Setting", bundle: nil)
+                let next = storyboard.instantiateInitialViewController()
+                self.presentViewController(next!, animated: true, completion: nil)
+            })
+            
+            let profileEdit: UIAlertAction = UIAlertAction(title: NSLocalizedString("Prompt.Setting.Choose.ProfileEdit", comment: ""), style: UIAlertActionStyle.Default, handler:{(action: UIAlertAction!) -> Void in
+                let storyboard: UIStoryboard = UIStoryboard(name: "ProfileEdit", bundle: nil)
+                let next = storyboard.instantiateInitialViewController()
+                self.presentViewController(next!, animated: true, completion: nil)
+            })
+            
+            let howToUse: UIAlertAction = UIAlertAction(title: NSLocalizedString("Prompt.Setting.Choose.HowToUse", comment: ""), style: UIAlertActionStyle.Default, handler:{(action: UIAlertAction!) -> Void in
+                    print("defaultAction_2")
+            })
+            
+            let logout: UIAlertAction = UIAlertAction(title: NSLocalizedString("Prompt.Setting.Choose.Logout", comment: ""), style: UIAlertActionStyle.Default, handler:{(action: UIAlertAction!) -> Void in
+                    print("defaultAction_2")
+            })
+            
+            
+            let cancelAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Prompt.Cancel", comment: ""), style: UIAlertActionStyle.Cancel, handler:{
+                (action: UIAlertAction!) -> Void in
+            })
+            
+            alert.addAction(cancelAction)
+            alert.addAction(notificationSetting)
+            alert.addAction(profileEdit)
+            alert.addAction(howToUse)
+            alert.addAction(logout)
+            
+            presentViewController(alert, animated: true, completion: nil)
+            /*
             let storyboard: UIStoryboard = UIStoryboard(name: "ProfileEdit", bundle: nil)
             let next = storyboard.instantiateInitialViewController()
             self.presentViewController(next!, animated: true, completion: nil)
+            */
         }
         
         let completeHandler = { (response: Result<GenericResult, NSError>) in

@@ -9,6 +9,7 @@
 import UIKit
 import Charts
 import FSCalendar
+import EasyTipView
 
 class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegate {
 
@@ -29,15 +30,20 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
     private let doneTaskItemNameTag: Int = 45
     private let doneTaskDateTag: Int = 46
     private let moreTimerButtonTag: Int = 60
+    private let countGraphViewTag: Int = 70
+    private let countGraphViewMoreButtonTag: Int = 71
     
     private let maxTimer: Int = 3
     
     private var beforeLoadingChart: Bool = true
     private var beforeLoadingTimers: Bool = true
     private var beforeLoadingTasks: Bool = true
+    private var beforeLoadingCounts: Bool = true
     
     private var pieChartCell: UITableViewCell?
     private var taskCalendarCell: UITableViewCell?
+    
+    private var tooltip: EasyTipView?
     
     private var leftBarButton: ENMBadgedBarButtonItem?
     private var timers: [TimerEntity] = []
@@ -67,6 +73,8 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
         }
     }
     private var taskByEvent: [NSDate: [(timer: TimerEntity, itemName: String, actrualDate: NSDate)]] = [:]
+    
+    private var countData: [CountDataEntity]?
     
     private var chartSelectedType: Int? = nil
     private var selectedDate: NSDate = NSDate()
@@ -131,16 +139,37 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
             }
         }
         
+        API.callArray(Endpoint.CountProperties.Get){ response in
+            switch response {
+            case .Success(let result):
+                self.countData = result
+                self.beforeLoadingCounts = false
+                self.tableView.reloadData()
+            case .Failure(let error):
+                print(error)
+            }
+        }
+        
         DefaultTagPresenter.migrateTag()
 
         setUpLeftBarButton()
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+        
+        
+        showTooltip()
 
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    private func showTooltip(){
+        self.tooltip = TooltipManager.getToolTip()
+        let target = self.tabBarController?.tabBar.items![2].valueForKey("view") as? UIView
+        self.tooltip?.show(forView: target!)
+        
     }
     
     func setUpLeftBarButton() {
@@ -173,6 +202,14 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
         let afterCount = self.getChartSectionRowCount()
         
         self.reloadSection(0, beforeRowCount: beforeCount, afterRowCount: afterCount)
+    }
+    
+    @IBAction func toDetailGraph(sender: AnyObject) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "DetailGraph", bundle: nil)
+        let next: DetailGraphViewController = storyboard.instantiateInitialViewController()! as! DetailGraphViewController
+        next.countData = self.countData
+        next.itemName = NSLocalizedString("Prompt.You", comment: "")
+        self.navigationController?.pushViewController(next, animated: true)
     }
     
     func reloadSection(section: Int, beforeRowCount: Int, afterRowCount: Int){
@@ -213,11 +250,7 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0 {
-            if self.beforeLoadingChart {
-                return 1
-            }else{
-                return self.getChartSectionRowCount()
-            }
+            return 1
         }else if section == 1 {
             if self.beforeLoadingTimers {
                 return 1
@@ -236,6 +269,12 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
             }else{
                 return self.getDoneTaskSectionRowCount()
             }
+        }else if section == 3 {
+            if self.beforeLoadingChart {
+                return 1
+            }else{
+                return self.getChartSectionRowCount()
+            }
         
         }else{
             return 0
@@ -246,73 +285,39 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell : UITableViewCell
         if indexPath.section == 0 {
-        
-            if self.beforeLoadingChart {
+            if self.beforeLoadingTasks {
                 cell = self.tableView.dequeueReusableCellWithIdentifier("loading")! as UITableViewCell
                 return cell
-            }else if indexPath.row == 0 {
-                cell = self.tableView.dequeueReusableCellWithIdentifier("graph")! as UITableViewCell
-
-                if self.pieChartCell == nil {
-                    let graph: PieChartView = cell.viewWithTag(self.pieChartTag) as! PieChartView
-                    
-                    let target = self.percentages
-                    var entries: [ChartDataEntry] = []
-                    var strings: [String] = []
-                    var colors: [UIColor] = []
-                    for i in 0..<target.count {
-                        let type = self.percentages[i]
-                        let percent = type.percentage!
-                        
-                        if let typeCase = type.typeCase {
-                            entries.append(ChartDataEntry(value: percent, xIndex: i))
-                            
-                            let typeStr = typeCase.getStr()
-                            
-                            strings.append(typeStr)
-                            colors.append(typeCase.getColor())
-                        }
-                    }
-                    
-                    if entries.isEmpty {
-                        graph.noDataText = NSLocalizedString("Prompt.Dashboard.PieChart.Empty", comment: "")
-                        graph.clear()
-                    }else{
-                        let dataSet = PieChartDataSet(yVals:entries, label: "")
-                        dataSet.setColors(colors, alpha: 1.0)
-                        dataSet.valueTextColor = UIColor.blackColor()
-                        dataSet.valueFormatter = PercentFormatter()
-                        
-                        graph.descriptionText = ""
-                        graph.usePercentValuesEnabled = true
-                        graph.delegate = self
-                        graph.data = PieChartData(xVals: strings, dataSet: dataSet)
-                    }
-                    
-                    self.pieChartCell = cell
-                }
-                return cell
-                
-            }else if let select = self.chartSelectedType where indexPath.row == 1 {
-                
-                cell = self.getTypeCell(self.percentages[select])
-                
-            }else if let select = self.chartSelectedType where indexPath.row >= 2 {
-
-                let percentage = self.percentages[select]
-                let byCategory = self.percentageByCategory[percentage.type!]
-                let target = byCategory![indexPath.row - 1]
-                if target.isDetail {
-                    cell = self.getDetailCategoryCell(target.category)
-                }else{
-                    cell = self.getCategoryCell(target.category)
-                }
-
             }else {
-                cell = self.getTypeCell(self.percentages[indexPath.row - 1])
+                cell = self.tableView.dequeueReusableCellWithIdentifier("countGraph")! as UITableViewCell
+                cell.selectionStyle = .None
+                
+                let chartView = cell.viewWithTag(self.countGraphViewTag) as! LineChartView
+                
+                chartView.pinchZoomEnabled = false
+                chartView.setScaleEnabled(false)
+                chartView.dragEnabled = false
+                
+                chartView.drawBordersEnabled = true
+                let right = chartView.getAxis(ChartYAxis.AxisDependency.Right)
+                right.drawLabelsEnabled = false
+                let left = chartView.getAxis(ChartYAxis.AxisDependency.Left)
+                left.valueFormatter = DoubleToIntFormatter()
+                
+                if let data = countData where !data.isEmpty {
+                    let start = data.first!.date
+                    let end = data.last!.date
+                    chartView.descriptionText = String(format: NSLocalizedString("Prompt.Item.Graph.Period", comment: ""), DateTimeFormatter.getStrFromDate(start!, format: DateTimeFormatter.formatYMD), DateTimeFormatter.getStrFromDate(end!, format: DateTimeFormatter.formatYMD))
+                    
+                    let lineChartData = GraphRenderer.createChartData(GraphRenderer.appendTodaysData(data), dateShowType: GraphRenderer.DATE_SHOW_TYPE_MONTH)
+                    chartView.data = lineChartData.0
+                }else{
+                    chartView.noDataText = NSLocalizedString("Prompt.Dashboard.CountGraph.Empty", comment: "")
+                    cell.viewWithTag(self.countGraphViewMoreButtonTag)?.hidden = true
+                }
+                
+                return cell
             }
-            cell.selectionStyle = .None
-            return cell
             
         }else if indexPath.section == 1 {
             if self.beforeLoadingTimers {
@@ -379,6 +384,75 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
                 date.text = String(format: NSLocalizedString("Prompt.DoneTask.DoneDate", comment: ""), DateTimeFormatter.getFullStr(task.actrualDate))
                 return cell
             }
+        }else if indexPath.section == 3 {
+            
+            if self.beforeLoadingChart {
+                cell = self.tableView.dequeueReusableCellWithIdentifier("loading")! as UITableViewCell
+                return cell
+            }else if indexPath.row == 0 {
+                cell = self.tableView.dequeueReusableCellWithIdentifier("graph")! as UITableViewCell
+                
+                if self.pieChartCell == nil {
+                    let graph: PieChartView = cell.viewWithTag(self.pieChartTag) as! PieChartView
+                    
+                    let target = self.percentages
+                    var entries: [ChartDataEntry] = []
+                    var strings: [String] = []
+                    var colors: [UIColor] = []
+                    for i in 0..<target.count {
+                        let type = self.percentages[i]
+                        let percent = type.percentage!
+                        
+                        if let typeCase = type.typeCase {
+                            entries.append(ChartDataEntry(value: percent, xIndex: i))
+                            
+                            let typeStr = typeCase.getStr()
+                            
+                            strings.append(typeStr)
+                            colors.append(typeCase.getColor())
+                        }
+                    }
+                    
+                    if entries.isEmpty {
+                        graph.noDataText = NSLocalizedString("Prompt.Dashboard.PieChart.Empty", comment: "")
+                        graph.clear()
+                    }else{
+                        let dataSet = PieChartDataSet(yVals:entries, label: "")
+                        dataSet.setColors(colors, alpha: 1.0)
+                        dataSet.valueTextColor = UIColor.blackColor()
+                        dataSet.valueFormatter = PercentFormatter()
+                        
+                        graph.descriptionText = ""
+                        graph.usePercentValuesEnabled = true
+                        graph.delegate = self
+                        graph.data = PieChartData(xVals: strings, dataSet: dataSet)
+                    }
+                    
+                    self.pieChartCell = cell
+                }
+                return cell
+                
+            }else if let select = self.chartSelectedType where indexPath.row == 1 {
+                
+                cell = self.getTypeCell(self.percentages[select])
+                
+            }else if let select = self.chartSelectedType where indexPath.row >= 2 {
+                
+                let percentage = self.percentages[select]
+                let byCategory = self.percentageByCategory[percentage.type!]
+                let target = byCategory![indexPath.row - 1]
+                if target.isDetail {
+                    cell = self.getDetailCategoryCell(target.category)
+                }else{
+                    cell = self.getCategoryCell(target.category)
+                }
+                
+            }else {
+                cell = self.getTypeCell(self.percentages[indexPath.row - 1])
+            }
+            cell.selectionStyle = .None
+            return cell
+            
         }else{
             return UITableViewCell(style: .Default, reuseIdentifier: "cell")
         }
@@ -408,12 +482,12 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
-            let cell : UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("graphHeader")! as UITableViewCell
+            let cell : UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("countGraphHeader")! as UITableViewCell
             return cell.contentView
         }else if section == 1 {
             let cell : UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("timerHeader")! as UITableViewCell
@@ -426,6 +500,9 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
             return cell.contentView
         }else if section == 2 {
             let cell : UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("doneTaskHeader")! as UITableViewCell
+            return cell.contentView
+        }else if section == 3 {
+            let cell : UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("graphHeader")! as UITableViewCell
             return cell.contentView
         }else{
             return nil

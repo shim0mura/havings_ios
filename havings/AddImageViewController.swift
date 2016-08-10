@@ -72,6 +72,12 @@ class AddImageViewController: UIViewController, PostAlertUtil {
                     return
                 }
                 
+                let s = TooltipManager.getStatus()
+                if let status = s {
+                    if status == TooltipManager.ShowStatus.Image.rawValue {
+                        TooltipManager.setNextStatus()
+                    }
+                }
                 self.navigationController?.dismissViewControllerAnimated(true){
                     print("dismiss controller")
                     self.finishDelegate?.finish(String(format: NSLocalizedString("Prompt.AddImage.Success", comment: ""), self.item.name!))

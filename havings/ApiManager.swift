@@ -168,7 +168,7 @@ class TokenManager {
     private static let keyToToken : String = "accesstoken"
     private static let keyToUid : String = "uid"
     private static let keyToUserId: String = "userid"
-    private static let service : String = "work.t_s.havings"
+    internal static let service : String = "work.t_s.havings"
     
     private func setTokenAndUid(token t :String, uid u :String, userId ui: Int){
         token = t
@@ -217,7 +217,7 @@ class TokenManager {
             }
             return false
         }catch{
-            print("something occured access to keychain")
+            print("something occured access to keychain when token manage")
             return false
         }
     }

@@ -568,6 +568,26 @@ class Endpoint {
         }
     }
     
+    enum CountProperties: RequestProtocol {
+        typealias ResponseType = CountDataEntity
+        
+        case Get
+        
+        var method: Alamofire.Method {
+            switch self {
+            case .Get:
+                return .GET
+            }
+        }
+        
+        var path: String {
+            switch self {
+            case .Get:
+                return "/home/item_count"
+            }
+        }
+    }
+    
     enum Timeline: RequestProtocol {
         typealias ResponseType = TimelineEntity
         

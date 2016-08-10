@@ -477,6 +477,15 @@ class AddFormViewController: UIViewController {
                         return
                     }
                     
+                    let s = TooltipManager.getStatus()
+                    if let status = s {
+                        if status == TooltipManager.ShowStatus.List.rawValue || status == TooltipManager.ShowStatus.Item.rawValue {
+                            TooltipManager.setNextStatus()
+                        }else if let g = self.item.isGarbage where g == true {
+                            TooltipManager.setNextStatus()
+                        }
+                    }
+                    TooltipManager.setNextStatus()
                     self.navigationController?.dismissViewControllerAnimated(true){
                         print("dismiss controller")
                         self.finishDelegate?.finish(String(format: NSLocalizedString("Prompt.ItemForm.Success", comment: ""), self.item.name!))

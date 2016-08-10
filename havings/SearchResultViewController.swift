@@ -67,7 +67,6 @@ extension SearchResultViewController: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("touch!!")
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         let item = self.searchResult.items?[indexPath.row]

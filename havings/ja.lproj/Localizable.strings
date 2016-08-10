@@ -67,7 +67,7 @@
 
 "Prompt.ListNameSelect" = "片付けたいところを選択";
 "Prompt.ListNameSelect.Text1" = "片付けたいところを選んで、リストとして登録しましょう。";
-"Prompt.ListNameSelect.Text2" = "片付けたいモノをアイテムとしてリストの中に追加することができます。\nまた、リスト自体も別のリストの中に追加することが出来ます。";
+"Prompt.ListNameSelect.Text2" = "フォルダとファイルのように、片付けたいモノをアイテムとしてリストの中に追加することができます。\nまた、リスト自体も別のリストの中に追加することが出来ます。";
 "Prompt.ListNameSelect.Input" = "片付けたいところを入力...";
 
 "Prompt.ListImageChoose" = "画像を選択";
@@ -234,7 +234,7 @@
 "Prompt.User.Action.Follow" = "フォロー";
 "Prompt.User.Action.Following" = "フォロー中";
 "Prompt.User.Action.Share" = "シェア";
-"Prompt.User.Action.Edit" = "編集";
+"Prompt.User.Action.Edit" = "設定";
 
 "Prompt.User.Follow.Failed" = "フォローできませんでした。時間をおいてから再度お試しください";
 "Prompt.User.UnFollow.Failed" = "フォローを解除できませんでした。時間をおいてから再度お試しください";
@@ -277,7 +277,11 @@
 "Prompt.DoneTask.DoneDate" = "%@ に実行";
 "Prompt.DoneTask.DoneByDay" = "%@ にこなしたタスク";
 
+
 "Prompt.Dashboard" = "ダッシュボード";
+"Prompt.Dashboard.CountGraph" = "モノの個数グラフ";
+"Prompt.Dashboard.CountGraph.Empty" = "リスト、アイテムがありません。\n\nリストやアイテムを追加して記録を始めましょう!";
+
 "Prompt.Dashboard.PieChart" = "あなたのアイテムの分類グラフ";
 "Prompt.Dashboard.PieChart.Empty" = "グラフはありません。\n \nアイテムやリストを追加すると、グラフが自動的に作成されます";
 "Prompt.Dashboard.PieChart.TypeLegend" = "";
@@ -312,6 +316,15 @@
 "Prompt.TimerList" = "稼働中のタイマー一覧";
 "Prompt.Profile" = "プロフィール";
 
+"Prompt.Setting.Choose.Notification" = "通知設定";
+"Prompt.Setting.Choose.ProfileEdit" = "プロフィール設定";
+"Prompt.Setting.Choose.HowToUse" = "使い方";
+"Prompt.Setting.Choose.Logout" = "ログアウト";
+
+
+"Prompt.Setting.Notification" = "通知";
+"Prompt.Setting.Notification.Detail" = "タイマーの期限が過ぎた時に通知を行います";
+
 "Unit.Day" = "日";
 "Unit.Minute" = "分";
 "Unit.Hour" = "時間";
@@ -325,6 +338,11 @@
 "Unit.GeneralItems" = "つ";
 "Unit.GeneralItems.Others" = "ほか%@つ";
 
+"Prompt.Tooltip.List" = "まずはあなたが今片付けたいところを「リスト」として追加しましょう。\n最初は1日で片付け終えられるような小さなところから片付け始めるといいかもしれません。";
+"Prompt.Tooltip.Item" = "片付けたいところにあるモノを「アイテム」として追加しましょう。\nリストにアイテムを追加することで、あなたが片付けたいところに、何があるのか把握しましょう！";
+"Prompt.Tooltip.Dump" = "「手放す」からモノを捨てた記録ができます。\n手放したアイテムの情報は後で見ることができるので、モノを捨てても、思い出やそのモノの写真を保存しておくことができます。";
+"Prompt.Tooltip.Image" = "「画像を追加」で片付けている場所の今の状態を記録してみませんか？\n片付けの進み具合を記録しておけば、後で片付けを行うときの参考になるかもしれません。";
+
 
 "Prompt.ItemForm.RegisterAsDumpItem" = "手放したアイテムとして登録";
 "Prompt.ItemForm.GarbageReason" = "手放した理由";
@@ -334,7 +352,9 @@
 "Prompt.Error" = "接続エラー";
 "Prompt.Ok" = "OK";
 "Prompt.Back" = "戻る";
+"Prompt.Update" = "更新";
 "Prompt.Cancel" = "キャンセル";
 "Prompt.Item" = "アイテム";
 "Prompt.List" = "リスト";
 "Prompt.More" = "もっと見る";
+"Prompt.You" = "あなた";

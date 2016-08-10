@@ -32,6 +32,7 @@ class TargetItemSelectViewController: UIViewController {
     let itemCountLabelTag: Int = 12
     let privateTypeImageTag: Int = 13
     
+    var userId: Int = 0
     var loadingEnd: Bool = false
     var itemList: [(item: ItemEntity, nest: Int)] = []
     
@@ -52,7 +53,7 @@ class TargetItemSelectViewController: UIViewController {
 
         self.automaticallyAdjustsScrollViewInsets = false
         
-        API.call(Endpoint.Item.GetUserItemTree(userId: 10, includeDump: self.selectType.includeDump())) { response in
+        API.call(Endpoint.Item.GetUserItemTree(userId: self.userId, includeDump: self.selectType.includeDump())) { response in
             switch response {
             case .Success(let result):
                 self.loadingEnd = true
@@ -175,6 +176,7 @@ extension TargetItemSelectViewController: UITableViewDelegate, UITableViewDataSo
             let item = ItemEntity()
             item.id = selectedItem.id
             item.isList = selectedItem.isList
+            item.name = selectedItem.name
             next.item = item
             next.finishDelegate = self.finishDelegate
             

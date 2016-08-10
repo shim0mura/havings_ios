@@ -115,7 +115,13 @@ class DumpItemViewController: UIViewController, PostAlertUtil {
                     self.showFailedAlert(errors)
                     return
                 }
-                
+                let s = TooltipManager.getStatus()
+                if let status = s {
+                    if status == TooltipManager.ShowStatus.Dump.rawValue {
+                        TooltipManager.setNextStatus()
+                    }
+                }
+
                 self.navigationController?.dismissViewControllerAnimated(true){
                     print("dismiss controller")
                     self.finishDelegate?.finish(String(format: NSLocalizedString("Prompt.DumpItem.Success", comment: ""), self.item.name!))

@@ -8,6 +8,7 @@
 
 import UIKit
 import ToastSwiftFramework
+import EasyTipView
 
 class InputViewController: UIViewController {
 
@@ -61,6 +62,9 @@ class InputViewController: UIViewController {
     
     private let iconImageTag: Int = 10
     private let nameTag: Int = 11
+    
+    private var userId: Int = 0
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -68,6 +72,16 @@ class InputViewController: UIViewController {
 
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        let tooltip = TooltipManager.getToolTip()
+        let target = self.tabBarController?.tabBar.items![2].valueForKey("view") as? UIView
+        tooltip?.show(forView: target!)
+        
+        let tokenManager = TokenManager.sharedManager
+        if let ui = tokenManager.getUserId() {
+            self.userId = ui
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -135,6 +149,7 @@ extension InputViewController: UITableViewDataSource, UITableViewDelegate {
                 return
             }
             
+            targetSelectVC.userId = self.userId
             targetSelectVC.selectType = TargetItemSelectType.AddImage
             targetSelectVC.finishDelegate = self
 
@@ -148,6 +163,7 @@ extension InputViewController: UITableViewDataSource, UITableViewDelegate {
                 return
             }
             
+            targetSelectVC.userId = self.userId
             targetSelectVC.selectType = TargetItemSelectType.EditItem
             targetSelectVC.finishDelegate = self
 
@@ -161,6 +177,7 @@ extension InputViewController: UITableViewDataSource, UITableViewDelegate {
                 return
             }
             
+            targetSelectVC.userId = self.userId
             targetSelectVC.selectType = TargetItemSelectType.DumpItem
             targetSelectVC.finishDelegate = self
             
@@ -173,6 +190,7 @@ extension InputViewController: UITableViewDataSource, UITableViewDelegate {
                 return
             }
             
+            targetSelectVC.userId = self.userId
             targetSelectVC.selectType = TargetItemSelectType.DeleteItem
             targetSelectVC.finishDelegate = self
             presentViewController(navigationVC, animated: true, completion: nil)
