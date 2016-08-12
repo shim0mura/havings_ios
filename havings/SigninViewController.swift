@@ -1,41 +1,34 @@
 //
-//  SignupViewController.swift
+//  SigninViewController.swift
 //  havings
 //
-//  Created by Tatsuhiko Shimomura on 2016/05/21.
+//  Created by Tatsuhiko Shimomura on 2016/08/12.
 //  Copyright © 2016年 Tatsuhiko Shimomura. All rights reserved.
 //
 
 import UIKit
 
-class SignupViewController: UIViewController, UITextFieldDelegate, PostAlertUtil {
+class SigninViewController: UIViewController, PostAlertUtil {
+
+    @IBOutlet weak var mailField: UITextField!
+    @IBOutlet weak var passowordField: UITextField!
     
-    @IBOutlet weak var userName: UITextField!
-    
-    @IBOutlet weak var mail: UITextField!
-    
-    @IBOutlet weak var password: UITextField!
-    
-    let USERNAME_TAG = 1
     let MAIL_TAG = 2
     let PASSWORD_TAG = 3
     
-    var isUserNameEmpty :Bool = true
     var isMailEmpty :Bool = true
     var isPasswordEmpty :Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.userName.delegate = self
-        self.userName.tag = USERNAME_TAG
-        self.mail.tag     = MAIL_TAG
-        self.password.tag = PASSWORD_TAG
-        self.mail.delegate = self
-        self.password.delegate = self
+        self.mailField.tag = MAIL_TAG
+        self.passowordField.tag = PASSWORD_TAG
+        self.mailField.delegate = self
+        self.passowordField.delegate = self
         
-        self.userName.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
-        self.mail.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
-        self.password.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+        self.mailField.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+        self.passowordField.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,8 +36,14 @@ class SignupViewController: UIViewController, UITextFieldDelegate, PostAlertUtil
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func tapSignupButton(sender: AnyObject) {
-        let validationResult :SessionValueCombination = SessionValueCombination.isValid(userName.text, mail: mail.text, password: password.text)
+    
+    @IBAction func tapBack(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    @IBAction func tapSignin(sender: AnyObject) {
+        let validationResult: SessionValueCombination = SessionValueCombination.isValidToSignin(mailField.text, password: passowordField.text)
         
         if validationResult != .Valid{
             let alert :UIAlertController = UIAlertController(title: validationResult.rawValue, message: nil, preferredStyle: UIAlertControllerStyle.Alert)
@@ -56,10 +55,9 @@ class SignupViewController: UIViewController, UITextFieldDelegate, PostAlertUtil
             presentViewController(alert, animated: true, completion: nil)
             return
         }
-        
         let spinnerAlert = self.showConnectingSpinner()
-        
-        API.call(Endpoint.Session.Signup(name: userName.text!, email: mail.text!, password: password.text!)) { response in
+
+        API.call(Endpoint.Session.Login(mail: mailField.text!, password: passowordField.text!)) { response in
             switch response {
             case .Success(let result):
                 spinnerAlert.dismissViewControllerAnimated(false, completion: nil)
@@ -74,11 +72,23 @@ class SignupViewController: UIViewController, UITextFieldDelegate, PostAlertUtil
                     self.presentViewController(next, animated: true, completion: nil)
                 }
             case .Failure(let error):
-                print(error)
+                print("failure \(error)")
                 spinnerAlert.dismissViewControllerAnimated(false, completion: nil)
                 self.simpleAlertDialog(NSLocalizedString("Prompt.FailureToAceess", comment: ""), message: nil)
             }
         }
+    }
+    
+    @IBAction func twitterSignin(sender: AnyObject) {
+    }
+    
+    @IBAction func facebookSignin(sender: AnyObject) {
+    }
+    
+    @IBAction func instagramSignin(sender: AnyObject) {
+    }
+    
+    @IBAction func hatenaSignin(sender: AnyObject) {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -87,21 +97,22 @@ class SignupViewController: UIViewController, UITextFieldDelegate, PostAlertUtil
             let account = OAuthViewController.OAuthAccount(rawValue: identifier)!
             next.account = account
             print(segue.identifier)
-            
+        
         }
     }
+
+}
+
+extension SigninViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         switch textField.tag {
-        case USERNAME_TAG:
-            isUserNameEmpty = textField.text?.isEmpty ?? true
-            mail.becomeFirstResponder()
         case MAIL_TAG:
             isMailEmpty = textField.text?.isEmpty ?? true
-            password.becomeFirstResponder()
+            passowordField.becomeFirstResponder()
         case PASSWORD_TAG:
             isPasswordEmpty = textField.text?.isEmpty ?? true
-            tapSignupButton(textField)
+            tapSignin(textField)
         default:
             break;
         }

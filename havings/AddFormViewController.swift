@@ -9,6 +9,7 @@
 import UIKit
 import DZNEmptyDataSet
 import QBImagePicker
+import EasyTipView
 
 class AddFormViewController: UIViewController {
     
@@ -104,11 +105,18 @@ class AddFormViewController: UIViewController {
     
     @IBOutlet weak var imageContainerHeightConstraint: NSLayoutConstraint!
     
+    
+    @IBOutlet weak var countHelpImage: UIImageView!
+    
+    @IBOutlet weak var belongListHelpImage: UIImageView!
+    
+    @IBOutlet weak var tagHelpImage: UIImageView!
+    
+    @IBOutlet weak var garbageHelp: UIImageView!
+    
     weak var finishDelegate: FinishItemUpdateDelegate?
     
-    deinit {
-        print("deinit!! add form")
-    }
+    private var tooltip: EasyTipView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,6 +139,11 @@ class AddFormViewController: UIViewController {
         self.imageCollectionView.emptyDataSetSource = self
         self.imageCollectionView.emptyDataSetDelegate = self
         tagShowingView.delegate = self
+        
+        countHelpImage.userInteractionEnabled = true
+        belongListHelpImage.userInteractionEnabled = true
+        tagHelpImage.userInteractionEnabled = true
+        garbageHelp.userInteractionEnabled = true
 
         API.callArray(Endpoint.CanBelongList.Get){ response in
             switch response {
@@ -358,17 +371,11 @@ class AddFormViewController: UIViewController {
     }
     
     @IBAction func backButtonPress(sender: AnyObject) {
-        print("back")
-        print(self.navigationController)
-        print(self.navigationController?.viewControllers)
         if let c = self.navigationController?.viewControllers {
             let root = c.first
-            print("is same")
             let iii = root == self
-            print(iii)
             if iii {
                 self.navigationController?.dismissViewControllerAnimated(true){
-                    print("back!!!")
                 }
             }
         }
@@ -381,7 +388,30 @@ class AddFormViewController: UIViewController {
         setItemCounter()
     }
     
+    @IBAction func itemCountHelp(sender: UITapGestureRecognizer) {
+        tooltip = EasyTipView(text: NSLocalizedString("Prompt.Tooltip.Form.ItemCount", comment: ""))
+        tooltip?.backgroundColor = UIColorUtil.accentColor
+        tooltip?.show(forView: self.countHelpImage)
+    }
 
+    @IBAction func belongListHelp(sender: UITapGestureRecognizer) {
+        tooltip = EasyTipView(text: NSLocalizedString("Prompt.Tooltip.Form.BelongList", comment: ""))
+        tooltip?.backgroundColor = UIColor(red:0.43, green: 0.72, blue: 0.86, alpha: 1.0)
+        tooltip?.show(forView: self.belongListHelpImage)
+    }
+    
+    @IBAction func tagHelp(sender: UITapGestureRecognizer) {
+        tooltip = EasyTipView(text: NSLocalizedString("Prompt.Tooltip.Form.Tag", comment: ""))
+        tooltip?.backgroundColor = UIColor(red:0.81, green: 0.89, blue: 0.51, alpha: 1.0)
+        tooltip?.show(forView: self.tagHelpImage)
+    }
+    
+    @IBAction func garbageHelp(sender: UITapGestureRecognizer) {
+        tooltip = EasyTipView(text: NSLocalizedString("Prompt.Tooltip.Form.Garbage", comment: ""))
+        tooltip?.backgroundColor = UIColor(red:0.89, green: 0.53, blue: 0.57, alpha: 1.0)
+        tooltip?.show(forView: self.garbageHelp)
+    }
+    
     @IBAction func isAsGarbage(sender: UISwitch) {
         if sender.on {
             garbageReasonHeightConstraint.constant = 80

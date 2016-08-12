@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E01525131D5DAADB002815CB /* SigninViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01525121D5DAADB002815CB /* SigninViewController.swift */; };
 		E05EC8A71D226DF60028C611 /* TargetItemSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E05EC8A61D226DF60028C611 /* TargetItemSelectViewController.swift */; };
 		E05EC8A91D240CBD0028C611 /* AddImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E05EC8A81D240CBD0028C611 /* AddImageViewController.swift */; };
 		E05EC8AB1D24179B0028C611 /* ImagePickable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E05EC8AA1D24179B0028C611 /* ImagePickable.swift */; };
@@ -196,6 +197,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E01525121D5DAADB002815CB /* SigninViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SigninViewController.swift; sourceTree = "<group>"; };
 		E05EC8A61D226DF60028C611 /* TargetItemSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetItemSelectViewController.swift; sourceTree = "<group>"; };
 		E05EC8A81D240CBD0028C611 /* AddImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddImageViewController.swift; sourceTree = "<group>"; };
 		E05EC8AA1D24179B0028C611 /* ImagePickable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickable.swift; sourceTree = "<group>"; };
@@ -544,6 +546,7 @@
 				E0A5D1D61D44B02B00FD60E8 /* TimerListViewController.swift */,
 				E0A5D1D81D4EE6E200FD60E8 /* InputViewController.swift */,
 				E0D653451D5822D9000F1BE7 /* SettingViewController.swift */,
+				E01525121D5DAADB002815CB /* SigninViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -755,6 +758,7 @@
 				E0A5D1AF1D3C9BC100FD60E8 /* ProfileEditViewController.swift in Sources */,
 				E0CC8E421D2FAC34006F01CE /* TimerConfigViewController.swift in Sources */,
 				E0CC8E401D2F910B006F01CE /* TimerChangeDueViewController.swift in Sources */,
+				E01525131D5DAADB002815CB /* SigninViewController.swift in Sources */,
 				E0CC8E541D34A453006F01CE /* CommentEntity.swift in Sources */,
 				E0E36F6A1D07EF7B003F46CF /* EventEntity.swift in Sources */,
 				E0D653461D5822D9000F1BE7 /* SettingViewController.swift in Sources */,

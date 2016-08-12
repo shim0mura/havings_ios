@@ -34,11 +34,11 @@ class TooltipManager {
                 switch status {
                 case .List:
                     tip = EasyTipView(text: NSLocalizedString("Prompt.Tooltip.List", comment: ""))
-                    tip.backgroundColor = UIColorUtil.accentColor
+                    tip.backgroundColor = UIColor(red:0.43, green: 0.72, blue: 0.86, alpha: 1.0)
                     return tip
                 case .Item:
                     tip = EasyTipView(text: NSLocalizedString("Prompt.Tooltip.Item", comment: ""))
-                    tip.backgroundColor = UIColorUtil.accentColor
+                    tip.backgroundColor = UIColor(red:0.81, green: 0.89, blue: 0.51, alpha: 1.0)
                     return tip
                 case .Dump:
                     tip = EasyTipView(text: NSLocalizedString("Prompt.Tooltip.Dump", comment: ""))
@@ -46,7 +46,7 @@ class TooltipManager {
                     return tip
                 case .Image:
                     tip = EasyTipView(text: NSLocalizedString("Prompt.Tooltip.Image", comment: ""))
-                    tip.backgroundColor = UIColorUtil.accentColor
+                    tip.backgroundColor = UIColor(red:0.89, green: 0.53, blue: 0.57, alpha: 1.0)
                     return tip
                 case .Nomore:
                     return nil

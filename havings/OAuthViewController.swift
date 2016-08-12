@@ -10,14 +10,38 @@ import UIKit
 
 class OAuthViewController: UIViewController, UIWebViewDelegate {
     
+    enum OAuthAccount: String {
+        case Twitter = "twitter"
+        case Facebook = "facebook"
+        case Instagram = "instagram"
+        case Hatena = "hatena"
+        
+        func getUrl() -> String {
+            switch self {
+            case .Twitter:
+                return "https://havings.com:9292/users/auth/twitter?origin=ios"
+            case .Facebook:
+                return "https://havings.com:9292/users/auth/facebook?origin=ios"
+            case .Instagram:
+                return "https://havings.com:9292/users/auth/instagram?origin=ios"
+            case .Hatena:
+                return "https://havings.com:9292/users/auth/hatena?origin=ios"
+            }
+        
+        }
+    }
+    
+    
     let redirectScheme : String = "ioshavings"
+    var account: OAuthAccount = .Twitter
+    
     
     @IBOutlet weak var OAuthWebView: UIWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         OAuthWebView.delegate = self
-        if let url = NSURL(string: "https://havings.com:9292/users/auth/twitter?origin=ios") {
+        if let url = NSURL(string: self.account.getUrl()) {
             let urlRequest = NSURLRequest(URL: url)
             NSURLConnection(request: urlRequest, delegate: self)!
 
@@ -47,8 +71,6 @@ class OAuthViewController: UIViewController, UIWebViewDelegate {
             if url.scheme == redirectScheme {
                 let comp: NSURLComponents? = NSURLComponents(string: request.URLString)
                 let fragments = generateDictionalyFromUrlComponents(comp!)
-                print("aaaaaa")
-                print(fragments)
                 if let token = fragments["token"], let uid = fragments["uid"], let userId = fragments["userid"] {
                     
                     signin(token: token, uid: uid, userId: userId)

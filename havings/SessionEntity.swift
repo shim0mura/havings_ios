@@ -11,6 +11,7 @@ import ObjectMapper
 
 class SessionEntity: Mappable, EntityPostable {
     
+    var name: String?
     var email: String?
     var password: String?
     var token: String?
@@ -24,6 +25,7 @@ class SessionEntity: Mappable, EntityPostable {
     }
         
     func mapping(map: Map) {
+        name <- map["name"]
         email <- map["email"]
         password <- map["password"]
         token <- map["token"]

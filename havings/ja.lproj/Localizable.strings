@@ -7,6 +7,22 @@
 */
 "welcome" = "ハローワールド！";
 
+"Prompt.UserName" = "ユーザー名";
+"Prompt.PassWord" = "パスワード(8文字以上)";
+"Prompt.Email" = "メールアドレス";
+"Prompt.Register" = "登録する";
+"Prompt.Register.Twitter" = "Twitterから登録";
+"Prompt.Register.Instagram" = "Instagramから登録";
+"Prompt.Register.Facebook" = "Facebookから登録";
+"Prompt.Register.Hatena" = "はてなから登録";
+"Prompt.Login.Twitter" = "Twitterからログイン";
+"Prompt.Login.Instagram" = "Instagramからログイン";
+"Prompt.Login.Facebook" = "Facebookからログイン";
+"Prompt.Login.Hatena" = "はてなからログイン";
+
+"Prompt.AlreadyRegister" = "登録済みの場合";
+"Prompt.Login" = "ログイン";
+
 "Format.Timer.MDHM" = "MM月dd日(%@) HH時mm分";
 "Format.Timer.YMD.WithWeekday" = "yyyy年MM月dd日(%@)";
 "Format.Timer.HM" = "HH時mm分";
@@ -342,6 +358,10 @@
 "Prompt.Tooltip.Item" = "片付けたいところにあるモノを「アイテム」として追加しましょう。\nリストにアイテムを追加することで、あなたが片付けたいところに、何があるのか把握しましょう！";
 "Prompt.Tooltip.Dump" = "「手放す」からモノを捨てた記録ができます。\n手放したアイテムの情報は後で見ることができるので、モノを捨てても、思い出やそのモノの写真を保存しておくことができます。";
 "Prompt.Tooltip.Image" = "「画像を追加」で片付けている場所の今の状態を記録してみませんか？\n片付けの進み具合を記録しておけば、後で片付けを行うときの参考になるかもしれません。";
+"Prompt.Tooltip.Form.ItemCount" = "このアイテムの数です。\n指定した数の分だけリストのグラフや分類グラフに記録されます。";
+"Prompt.Tooltip.Form.BelongList" = "このアイテムまたはリストは、ここで指定したリストの中に入ります。\n中に入れたアイテムやリストを編集した場合、その情報はリストにも伝えられ、グラフに反映されます。";
+"Prompt.Tooltip.Form.Tag" = "追加するモノの名前や種類を入力すると、モノをカテゴリに分類します。\n自分がどのカテゴリのモノをいくつ持っているかは、HOMEのグラフから確認できます。";
+"Prompt.Tooltip.Form.Garbage" = "手放したアイテムとして追加します。手放したアイテムの個数はリストに反映されなくなります。";
 
 
 "Prompt.ItemForm.RegisterAsDumpItem" = "手放したアイテムとして登録";

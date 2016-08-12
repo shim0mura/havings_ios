@@ -110,4 +110,18 @@ enum SessionValueCombination: String {
         
         return .Valid
     }
+    
+    static func isValidToSignin(mail: String?, password: String?) -> SessionValueCombination {
+        let mailResult = isMailValid(mail)
+        if mailResult != .Valid {
+            return mailResult
+        }
+        
+        let passwordResult = isPasswordValid(password)
+        if passwordResult != .Valid {
+            return passwordResult
+        }
+        
+        return .Valid
+    }
 }

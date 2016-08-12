@@ -328,7 +328,19 @@ class UserViewController: UIViewController, PostAlertUtil {
             })
             
             let logout: UIAlertAction = UIAlertAction(title: NSLocalizedString("Prompt.Setting.Choose.Logout", comment: ""), style: UIAlertActionStyle.Default, handler:{(action: UIAlertAction!) -> Void in
-                    print("defaultAction_2")
+                API.call(Endpoint.Session.SignOut) { response in
+                    switch response {
+                    case .Success(let result):
+                        print("success to logout\(result)")
+                        
+                        let tokenManager = TokenManager.sharedManager
+                        tokenManager.resetTokenAndUid()
+                        self.view.window!.rootViewController?.dismissViewControllerAnimated(false, completion: nil)
+
+                    case .Failure(let error):
+                        print("failure \(error)")
+                    }
+                }
             })
             
             

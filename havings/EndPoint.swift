@@ -15,12 +15,13 @@ class Endpoint {
     enum Session: RequestProtocol {
         typealias ResponseType = SessionEntity
         
+        case Signup(name :String, email: String, password: String)
         case Login(mail :String, password :String)
         case SignOut
      
         var method: Alamofire.Method {
             switch self {
-            case .Login:
+            case .Signup, .Login:
                 return .POST
             case .SignOut:
                 return .DELETE
@@ -29,6 +30,8 @@ class Endpoint {
         
         var path :String {
             switch self {
+            case .Signup:
+                return "/users"
             case .Login:
                 return "/users/sign_in"
             case .SignOut:
@@ -40,6 +43,10 @@ class Endpoint {
             let user = SessionEntity()
             
             switch self {
+            case .Signup(let name, let email, let password):
+                user.name = name
+                user.password = password
+                user.email = email
             case .Login(let mail, let password):
                 user.password = password
                 user.email = mail
@@ -56,7 +63,7 @@ class Endpoint {
         
         func fromJson(json: AnyObject) -> Result<ResponseType, NSError> {
             switch self {
-            case .Login:
+            case .Signup, .Login:
                 guard let value = Mapper<ResponseType>().map(json) else {
                     let errorInfo = [ NSLocalizedDescriptionKey: "Mapping object failed" , NSLocalizedRecoverySuggestionErrorKey: "Rainy days never stay." ]
                     let error = NSError(domain: "com.example.app", code: 0, userInfo: errorInfo)
@@ -64,7 +71,6 @@ class Endpoint {
                 }
                 return .Success(value)
             case .SignOut:
-                print("signout!!!")
                 return .Success(SessionEntity())
             }
             
