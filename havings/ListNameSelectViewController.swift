@@ -23,6 +23,11 @@ class ListNameSelectViewController: UIViewController {
     @IBOutlet weak var fromClosetView: TouchableUIView!
     @IBOutlet weak var selfInputView: TouchableUIView!
     @IBOutlet weak var fromCategoryView: TouchableUIView!
+
+    @IBOutlet weak var label1: UILabel!
+    
+    @IBOutlet weak var label2: UILabel!
+    @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
     
     let tagStateImage: Int = 10
     let tagStateText: Int = 15
@@ -33,11 +38,12 @@ class ListNameSelectViewController: UIViewController {
     var defaultTagByPlace: Results<TagEntity>?
     var defaultTagByCloset: Results<TagEntity>?
     var defaultTagByCategory: [Dictionary<String, [Dictionary<String, String>]>]?
-    var defaultTagStrings: [String]?
+    var defaultTags: [MultiAutoCompleteToken] = []
     
     var categoryCollapse: [Int: Bool] = [:]
     
     var selfInputCell: UITableViewCell? = nil
+    var autoCompField: AutoCompleteTextField? = nil
     weak var finishDelegate: FinishItemUpdateDelegate?
     
     deinit {
@@ -61,7 +67,7 @@ class ListNameSelectViewController: UIViewController {
         defaultTagByPlace = DefaultTagPresenter.getDefaultTagsByType(DefaultTagPresenter.TAG_TYPE_PLACE)
         defaultTagByCloset = DefaultTagPresenter.getDefaultTagsByType(DefaultTagPresenter.TAG_TYPE_CLOSET)
         defaultTagByCategory = DefaultTagPresenter.getDefaultTagNamesByCategory()
-        defaultTagStrings = DefaultTagPresenter.getDefaultTagStrings()
+        defaultTags = DefaultTagPresenter.getDefaultTags()
         
         let categoryCount = defaultTagByCategory?.count ?? 0
         for i in 0..<categoryCount {
@@ -77,20 +83,99 @@ class ListNameSelectViewController: UIViewController {
         defaultTagByPlace = nil
         defaultTagByCloset = nil
         defaultTagByCategory = nil
-        defaultTagStrings = nil
+        defaultTags = []
         // Dispose of any resources that can be recreated.
     }
     
     @IBAction func backToHome(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         selector: #selector(ListNameSelectViewController.keyboardWillBeShown(_:)),
+                                                         name: UIKeyboardWillShowNotification,
+                                                         object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self,
+                                                         selector: #selector(ListNameSelectViewController.keyboardWillBeHidden(_:)),
+                                                         name: UIKeyboardWillHideNotification,
+                                                         object: nil)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NSNotificationCenter.defaultCenter().removeObserver(self,
+                                                            name: UIKeyboardWillShowNotification,
+                                                            object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self,
+                                                            name: UIKeyboardWillHideNotification,
+                                                            object: nil)
+    }
+    
+    func keyboardWillBeShown(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            if let keyboardFrame = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue, animationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey]?.doubleValue {
+                restoreScrollViewSize()
+                
+                let convertedKeyboardFrame = self.tableView.convertRect(keyboardFrame, fromView: nil)
+                var shownY: CGFloat = 0
+                //if self.activeInput == tagInputFieldTag {
+                    let originY = self.selfInputCell!.superview?.frame.minY ?? 0
+                    // 44: textFieldの高さ
+                    shownY = originY + 44
+                
+                
+                let offsetY: CGFloat = shownY - CGRectGetMinY(convertedKeyboardFrame)
+                print(shownY)
+                print(offsetY)
+                if offsetY < 0 { return }
+                updateScrollViewSize(offsetY, duration: animationDuration)
+            }
+        }
+    }
+    
+    func keyboardWillBeHidden(notification: NSNotification) {
+        restoreScrollViewSize()
+    }
+    
+    func updateScrollViewSize(moveSize: CGFloat, duration: NSTimeInterval) {
+        UIView.beginAnimations("ResizeForKeyboard", context: nil)
+        UIView.setAnimationDuration(duration)
+        
+        let contentInsets = UIEdgeInsetsMake(0, 0, moveSize, 0)
+        self.tableView.contentInset = contentInsets
+        self.tableView.scrollIndicatorInsets = contentInsets
+        self.tableView.contentOffset = CGPointMake(0, moveSize)
+        
+        UIView.commitAnimations()
+    }
+    
+    func restoreScrollViewSize() {
+        self.tableView.contentInset = UIEdgeInsetsZero
+        self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero
+    }
 
 }
 
 extension ListNameSelectViewController: UITextFieldDelegate {
 
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        print("start")
+        self.label1.hidden = true
+        self.label2.hidden = true
+        self.containerTopConstraint.constant = -115
+        return true
+    }
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        print("resign")
+        self.label1.hidden = false
+        self.label2.hidden = false
+        self.containerTopConstraint.constant = 8
         return true
     }
 }
@@ -149,15 +234,16 @@ extension ListNameSelectViewController: UITableViewDelegate, UITableViewDataSour
             cell.accessoryType = .DisclosureIndicator
             return cell
         case .SelfInput:
-            if selfInputCell == nil {
+            //if selfInputCell == nil {
+                
                 selfInputCell = self.tableView.dequeueReusableCellWithIdentifier("selfInputCell")! as UITableViewCell
                 
                 let textField = selfInputCell!.contentView.viewWithTag(tagSelfInputTextField) as! AutoCompleteTextField
-                textField.autoCompleteStrings = defaultTagStrings
+                textField.autoCompleteTokens = defaultTags.map({$0 as MultiAutoCompleteToken})
                 textField.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
                 textField.delegate = self
                 selfInputCell!.selectionStyle = UITableViewCellSelectionStyle.None
-            }
+            //}
             
             return selfInputCell!
         }

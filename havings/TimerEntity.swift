@@ -183,7 +183,7 @@ class TimerEntity: Mappable {
         let currentComp = calendar.components([.Day, .Hour, .Minute, .Weekday], fromDate: currentDate)
         
         nextDueAt = currentDate
-        latestCalcAt = currentDate
+        latestCalcAt = NSDate(year: comp.year, month: comp.month, day: comp.day, hour: comp.hour, minute: comp.minute, second: 0, nanosecond: 0, region: gregorian1)
         isRepeating = false
         repeatBy = 0
         repeatMonthInterval = 0

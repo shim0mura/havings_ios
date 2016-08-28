@@ -251,8 +251,7 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
+    }    
     
     @IBAction func addTimer(sender: AnyObject) {
         switch self.timerState {
@@ -856,8 +855,11 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let weekday = DateTimeFormatter.getWeekday(timer.nextDueAt!)
         let formatStr = String(format: NSLocalizedString("Format.Timer.MDHM", comment: ""), weekday)
         timerName.text = timer.name
-        timerRepeat.text = timer.getIntervalString() + NSLocalizedString("Prompt.Timer.NoticeAt", comment: "") + " " + timer.getRemainingTimeString()
-        //timerRemaining.text = timer.getRemainingTimeString()
+        if let rep = timer.isRepeating where rep == true {
+            timerRepeat.text = timer.getIntervalString() + NSLocalizedString("Prompt.Timer.NoticeAt", comment: "") + " " + timer.getRemainingTimeString()
+        }else{
+            timerRepeat.text = timer.getIntervalString() + " " + timer.getRemainingTimeString()
+        }
         timerAlarm.text = DateTimeFormatter.getStrFromDate(timer.nextDueAt!, format: formatStr) + noticePrompt
         timerProgress.progress = percentage
         timerProgress.tintColor = timer.getProgressBarColor(percentage)

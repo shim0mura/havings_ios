@@ -136,6 +136,7 @@ public class AutoCompleteTextField:UITextField {
     
     //MARK: - Private Methods
     private func reload(){
+        //print(autoCompleteTableView)
         //if enableAttributedText{
             //let attrs = [NSForegroundColorAttributeName:autoCompleteTextColor, NSFontAttributeName:UIFont.systemFontOfSize(12.0)]
             /*
@@ -143,7 +144,6 @@ public class AutoCompleteTextField:UITextField {
                 attributedAutoCompleteStrings.removeAll(keepCapacity: false)
             }
             */
-        
         autoCompleteEntries = []
         inputTextTokens = text!.componentsSeparatedByCharactersInSet(wordTokenizeChars)
         

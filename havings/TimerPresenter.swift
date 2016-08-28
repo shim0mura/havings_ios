@@ -32,7 +32,12 @@ class TimerPresenter {
         let weekday = DateTimeFormatter.getWeekday(timer.nextDueAt!)
         let formatStr = String(format: NSLocalizedString("Format.Timer.MDHM", comment: ""), weekday)
         timerName.text = timer.name
-        timerRepeat.text = timer.getIntervalString() + NSLocalizedString("Prompt.Timer.NoticeAt", comment: "") + " " + timer.getRemainingTimeString()
+        if let rep = timer.isRepeating where rep == true {
+            timerRepeat.text = timer.getIntervalString() + NSLocalizedString("Prompt.Timer.NoticeAt", comment: "") + " " + timer.getRemainingTimeString()
+        }else{
+            timerRepeat.text = timer.getIntervalString() + " " + timer.getRemainingTimeString()
+        }
+
         //timerRemaining.text = timer.getRemainingTimeString()
         timerAlarm.text = DateTimeFormatter.getStrFromDate(timer.nextDueAt!, format: formatStr) + noticePrompt
         timerProgress.progress = percentage

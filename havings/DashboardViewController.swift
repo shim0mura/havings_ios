@@ -10,6 +10,7 @@ import UIKit
 import Charts
 import FSCalendar
 import EasyTipView
+import RealmSwift
 
 class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegate {
 
@@ -150,13 +151,13 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
             }
         }
         
-        DefaultTagPresenter.migrateTag()
+        //DefaultTagPresenter.migrateTag()
 
         setUpLeftBarButton()
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
         
-        
         showTooltip()
+        DefaultTagPresenter.setDefaultTagConf()
 
     }
 
@@ -416,6 +417,11 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
                     if entries.isEmpty {
                         graph.noDataText = NSLocalizedString("Prompt.Dashboard.PieChart.Empty", comment: "")
                         graph.clear()
+                        
+                        let emptyCell = self.tableView.dequeueReusableCellWithIdentifier("empty")! as UITableViewCell
+                        let label = emptyCell.viewWithTag(self.emptyLabelTag) as! UILabel
+                        label.text = NSLocalizedString("Prompt.Dashboard.PieChart.Empty", comment: "")
+                        return emptyCell
                     }else{
                         let dataSet = PieChartDataSet(yVals:entries, label: "")
                         dataSet.setColors(colors, alpha: 1.0)

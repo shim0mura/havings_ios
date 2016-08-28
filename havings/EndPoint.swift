@@ -654,4 +654,44 @@ class Endpoint {
         }
     }
     
+    enum DeviceToken: RequestProtocol {
+        typealias ResponseType = DeviceTokenEntity
+        
+        case Post(tokenEntity: DeviceTokenEntity)
+        case Update(tokenEntity: DeviceTokenEntity)
+        case ChangeState(value: Bool)
+        
+        var method: Alamofire.Method {
+            switch self {
+            case .Post:
+                return .POST
+            case .Update, .ChangeState:
+                return .PUT
+            }
+        }
+        
+        var path: String {
+            switch self {
+            case .Post:
+                return "/device_token/1/"
+            case .Update:
+                return "/device_token/1/"
+            case .ChangeState(let value):
+                let v = value == true ? 1 : 0
+                return "/device_token/state/1/\(v)"
+            }
+        }
+        
+        var parameters: [String : AnyObject]? {
+            switch self {
+            case .Post(let deviceToken):
+                return ["device_token": deviceToken.toJSON()]
+            case  .Update(let deviceToken):
+                return ["device_token": deviceToken.toJSON()]
+            case .ChangeState:
+                return nil
+            }
+        }
+    }
+    
 }

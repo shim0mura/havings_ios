@@ -37,7 +37,7 @@ class AddFormViewController: UIViewController {
     var listEntities: [CanBelongListEntity] = []
     var belongList: CanBelongListEntity? = nil
     
-    var defaultTagStrings: [String]?
+    var defaultTags: [MultiAutoCompleteToken] = []
     
     var itemTypePrompt: String = NSLocalizedString("Prompt.Item", comment: "")
     
@@ -52,6 +52,7 @@ class AddFormViewController: UIViewController {
     @IBOutlet weak var addCameraContainer: UIView!
     @IBOutlet weak var addCameraHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var tagShownLeadConstraint: NSLayoutConstraint!
     @IBOutlet weak var addGalleryContainer: UIView!
     @IBOutlet weak var addGalleryHeightConstraint: NSLayoutConstraint!
     
@@ -232,19 +233,17 @@ class AddFormViewController: UIViewController {
             self.title = NSLocalizedString("Prompt.Action.AddList", comment: "")
         }else if typeAdd && !isList{
             self.title = NSLocalizedString("Prompt.Action.AddItem", comment: "")
-
         }else if !typeAdd && isList{
             self.title = NSLocalizedString("Prompt.Action.EditList", comment: "")
-
         }else{
             self.title = NSLocalizedString("Prompt.Action.EditItem", comment: "")
 
         }
         
-        defaultTagStrings = DefaultTagPresenter.getDefaultTagStrings()
+        defaultTags = DefaultTagPresenter.getDefaultTags()
         
-        nameField.autoCompleteStrings = defaultTagStrings
-        tagInputField.autoCompleteStrings = defaultTagStrings
+        nameField.autoCompleteTokens = defaultTags.map({$0 as MultiAutoCompleteToken})
+        tagInputField.autoCompleteTokens = defaultTags.map({$0 as MultiAutoCompleteToken})
         
         nameField.onTextChange = {[weak self] str in
             let height = self!.nameField.autoCompleteTableView?.frame.height ?? 0
@@ -264,9 +263,19 @@ class AddFormViewController: UIViewController {
                 tagShowingView.addTag($0)
             }
         }
+        
+        if let t = tagInputField.autoCompleteTableView {
+            let screenSize = UIScreen.mainScreen().bounds.size
+
+            var frame = t.frame
+            frame.origin.x = 85
+            frame.size.width = screenSize.width - (frame.origin.x + 10)
+            t.frame = frame
+        }
+
         tagInputField.onTextChange = {[weak self] str in
-            self?.tagContainer.removeBorder()
-            self?.tagContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+            self?.memoContainer.removeBorder()
+            self?.memoContainer.addTopBorderWithColor(UIColorUtil.borderColor, width: 1)
         }
         //tagInputField.text? = self.tags?.joinWithSeparator(" ") ?? ""
         
@@ -285,7 +294,8 @@ class AddFormViewController: UIViewController {
         self.counterContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
         self.belongListContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
         self.privateTypeContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
-        self.tagContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+        //self.tagContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+        self.memoContainer.addTopBorderWithColor(UIColorUtil.borderColor, width: 1)
         self.memoContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
         self.garbageContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
         
@@ -332,7 +342,7 @@ class AddFormViewController: UIViewController {
                     let originY = self.tagInputField.superview?.frame.minY ?? 0
                     // 44: textFieldの高さ
                     // 100: autoCompのテーブルの高さ(3行分)
-                    shownY = originY + 44 + 100
+                    shownY = originY + 44 + 100 + self.scrollContentView.contentOffset.y
                     
                 }else if self.activeInput == memoInputFieldTag {
                     let originY = self.memoField.superview?.frame.maxY ?? 0
@@ -343,6 +353,9 @@ class AddFormViewController: UIViewController {
                 }
                 
                 let offsetY: CGFloat = shownY - CGRectGetMinY(convertedKeyboardFrame)
+                print(self.scrollContentView.contentOffset.y)
+                //print(shownY)
+                //print(offsetY)
                 if offsetY < 0 { return }
                 updateScrollViewSize(offsetY, duration: animationDuration)
             }
@@ -576,7 +589,8 @@ class AddFormViewController: UIViewController {
             print("show input!")
             tagInputField.becomeFirstResponder()
             self.marginBetweenTagField.constant = 100 + 8
-
+            self.tagHelpImage.hidden = true
+            self.tagShownLeadConstraint.constant = -32
         }else {
             print("show tag!")
             print(self.tagInputField.text)
@@ -588,7 +602,8 @@ class AddFormViewController: UIViewController {
                 }
             }
             self.marginBetweenTagField.constant = 8
-
+            self.tagHelpImage.hidden = false
+            self.tagShownLeadConstraint.constant = 8
         }
         
         self.isTagViewHidden = hideState

@@ -11,12 +11,60 @@ import RealmSwift
 
 class DefaultTagPresenter {
     
-    static let TAG_TYPE_PLACE: Int = 1
+    static let TAG_TYPE_PLACE: Int = 0
     static let TAG_TYPE_CATEGORY: Int = 3
     static let TAG_TYPE_ITEM: Int = 2
-    static let TAG_TYPE_CLOSET: Int = 4
+    static let TAG_TYPE_CLOSET: Int = 1
     
     static let MAX_SUBTEXT_TAG_COUNT = 3
+    
+    static func exportRealmFromCSV(){
+        
+        // csvからrealmファイル出力
+        print("!!!!!!!!!!!!!")
+        print(NSBundle.mainBundle().pathForResource("tag", ofType: "csv"))
+        if let csvPath = NSBundle.mainBundle().pathForResource("tag", ofType: "csv") {
+            print("!!!!!!!!")
+            var csvString=""
+            do{
+                csvString = try NSString(contentsOfFile: csvPath, encoding: NSUTF8StringEncoding) as String
+            } catch let error as NSError {
+                print(error.localizedDescription)
+            }
+            
+            let realm = try! Realm()
+            
+            try! realm.write {
+                realm.deleteAll()
+            }
+            
+            csvString.enumerateLines { (line, stop) -> () in
+                // 保存先のパスを出力しておく
+                print(Realm.Configuration.defaultConfiguration)
+                
+                let tag = TagEntity()
+                tag.id = Int(line.componentsSeparatedByString(",")[0])!
+                tag.name = line.componentsSeparatedByString(",")[1]
+                tag.yomiJp = line.componentsSeparatedByString(",")[2]
+                tag.yomiRoma = line.componentsSeparatedByString(",")[3]
+                tag.parentId = Int(line.componentsSeparatedByString(",")[4])!
+                tag.priority = Int(line.componentsSeparatedByString(",")[5])!
+                tag.nest = Int(line.componentsSeparatedByString(",")[6])!
+                tag.tagType = Int(line.componentsSeparatedByString(",")[7])!
+                
+                try! realm.write {
+                    realm.add(tag)
+                }
+            }
+        }
+        
+    }
+    
+    static func setDefaultTagConf(){
+        let seedFileURL = NSBundle.mainBundle().URLForResource("tag", withExtension: "realm")
+        let config = Realm.Configuration(fileURL: seedFileURL, readOnly: true)
+        Realm.Configuration.defaultConfiguration = config
+    }
 
     static func migrateTag(){
         
@@ -46,7 +94,7 @@ class DefaultTagPresenter {
             .filter("isDeleted == %@", false)
         
         parentTags.forEach{
-            let childs = getChildTags($0)
+            let childs = getChildTags($0, nest: 0)
             result.append([$0.name!: childs])
         }
         
@@ -71,7 +119,7 @@ class DefaultTagPresenter {
         }
     }
     
-    private static func getChildTags(parentTag: TagEntity) -> [Dictionary<String, String>]{
+    private static func getChildTags(parentTag: TagEntity, nest: Int) -> [Dictionary<String, String>]{
         let realm = try! Realm()
         
         var result: [Dictionary<String, String>] = []
@@ -96,8 +144,8 @@ class DefaultTagPresenter {
         result.append(dict)
         
         childTags.forEach{
-            if $0.tagType == TAG_TYPE_CATEGORY {
-                result += getChildTags($0)
+            if $0.tagType == TAG_TYPE_CATEGORY && nest < 1 {
+                result += getChildTags($0, nest: nest + 1)
             }
         }
         

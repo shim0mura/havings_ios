@@ -28,7 +28,100 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().barTintColor = UIColorUtil.darkMainColor
         UITabBar.appearance().tintColor = UIColor.whiteColor()
 
+        
+        if (UIDevice.currentDevice().systemVersion as NSString).floatValue >= 8.0 {
+            // iOS8以上
+            let type : UIUserNotificationType = [.Alert, .Badge, .Sound]
+            let setting = UIUserNotificationSettings(forTypes: type, categories: nil)
+            //通知のタイプを設定
+            application.registerUserNotificationSettings(setting)
+            //DevoceTokenを要求
+            application.registerForRemoteNotifications()
+        }
+        
         return true
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        print("deviceToken = \(deviceToken)")
+        
+        let tokenManager = TokenManager.sharedManager
+
+        if let token = tokenManager.getDeviceToken() {
+            
+            let currentToken: String = String(deviceToken)
+            
+            if token.isEmpty {
+                print("device token not detected")
+                print(deviceToken)
+                
+                let tokenEntity = DeviceTokenEntity()
+                tokenEntity.token = String(deviceToken)
+                API.call(Endpoint.DeviceToken.Post(tokenEntity: tokenEntity)){ response in
+                    switch response {
+                    case .Success( _):
+                        tokenManager.setDeviceToken(tokenEntity.token!)
+                    case .Failure(let error):
+                        print("post failed")
+                        print(error)
+                    }
+                }
+            
+            }else{
+                
+                print("device token detected")
+                print(token)
+                print(currentToken)
+                
+                if token != currentToken {
+                    let tokenEntity = DeviceTokenEntity()
+                    tokenEntity.token = currentToken
+                    API.call(Endpoint.DeviceToken.Update(tokenEntity: tokenEntity)){ response in
+                        switch response {
+                        case .Success( _):
+                            tokenManager.setDeviceToken(tokenEntity.token!)
+                        case .Failure(let error):
+                            print("failed")
+                            print(error)
+                        }
+                    }
+                }
+            }
+            
+        }
+        
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        print("Failed to get token, error: \(error)")
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+                
+        switch application.applicationState {
+        case .Inactive:
+            if let id = userInfo["item"] {
+                print(id)
+                let itemId = id as! Int
+                let notification = NSNotification(
+                    name:"timer",
+                    object: nil,
+                    userInfo:[
+                        "itemId": itemId,
+                    ]
+                )
+                    
+                NSNotificationCenter.defaultCenter().postNotification(notification)
+            }
+            
+            break
+        case .Active:
+            // アプリ起動時にPush通知を受信したとき
+            break
+        case .Background:
+            // アプリがバックグラウンドにいる状態でPush通知を受信したとき
+            break
+        }
     }
 
     func applicationWillResignActive(application: UIApplication) {

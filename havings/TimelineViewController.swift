@@ -366,7 +366,7 @@ extension TimelineViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate
     }
     
     func titleForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let text: String = NSLocalizedString("Prompt.Timeline.Empty", comment: "")
+        let text: String = NSLocalizedString("Prompt.Timeline.isEmpty", comment: "")
         
         let font = UIFont.systemFontOfSize(16)
         return NSAttributedString(string: text, attributes: [NSFontAttributeName: font, NSForegroundColorAttributeName : UIColor.darkGrayColor()])

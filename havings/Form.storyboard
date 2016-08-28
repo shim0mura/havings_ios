@@ -319,9 +319,12 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
+                        <outlet property="containerTopConstraint" destination="xvg-Er-9rE" id="SYn-tU-hlA"/>
                         <outlet property="fromCategoryView" destination="9B1-an-Mda" id="OvV-hh-ctu"/>
                         <outlet property="fromClosetView" destination="JtB-gZ-3Ux" id="pS3-bm-VH9"/>
                         <outlet property="fromPlaceView" destination="RFa-w4-rfd" id="pIu-di-RDj"/>
+                        <outlet property="label1" destination="7iD-Ao-WV0" id="CqV-yR-hXd"/>
+                        <outlet property="label2" destination="qTF-hm-3Y3" id="G5W-dC-OEU"/>
                         <outlet property="selfInputView" destination="g40-3s-P11" id="riB-o5-Kyx"/>
                         <outlet property="tableView" destination="fhg-p5-Ipe" id="pM9-hg-bBS"/>
                     </connections>
@@ -343,14 +346,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="housekeeping" translatesAutoresizingMaskIntoConstraints="NO" id="u1k-u8-HYY">
-                                <rect key="frame" x="157" y="268" width="100" height="100"/>
+                                <rect key="frame" x="167" y="268" width="80" height="80"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="Rs9-Ps-FTv"/>
-                                    <constraint firstAttribute="height" constant="100" id="cTd-fV-2cn"/>
+                                    <constraint firstAttribute="width" constant="80" id="Rs9-Ps-FTv"/>
+                                    <constraint firstAttribute="height" constant="80" id="cTd-fV-2cn"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="片付けたいところの「今」を記録しよう" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Wf-Gu-WJE" userLabel="promotionText1">
-                                <rect key="frame" x="28" y="384" width="358" height="21"/>
+                                <rect key="frame" x="28" y="364" width="358" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -359,7 +362,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c95-ID-S82">
-                                <rect key="frame" x="28" y="413" width="358" height="67"/>
+                                <rect key="frame" x="28" y="393" width="358" height="67"/>
                                 <string key="text">片付けを始める前に、その場所が今どうなっているかを写真で記録しておきましょう。
  片付けを始めた時の状態が分かれば、後でどれだけ片付けが進んだかがわかりやすくなるはずです！</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -370,7 +373,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FqT-bc-gq8" userLabel="CameraContainer">
-                                <rect key="frame" x="77" y="510" width="100" height="100"/>
+                                <rect key="frame" x="77" y="490" width="100" height="100"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_camera_36dp" translatesAutoresizingMaskIntoConstraints="NO" id="lDf-4u-U1Y">
                                         <rect key="frame" x="18" y="8" width="64" height="64"/>
@@ -418,7 +421,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ub6-NX-tjf" userLabel="GalleryContainer">
-                                <rect key="frame" x="237" y="510" width="100" height="100"/>
+                                <rect key="frame" x="237" y="490" width="100" height="100"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_photo_36dp" translatesAutoresizingMaskIntoConstraints="NO" id="53y-Aj-Jd6">
                                         <rect key="frame" x="18" y="8" width="64" height="64"/>
@@ -461,7 +464,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="c95-ID-S82" secondAttribute="trailing" constant="8" id="6UN-mN-gg6"/>
                             <constraint firstItem="FqT-bc-gq8" firstAttribute="trailing" secondItem="c95-ID-S82" secondAttribute="centerX" constant="-30" id="7gw-3h-Bgo"/>
                             <constraint firstItem="FqT-bc-gq8" firstAttribute="leading" secondItem="XMQ-GP-cHk" secondAttribute="leading" constant="156" id="8Mp-OR-wej"/>
-                            <constraint firstItem="u1k-u8-HYY" firstAttribute="bottom" secondItem="XMQ-GP-cHk" secondAttribute="centerY" id="9Ku-Kf-zoi"/>
+                            <constraint firstItem="u1k-u8-HYY" firstAttribute="bottom" secondItem="XMQ-GP-cHk" secondAttribute="centerY" constant="-20" id="9Ku-Kf-zoi"/>
                             <constraint firstItem="5Wf-Gu-WJE" firstAttribute="top" secondItem="u1k-u8-HYY" secondAttribute="bottom" constant="16" id="EjX-j2-k6h"/>
                             <constraint firstItem="sgR-Lj-NWp" firstAttribute="top" secondItem="FqT-bc-gq8" secondAttribute="bottom" constant="117" id="Gek-wX-vaq"/>
                             <constraint firstItem="c95-ID-S82" firstAttribute="leading" secondItem="XMQ-GP-cHk" secondAttribute="leadingMargin" constant="8" id="Gj3-39-qux"/>
@@ -1455,6 +1458,7 @@
                         <outlet property="tagHelpImage" destination="9rh-7X-m9U" id="MZC-T7-lbs"/>
                         <outlet property="tagInputField" destination="NUT-lD-orf" id="8Zj-QA-pTo"/>
                         <outlet property="tagShowingView" destination="utD-GW-tz9" id="fgr-Zd-5b4"/>
+                        <outlet property="tagShownLeadConstraint" destination="AQf-Sa-R4t" id="hfq-Tp-DIU"/>
                         <outlet property="tagViewHeightConstraint" destination="5EV-ff-ZhA" id="wCz-fB-a7L"/>
                     </connections>
                 </viewController>

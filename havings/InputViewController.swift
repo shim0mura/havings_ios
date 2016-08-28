@@ -82,6 +82,9 @@ class InputViewController: UIViewController {
             self.userId = ui
         }
         
+        self.tableView.tableFooterView = UIView()
+        DefaultTagPresenter.setDefaultTagConf()
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -197,6 +200,7 @@ extension InputViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
     }
+    
 }
 
 extension InputViewController: FinishItemUpdateDelegate {

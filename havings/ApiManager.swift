@@ -20,7 +20,13 @@ import KeychainAccess
 class ApiManager {
     
     static func getBaseUrl() -> String {
+        #if DEBUG
         return "https://havings.com:9292"
+        #elseif STAGING
+        return "https://staging.havings.me" 
+        #else
+        return "https://havings.me"
+        #endif
     }
     
     static let sharedInstance: Alamofire.Manager = {
@@ -62,7 +68,13 @@ protocol RequestProtocol: URLRequestConvertible {
 extension RequestProtocol {
     
     var baseURL: String {
-        return "https://havings.com:9292"
+        #if DEBUG
+            return "https://havings.com:9292"
+        #elseif STAGING
+            return "https://staging.havings.me"
+        #else
+            return "https://havings.me"
+        #endif
     }
     
     var method: Alamofire.Method {
@@ -168,6 +180,7 @@ class TokenManager {
     private static let keyToToken : String = "accesstoken"
     private static let keyToUid : String = "uid"
     private static let keyToUserId: String = "userid"
+    private static let keyToDeviceToken : String = "devicetoken"
     internal static let service : String = "work.t_s.havings"
     
     private func setTokenAndUid(token t :String, uid u :String, userId ui: Int){
@@ -186,6 +199,21 @@ class TokenManager {
     
     func getUserId() -> Int? {
         return userId
+    }
+    
+    func getDeviceToken() -> String? {
+        let keychain = Keychain(service: TokenManager.service)
+        do {
+            let t : String? = try keychain.getString(TokenManager.keyToDeviceToken)
+            return t
+        }catch{
+            return nil
+        }
+    }
+    
+    func setDeviceToken(deviceToken: String){
+        let keychain = Keychain(service: TokenManager.service)
+        keychain[TokenManager.keyToDeviceToken] = deviceToken
     }
     
     func saveTokenAndUid(token t :String, uid u :String, userId ui :Int){

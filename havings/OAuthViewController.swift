@@ -17,17 +17,19 @@ class OAuthViewController: UIViewController, UIWebViewDelegate {
         case Hatena = "hatena"
         
         func getUrl() -> String {
+            let base: String = ApiManager.getBaseUrl()
+            let auth: String
             switch self {
             case .Twitter:
-                return "https://havings.com:9292/users/auth/twitter?origin=ios"
+                auth = "/users/auth/twitter?origin=ios"
             case .Facebook:
-                return "https://havings.com:9292/users/auth/facebook?origin=ios"
+                auth = "/users/auth/facebook?origin=ios"
             case .Instagram:
-                return "https://havings.com:9292/users/auth/instagram?origin=ios"
+                auth = "/users/auth/instagram?origin=ios"
             case .Hatena:
-                return "https://havings.com:9292/users/auth/hatena?origin=ios"
+                auth = "/users/auth/hatena?origin=ios"
             }
-        
+            return base + auth
         }
     }
     
@@ -41,11 +43,17 @@ class OAuthViewController: UIViewController, UIWebViewDelegate {
         super.viewDidLoad()
 
         OAuthWebView.delegate = self
+        
+        print("start")
         if let url = NSURL(string: self.account.getUrl()) {
             let urlRequest = NSURLRequest(URL: url)
-            NSURLConnection(request: urlRequest, delegate: self)!
+            print("request")
+            //NSURLConnection(request: urlRequest, delegate: self)!
+            print("load")
 
             OAuthWebView.loadRequest(urlRequest)
+            print("end")
+
             
         }
         // Do any additional setup after loading the view.
@@ -67,6 +75,7 @@ class OAuthViewController: UIViewController, UIWebViewDelegate {
     }
     
     func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        print(request.URLString)
         if let url = NSURL(string: request.URLString) {
             if url.scheme == redirectScheme {
                 let comp: NSURLComponents? = NSURLComponents(string: request.URLString)

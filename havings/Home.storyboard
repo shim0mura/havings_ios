@@ -1083,10 +1083,10 @@
             </objects>
             <point key="canvasLocation" x="-358" y="4220"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Home Tab View Controller-->
         <scene sceneID="LbH-ph-hrs">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="ekl-OO-nnZ" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="ekl-OO-nnZ" customClass="HomeTabViewController" customModule="havings" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="k5v-4b-dD2">

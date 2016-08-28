@@ -70,9 +70,44 @@ UINavigationControllerDelegate {
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(AddFormViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
         print("saved")
+        //dismissViewControllerAnimated(true, completion: nil)
+        
+        print(image)
+        let scale = 800 / image.size.width
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSizeMake(800, newHeight))
+        image.drawInRect(CGRectMake(0, 0, 800, newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        print(newImage)
+        
+        let next: AddFormViewController? = self.storyboard?.instantiateViewControllerWithIdentifier("add_form") as? AddFormViewController
+        guard let addFormVC = next else {
+            return
+        }
+        
+        let currentDate = NSDate()
+        let itemEntity = ItemEntity()
+        itemEntity.isList = true
+        itemEntity.name = self.listName
+        itemEntity.tags = self.listTags
+        itemEntity.imageDataForPost = []
+        
+        let imageEntity = ItemImageEntity()
+        imageEntity.imageByUIImage = newImage
+        imageEntity.setBase64Data()
+        imageEntity.addedDate = currentDate
+        //addFormVC.selectedImages?.append(image!)
+        //images.append(image!)
+        itemEntity.imageDataForPost?.append(imageEntity)
+        
+        addFormVC.item = itemEntity
+        addFormVC.finishDelegate = self.finishDelegate
+        
+        self.navigationController?.pushViewController(addFormVC, animated: true)
+        
         dismissViewControllerAnimated(true, completion: nil)
-        
-        
         // TODO: move to form
     }
     
