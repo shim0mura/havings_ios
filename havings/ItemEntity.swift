@@ -22,6 +22,7 @@ class ItemEntity: Mappable, EntityPostable {
     var garbageReason: String?
     var count: Int?
     var privateType: Int?
+    var path: String?
     var owningItems: [ItemEntity]?
     var hasNextItem: Bool?
     var nextPageForItem: Int?
@@ -60,6 +61,7 @@ class ItemEntity: Mappable, EntityPostable {
         garbageReason <- map["garbage_reason"]
         count <- map["count"]
         privateType <- map["private_type"]
+        path <- map["path"]
         owningItems <- map["owning_items"]
         hasNextItem <- map["has_next_item"]
         nextPageForItem <- map["next_page_for_item"]

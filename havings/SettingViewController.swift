@@ -12,6 +12,8 @@ class SettingViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
+    private let switchTag: Int = 10
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,6 +23,7 @@ class SettingViewController: UIViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.tableFooterView = UIView()
         self.title = NSLocalizedString("Prompt.Setting.Notification", comment: "")
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,17 +36,9 @@ class SettingViewController: UIViewController {
     }
 
     
-    @IBAction func notificationConditionChanged(sender: UISwitch) {
-        let application = UIApplication.sharedApplication()
-        let settings = application.currentUserNotificationSettings()
-        // http://qiita.com/yutao727/items/394c1e09af62719807be
-        // http://qiita.com/malt/items/fc138ec8e5a7b2372109
-        if settings!.types == UIUserNotificationType.None {
-            print("許可してよ！")
-        }else{
-            print(settings)
-            print(settings?.types)
-        }
+    @IBAction func toSetting(sender: AnyObject) {
+        let url = NSURL(string:UIApplicationOpenSettingsURLString)!
+        UIApplication.sharedApplication().openURL(url)
     }
 
 }
@@ -56,6 +51,19 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell : UITableViewCell = self.tableView.dequeueReusableCellWithIdentifier("notification")!
+        
+        let application = UIApplication.sharedApplication()
+        let settings = application.currentUserNotificationSettings()
+        
+        let state = cell.viewWithTag(self.switchTag) as! UISwitch
+        if settings!.types == UIUserNotificationType.None {
+            state.on = false
+        }else{
+            state.on = true
+        }
+        state.enabled = false
+        
+        cell.selectionStyle = .None
         return cell
     }
 }

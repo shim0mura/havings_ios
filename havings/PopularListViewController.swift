@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
-class PopularListViewController: UIViewController {
+class PopularListViewController: UIViewController, BannerUtil {
 
     @IBOutlet weak var tableView: UITableView!
     var pickup: PickupEntity = PickupEntity()
+    
+    @IBOutlet weak var bannerView: GADBannerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +27,8 @@ class PopularListViewController: UIViewController {
         self.tableView.registerNib(UINib(nibName: "ItemTableViewCell", bundle: nil), forCellReuseIdentifier: "itemCell")
         self.title = NSLocalizedString("Prompt.PopularList", comment: "")
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+        
+        showAd(bannerView)
     }
 
     override func didReceiveMemoryWarning() {

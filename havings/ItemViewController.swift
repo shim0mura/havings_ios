@@ -9,8 +9,11 @@
 import UIKit
 import XLActionController
 import Alamofire
+import Social
+import GoogleMobileAds
 
-class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, PostAlertUtil {
+
+class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, PostAlertUtil, ShareSheet, BannerUtil {
     
     private enum SegmentState {
         case OwningItems
@@ -123,7 +126,14 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     private var headerCell: UITableViewCell? = nil
     
+    private var documentInteractionController = UIDocumentInteractionController()
+
+    
     @IBOutlet var baseTable: UITableView!
+    
+    @IBOutlet weak var bannerView: GADBannerView!
+    
+    
     var segmentControll : UISegmentedControl?{
         didSet{
             if self.itemType == .Item {
@@ -246,6 +256,7 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
 
+        showAd(bannerView)
     }
 
     override func didReceiveMemoryWarning() {
@@ -297,6 +308,8 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let next: CommentViewController = storyboard.instantiateInitialViewController() as! CommentViewController
             next.itemId = id
             next.itemName = name
+            print(self.itemEntity)
+            print(self.itemEntity?.name)
             self.navigationController?.pushViewController(next, animated: true)
         }
     }
@@ -312,7 +325,9 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func tapShare(sender: AnyObject) {
-        print("ssss")
+        if let item = self.itemEntity {
+            showShareSheet(item.name!, itemPath: item.path!)
+        }        
     }
     
     @IBAction func tapEtcMenu(sender: AnyObject) {
@@ -765,7 +780,9 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let storyboard: UIStoryboard = UIStoryboard(name: "Comment", bundle: nil)
         let next: CommentViewController = storyboard.instantiateInitialViewController() as! CommentViewController
         next.itemId = self.itemEntity!.id!
-        
+        next.itemName = self.itemEntity!.name!
+        print(self.itemEntity)
+        print(self.itemEntity?.name)
         self.navigationController?.pushViewController(next, animated: true)
     }
     

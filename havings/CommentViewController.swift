@@ -52,7 +52,9 @@ class CommentViewController: UIViewController, PostAlertUtil {
             self.userId = ui
         }
         
+        print(self.itemName)
         self.title = String(format: NSLocalizedString("Prompt.Comment", comment: ""), self.itemName)
+        
         
         API.callArray(Endpoint.Comment.Get(itemId: self.itemId)){response in
             self.beforeLoad = false

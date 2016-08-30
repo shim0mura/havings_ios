@@ -9,8 +9,10 @@
 import UIKit
 import ToastSwiftFramework
 import EasyTipView
+import GoogleMobileAds
 
-class InputViewController: UIViewController {
+
+class InputViewController: UIViewController, BannerUtil {
 
     enum ActionType: Int {
         case CreateList = 0
@@ -67,6 +69,7 @@ class InputViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var bannerView: GADBannerView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -84,6 +87,7 @@ class InputViewController: UIViewController {
         
         self.tableView.tableFooterView = UIView()
         DefaultTagPresenter.setDefaultTagConf()
+        showAd(bannerView)
 
     }
 

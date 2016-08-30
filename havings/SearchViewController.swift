@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
-class SearchViewController: UIViewController {
+class SearchViewController: UIViewController, BannerUtil {
 
     private var searchController = UISearchController(searchResultsController: nil)
     private var defaultTags: [MultiAutoCompleteToken] = []
@@ -27,6 +28,7 @@ class SearchViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var bannerView: GADBannerView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -60,6 +62,8 @@ class SearchViewController: UIViewController {
                 print("failure \(error)")
             }
         }
+        
+        showAd(bannerView)
     }
 
     override func didReceiveMemoryWarning() {

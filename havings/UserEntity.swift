@@ -16,6 +16,7 @@ class UserEntity: Mappable {
     var image: String?
     var count: Int?
     var description: String?
+    var path: String?
     var followingCount: Int?
     var followerCount: Int?
     var favoritesCount: Int?
@@ -41,6 +42,7 @@ class UserEntity: Mappable {
         image <- map["image"]
         count <- map["count"]
         description <- map["description"]
+        path <- map["path"]
         followingCount <- map["following_count"]
         followerCount <- map["follower_count"]
         favoritesCount <- map["favorites_count"]

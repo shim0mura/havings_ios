@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="I0I-1V-RLD">
-                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="666"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="hotTag" rowHeight="96" id="QLB-ap-ekP">
@@ -39,8 +39,8 @@
                                                     </constraints>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="wlb-4D-wHi"/>
                                                             <exclude reference="2TM-bp-Ds1"/>
+                                                            <exclude reference="wlb-4D-wHi"/>
                                                         </mask>
                                                     </variation>
                                                 </imageView>
@@ -164,16 +164,16 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
-                                                    <exclude reference="RVM-Nh-d4f"/>
                                                     <exclude reference="17o-NT-jbN"/>
-                                                    <exclude reference="LOK-7v-xdB"/>
                                                     <exclude reference="17q-GF-Lhm"/>
-                                                    <exclude reference="o1n-ys-7XU"/>
+                                                    <exclude reference="LOK-7v-xdB"/>
+                                                    <exclude reference="RVM-Nh-d4f"/>
                                                     <exclude reference="b5C-m4-Jed"/>
+                                                    <exclude reference="o1n-ys-7XU"/>
                                                     <exclude reference="C0x-nl-I1b"/>
+                                                    <exclude reference="ODx-Zj-WJK"/>
                                                     <exclude reference="da3-VC-trc"/>
                                                     <exclude reference="wX4-Ln-Yv4"/>
-                                                    <exclude reference="ODx-Zj-WJK"/>
                                                     <exclude reference="avz-nO-Xs9"/>
                                                     <exclude reference="1Tt-fR-6mi"/>
                                                     <exclude reference="WdT-Sy-Z1v"/>
@@ -183,17 +183,34 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5v9-BP-W43" customClass="GADBannerView">
+                                <rect key="frame" x="0.0" y="686" width="414" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="gcd-zl-ynX"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="I0I-1V-RLD" firstAttribute="top" secondItem="ZJb-kz-hha" secondAttribute="bottom" id="3fS-dg-yyj"/>
-                            <constraint firstItem="jHi-7V-18C" firstAttribute="top" secondItem="I0I-1V-RLD" secondAttribute="bottom" id="Hdu-hp-W33"/>
+                            <constraint firstItem="jHi-7V-18C" firstAttribute="top" secondItem="5v9-BP-W43" secondAttribute="bottom" id="5nF-R4-0pF"/>
+                            <constraint firstItem="5v9-BP-W43" firstAttribute="leading" secondItem="OPU-0k-jsy" secondAttribute="leading" id="EYv-by-C0C"/>
+                            <constraint firstItem="jHi-7V-18C" firstAttribute="top" secondItem="I0I-1V-RLD" secondAttribute="bottom" constant="60" id="Hdu-hp-W33"/>
                             <constraint firstAttribute="trailing" secondItem="I0I-1V-RLD" secondAttribute="trailing" id="S5g-ln-0Im"/>
+                            <constraint firstAttribute="trailing" secondItem="5v9-BP-W43" secondAttribute="trailing" id="i5d-Y1-ulP"/>
                             <constraint firstItem="I0I-1V-RLD" firstAttribute="leading" secondItem="OPU-0k-jsy" secondAttribute="leading" id="ucW-6o-Xh4"/>
+                            <constraint firstItem="5v9-BP-W43" firstAttribute="top" secondItem="I0I-1V-RLD" secondAttribute="bottom" id="xFf-4R-vbH"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Hdu-hp-W33"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
+                        <outlet property="bannerView" destination="5v9-BP-W43" id="8B0-AD-diy"/>
                         <outlet property="tableView" destination="I0I-1V-RLD" id="8xT-Pd-jcZ"/>
                     </connections>
                 </viewController>
@@ -213,15 +230,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JOD-EE-bHb">
-                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JOD-EE-bHb">
+                                <rect key="frame" x="0.0" y="20" width="414" height="666"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hXo-VD-l2o" customClass="GADBannerView">
+                                <rect key="frame" x="0.0" y="686" width="414" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="4Ok-wb-QkS"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="JOD-EE-bHb" secondAttribute="trailing" id="1MI-eR-Vo5"/>
+                            <constraint firstItem="JOD-EE-bHb" firstAttribute="leading" secondItem="aiT-NM-RHi" secondAttribute="leading" id="GkR-eO-bbN"/>
+                            <constraint firstItem="oRu-fe-W1t" firstAttribute="top" secondItem="hXo-VD-l2o" secondAttribute="bottom" id="Hnu-Ac-UI8"/>
+                            <constraint firstItem="JOD-EE-bHb" firstAttribute="top" secondItem="76S-Xz-KlF" secondAttribute="bottom" id="YGy-5U-Rug"/>
+                            <constraint firstItem="oRu-fe-W1t" firstAttribute="top" secondItem="JOD-EE-bHb" secondAttribute="bottom" constant="60" id="aRT-3U-atM"/>
+                            <constraint firstAttribute="trailing" secondItem="hXo-VD-l2o" secondAttribute="trailing" id="ji0-Xy-9OB"/>
+                            <constraint firstItem="hXo-VD-l2o" firstAttribute="top" secondItem="JOD-EE-bHb" secondAttribute="bottom" id="z4u-qo-ufT"/>
+                            <constraint firstItem="hXo-VD-l2o" firstAttribute="leading" secondItem="aiT-NM-RHi" secondAttribute="leading" id="zqL-VD-Xv5"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="aRT-3U-atM"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
+                        <outlet property="bannerView" destination="hXo-VD-l2o" id="OBD-z8-CVg"/>
                         <outlet property="tableView" destination="JOD-EE-bHb" id="rjL-N9-1GR"/>
                     </connections>
                 </viewController>

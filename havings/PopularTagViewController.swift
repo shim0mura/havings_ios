@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
-class PopularTagViewController: UIViewController {
+class PopularTagViewController: UIViewController, BannerUtil {
 
     private let hotTagImageTagBase: Int = 10
     private let hotTagNameTag: Int = 20
@@ -16,6 +17,9 @@ class PopularTagViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     var pickup: PickupEntity = PickupEntity()
+    
+    @IBOutlet weak var bannerView: GADBannerView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +31,8 @@ class PopularTagViewController: UIViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.title = NSLocalizedString("Prompt.PopularTag", comment: "")
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+        
+        showAd(bannerView)
     }
 
     override func didReceiveMemoryWarning() {

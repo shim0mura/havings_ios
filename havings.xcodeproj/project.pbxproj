@@ -12,6 +12,19 @@
 		E015251F1D6FFDB2002815CB /* tag.realm in Resources */ = {isa = PBXBuildFile; fileRef = E015251E1D6FFDB2002815CB /* tag.realm */; };
 		E01525251D7144C8002815CB /* DeviceTokenEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01525241D7144C8002815CB /* DeviceTokenEntity.swift */; };
 		E01525271D718AC2002815CB /* HomeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01525261D718AC2002815CB /* HomeTabViewController.swift */; };
+		E015252D1D731971002815CB /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E015252C1D731971002815CB /* GoogleMobileAds.framework */; };
+		E015252F1D7319A3002815CB /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E015252E1D7319A2002815CB /* AdSupport.framework */; };
+		E01525311D7319AF002815CB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E01525301D7319AF002815CB /* AudioToolbox.framework */; };
+		E01525331D7319BB002815CB /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E01525321D7319BB002815CB /* AVFoundation.framework */; };
+		E01525351D7319C8002815CB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E01525341D7319C8002815CB /* CoreGraphics.framework */; };
+		E01525371D7319D4002815CB /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E01525361D7319D4002815CB /* CoreTelephony.framework */; };
+		E01525391D7319E0002815CB /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E01525381D7319E0002815CB /* EventKit.framework */; };
+		E015253B1D7319EB002815CB /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E015253A1D7319EB002815CB /* EventKitUI.framework */; };
+		E015253D1D7319F5002815CB /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E015253C1D7319F5002815CB /* MessageUI.framework */; };
+		E015253F1D731A01002815CB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E015253E1D731A01002815CB /* StoreKit.framework */; };
+		E01525411D731A11002815CB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E01525401D731A11002815CB /* SystemConfiguration.framework */; };
+		E01525431D73F53C002815CB /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01525421D73F53C002815CB /* ShareSheet.swift */; };
+		E0254B831D7473AD00852F73 /* BannerUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0254B821D7473AD00852F73 /* BannerUtil.swift */; };
 		E05EC8A71D226DF60028C611 /* TargetItemSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E05EC8A61D226DF60028C611 /* TargetItemSelectViewController.swift */; };
 		E05EC8A91D240CBD0028C611 /* AddImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E05EC8A81D240CBD0028C611 /* AddImageViewController.swift */; };
 		E05EC8AB1D24179B0028C611 /* ImagePickable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E05EC8AA1D24179B0028C611 /* ImagePickable.swift */; };
@@ -206,6 +219,19 @@
 		E015251E1D6FFDB2002815CB /* tag.realm */ = {isa = PBXFileReference; lastKnownFileType = file; path = tag.realm; sourceTree = "<group>"; };
 		E01525241D7144C8002815CB /* DeviceTokenEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTokenEntity.swift; sourceTree = "<group>"; };
 		E01525261D718AC2002815CB /* HomeTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabViewController.swift; sourceTree = "<group>"; };
+		E015252C1D731971002815CB /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
+		E015252E1D7319A2002815CB /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		E01525301D7319AF002815CB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		E01525321D7319BB002815CB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		E01525341D7319C8002815CB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		E01525361D7319D4002815CB /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		E01525381D7319E0002815CB /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		E015253A1D7319EB002815CB /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		E015253C1D7319F5002815CB /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		E015253E1D731A01002815CB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		E01525401D731A11002815CB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		E01525421D73F53C002815CB /* ShareSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		E0254B821D7473AD00852F73 /* BannerUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerUtil.swift; sourceTree = "<group>"; };
 		E05EC8A61D226DF60028C611 /* TargetItemSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetItemSelectViewController.swift; sourceTree = "<group>"; };
 		E05EC8A81D240CBD0028C611 /* AddImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddImageViewController.swift; sourceTree = "<group>"; };
 		E05EC8AA1D24179B0028C611 /* ImagePickable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickable.swift; sourceTree = "<group>"; };
@@ -360,8 +386,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E01525411D731A11002815CB /* SystemConfiguration.framework in Frameworks */,
+				E015253F1D731A01002815CB /* StoreKit.framework in Frameworks */,
+				E015253D1D7319F5002815CB /* MessageUI.framework in Frameworks */,
+				E015253B1D7319EB002815CB /* EventKitUI.framework in Frameworks */,
+				E01525391D7319E0002815CB /* EventKit.framework in Frameworks */,
+				E01525371D7319D4002815CB /* CoreTelephony.framework in Frameworks */,
+				E01525351D7319C8002815CB /* CoreGraphics.framework in Frameworks */,
+				E01525331D7319BB002815CB /* AVFoundation.framework in Frameworks */,
+				E01525311D7319AF002815CB /* AudioToolbox.framework in Frameworks */,
+				E015252F1D7319A3002815CB /* AdSupport.framework in Frameworks */,
 				E0E36F871D0FCF2E003F46CF /* Realm.framework in Frameworks */,
 				E0D653491D599042000F1BE7 /* EasyTipView.framework in Frameworks */,
+				E015252D1D731971002815CB /* GoogleMobileAds.framework in Frameworks */,
 				E0A5D1DB1D50476600FD60E8 /* ToastSwiftFramework.framework in Frameworks */,
 				E0E36F021CF51C92003F46CF /* KeychainAccess.framework in Frameworks */,
 				E0E36F8A1D0FCF42003F46CF /* RealmSwift.framework in Frameworks */,
@@ -384,6 +421,17 @@
 		E08C62491CF0030900F3DBCB = {
 			isa = PBXGroup;
 			children = (
+				E01525401D731A11002815CB /* SystemConfiguration.framework */,
+				E015253E1D731A01002815CB /* StoreKit.framework */,
+				E015253C1D7319F5002815CB /* MessageUI.framework */,
+				E015253A1D7319EB002815CB /* EventKitUI.framework */,
+				E01525381D7319E0002815CB /* EventKit.framework */,
+				E01525361D7319D4002815CB /* CoreTelephony.framework */,
+				E01525341D7319C8002815CB /* CoreGraphics.framework */,
+				E01525321D7319BB002815CB /* AVFoundation.framework */,
+				E01525301D7319AF002815CB /* AudioToolbox.framework */,
+				E015252E1D7319A2002815CB /* AdSupport.framework */,
+				E015252C1D731971002815CB /* GoogleMobileAds.framework */,
 				E0D653481D599042000F1BE7 /* EasyTipView.framework */,
 				E0A5D1DA1D50476600FD60E8 /* ToastSwiftFramework.framework */,
 				E0A5D1911D34D61700FD60E8 /* RSKPlaceholderTextView.framework */,
@@ -619,6 +667,8 @@
 				E0CC8E1E1D24C9DC006F01CE /* PostAlertUtil.swift */,
 				E0A5D1941D34D68A00FD60E8 /* RSKPlaceholderTextView.swift */,
 				E0A5D1A21D3A700200FD60E8 /* ENMBadgedBarButtonItem.swift */,
+				E01525421D73F53C002815CB /* ShareSheet.swift */,
+				E0254B821D7473AD00852F73 /* BannerUtil.swift */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -797,6 +847,7 @@
 				E0E36F591D029062003F46CF /* ItemImageEntity.swift in Sources */,
 				E0E36FB81D1D851B003F46CF /* UILocalizeExtension.swift in Sources */,
 				E0E36F141CF6B39D003F46CF /* SecondViewController.swift in Sources */,
+				E01525431D73F53C002815CB /* ShareSheet.swift in Sources */,
 				E0A5D1C51D40C12C00FD60E8 /* PopularTagEntity.swift in Sources */,
 				E0E36F731D08184D003F46CF /* ActivityTableViewCellHeader.swift in Sources */,
 				E0A5D1A11D3A1F7D00FD60E8 /* DumpItemListViewController.swift in Sources */,
@@ -824,6 +875,7 @@
 				E0E36F951D110C2D003F46CF /* ListNameSelectViewController.swift in Sources */,
 				E0CC8E211D24E37F006F01CE /* DumpItemViewController.swift in Sources */,
 				E0A5D1BD1D3F160100FD60E8 /* DashboardViewController.swift in Sources */,
+				E0254B831D7473AD00852F73 /* BannerUtil.swift in Sources */,
 				E0E36F001CF47370003F46CF /* EntityPostable.swift in Sources */,
 				E0A5D1951D34D68A00FD60E8 /* RSKPlaceholderTextView.swift in Sources */,
 				E0E36F761D083FCF003F46CF /* DateTimeFormatter.swift in Sources */,
@@ -923,6 +975,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = havings/StagingInfo.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1024,6 +1077,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = havings/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1042,6 +1096,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = havings/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

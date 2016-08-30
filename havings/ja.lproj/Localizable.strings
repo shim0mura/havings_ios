@@ -45,6 +45,15 @@
 "Prompt.Action.Dump" = "手放す";
 "Prompt.Action.Delete" = "削除する";
 
+"Prompt.Item.Share" = "このアイテムを共有する";
+"Prompt.Item.Share.Twitter" = "Twitterで共有する";
+"Prompt.Item.Share.Facebook" = "Facebookで共有する";
+"Prompt.Item.Share.Line" = "Lineで送る";
+"Prompt.Item.Share.Instagram" = "Instagramで共有する";
+"Prompt.Item.Share.Copy" = "URLをコピーする";
+"Prompt.Item.Share.Copy.Success" = "URLをクリップボードにコピーしました";
+
+
 
 "Prompt.Item.isPrivate" = "非公開のアイテム";
 "Prompt.Item.Edit.WithType" = "この%@を編集する";
@@ -340,6 +349,11 @@
 
 "Prompt.Setting.Notification" = "通知";
 "Prompt.Setting.Notification.Detail" = "タイマーの期限が過ぎた時に通知を行います";
+"Prompt.Setting.Notification.HowToChange" = "通知設定の切り替え";
+"Prompt.Setting.Notification.HowToChange.0" = "iOSの設定から通知を有効/無効ににできます";
+"Prompt.Setting.Notification.HowToChange.1" = "1. 以下のボタンから設定画面へ";
+"Prompt.Setting.Notification.HowToChange.2" = "2. [通知]をタップして、[通知を許可]でONまたはOFFに設定";
+"Prompt.Setting.Notification.HowToChange.ToSetting" = "設定画面へ";
 
 "Unit.Day" = "日";
 "Unit.Minute" = "分";

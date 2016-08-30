@@ -8,8 +8,10 @@
 
 import UIKit
 import Alamofire
+import GoogleMobileAds
 
-class UserViewController: UIViewController, PostAlertUtil {
+
+class UserViewController: UIViewController, PostAlertUtil, ShareSheet, BannerUtil {
 
     private enum SegmentState {
         case OwningItems
@@ -113,6 +115,8 @@ class UserViewController: UIViewController, PostAlertUtil {
     
     @IBOutlet weak var navBar: UINavigationItem!
     
+    @IBOutlet weak var bannerView: GADBannerView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -167,6 +171,7 @@ class UserViewController: UIViewController, PostAlertUtil {
 
         self.tableView.tableFooterView = UIView()
 
+        showAd(bannerView)
     }
 
     override func didReceiveMemoryWarning() {
@@ -203,7 +208,6 @@ class UserViewController: UIViewController, PostAlertUtil {
     
     @IBAction func segmentChanged(sender: UISegmentedControl) {
         print("seg tap")
-        print(self.headerCell)
         
         print("contentOffset before \(self.tableView.contentOffset.y)")
         let offset = self.tableView.contentOffset
@@ -298,6 +302,16 @@ class UserViewController: UIViewController, PostAlertUtil {
         self.navigationController?.pushViewController(next, animated: true)
     }
     
+    
+
+    @IBAction func tapShare(sender: AnyObject) {
+        if let user = self.userEntity {
+            showShareSheet(user.name!, itemPath: user.path!)
+        }
+    }
+
+
+    
     @IBAction func tapActionFollow(sender: AnyObject) {
         
         guard self.isSending == false else{
@@ -339,6 +353,9 @@ class UserViewController: UIViewController, PostAlertUtil {
 
                     case .Failure(let error):
                         print("failure \(error)")
+                        let tokenManager = TokenManager.sharedManager
+                        tokenManager.resetTokenAndUid()
+                        self.view.window!.rootViewController?.dismissViewControllerAnimated(false, completion: nil)
                     }
                 }
             })
@@ -571,7 +588,6 @@ extension UserViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("touch!!")
         
-        // タイマー周りのtouchイベント
         if indexPath.section == 0 {
             
         }else if indexPath.section == 1{
@@ -714,6 +730,7 @@ extension UserViewController: UITableViewDelegate, UITableViewDataSource {
         
         let actionShareContainer = cell.contentView.viewWithTag(self.actionShareContainerTag)
         actionShareContainer?.userInteractionEnabled = true
+
         
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         

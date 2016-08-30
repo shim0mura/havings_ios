@@ -11,8 +11,10 @@ import Charts
 import FSCalendar
 import EasyTipView
 import RealmSwift
+import GoogleMobileAds
 
-class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegate {
+
+class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegate, BannerUtil {
 
     private let emptyLabelTag: Int = 10
     private let pieChartTag: Int = 20
@@ -49,6 +51,8 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
     private var leftBarButton: ENMBadgedBarButtonItem?
     private var timers: [TimerEntity] = []
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var bannerView: GADBannerView!
     
     private var percentages: [ItemPercentageEntity] = [] {
         didSet {
@@ -158,6 +162,8 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
         
         showTooltip()
         DefaultTagPresenter.setDefaultTagConf()
+        
+        showAd(bannerView)
 
     }
 

@@ -9,7 +9,7 @@
         <!--setting-->
         <scene sceneID="cvw-Uo-nzk">
             <objects>
-                <viewController storyboardIdentifier="setting" title="setting" id="nxa-Lq-K1Y" customClass="SettingViewController" customModule="havings" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="setting" title="setting" automaticallyAdjustsScrollViewInsets="NO" id="nxa-Lq-K1Y" customClass="SettingViewController" customModule="havings" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gXq-2M-FYm"/>
                         <viewControllerLayoutGuide type="bottom" id="2Lp-4t-aGp"/>
@@ -18,15 +18,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="59" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="POU-VR-XWn">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="212" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="POU-VR-XWn">
                                 <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="notification" rowHeight="59" id="Nxv-RW-aNy">
-                                        <rect key="frame" x="0.0" y="92" width="414" height="59"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="notification" rowHeight="212" id="Nxv-RW-aNy">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="212"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nxv-RW-aNy" id="RRv-eD-tZe">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="58.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="211.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="通知" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYg-xA-0nA">
@@ -38,13 +38,10 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="Prompt.Setting.Notification"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bv9-IK-chz">
+                                                <switch opaque="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bv9-IK-chz">
                                                     <rect key="frame" x="349" y="16" width="51" height="31"/>
-                                                    <connections>
-                                                        <action selector="notificationConditionChanged:" destination="nxa-Lq-K1Y" eventType="valueChanged" id="b00-ja-GL7"/>
-                                                    </connections>
                                                 </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ah7-GM-5qJ">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ah7-GM-5qJ">
                                                     <rect key="frame" x="16" y="33" width="325" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -53,27 +50,96 @@
                                                         <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="Prompt.Setting.Notification.Detail"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="通知設定の切り替え" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N1z-Rh-fdI">
+                                                    <rect key="frame" x="16" y="58" width="382" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="Prompt.Setting.Notification.HowToChange"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iOSの設定から通知を有効/無効ににできます" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BR3-HA-qd7">
+                                                    <rect key="frame" x="16" y="86.5" width="382" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="Prompt.Setting.Notification.HowToChange.0"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1. 以下のボタンから設定画面へ" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNl-Ac-E3O">
+                                                    <rect key="frame" x="16" y="111.5" width="382" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="Prompt.Setting.Notification.HowToChange.1"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2. [通知]をタップして、[通知を許可]でONまたはOFFに設定" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Rl-vg-LMn">
+                                                    <rect key="frame" x="16" y="136.5" width="382" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedText" value="Prompt.Setting.Notification.HowToChange.2"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="phD-Gz-1tV">
+                                                    <rect key="frame" x="16" y="169.5" width="382" height="30"/>
+                                                    <state key="normal" title="設定画面へ"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="localizedTitle" value="Prompt.Setting.Notification.HowToChange.ToSetting"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="toSetting:" destination="nxa-Lq-K1Y" eventType="touchUpInside" id="sWz-Pb-2va"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="phD-Gz-1tV" firstAttribute="leading" secondItem="RRv-eD-tZe" secondAttribute="leadingMargin" constant="8" id="1OV-15-WOQ"/>
                                                 <constraint firstItem="bv9-IK-chz" firstAttribute="trailing" secondItem="RRv-eD-tZe" secondAttribute="trailingMargin" constant="-8" id="3Ag-CJ-i4r"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="N1z-Rh-fdI" secondAttribute="trailing" constant="8" id="5Se-ex-QVa"/>
+                                                <constraint firstAttribute="trailing" secondItem="BNl-Ac-E3O" secondAttribute="trailing" constant="16" id="6Da-Ka-O68"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="2Rl-vg-LMn" secondAttribute="bottom" constant="8" id="6Tv-7e-Rby"/>
                                                 <constraint firstItem="Ah7-GM-5qJ" firstAttribute="leading" secondItem="aYg-xA-0nA" secondAttribute="leading" id="FUV-UC-JYa"/>
+                                                <constraint firstItem="N1z-Rh-fdI" firstAttribute="leading" secondItem="RRv-eD-tZe" secondAttribute="leadingMargin" constant="8" id="Fez-Fc-dxR"/>
+                                                <constraint firstItem="2Rl-vg-LMn" firstAttribute="top" secondItem="BNl-Ac-E3O" secondAttribute="bottom" constant="8" id="G3m-Jg-raD"/>
+                                                <constraint firstAttribute="trailing" secondItem="BR3-HA-qd7" secondAttribute="trailing" constant="16" id="GEi-Ko-AHf"/>
                                                 <constraint firstItem="bv9-IK-chz" firstAttribute="centerY" secondItem="RRv-eD-tZe" secondAttribute="centerY" id="Giv-a9-xk0"/>
+                                                <constraint firstItem="2Rl-vg-LMn" firstAttribute="leading" secondItem="RRv-eD-tZe" secondAttribute="leading" constant="16" id="GxA-lo-dlE"/>
                                                 <constraint firstAttribute="bottom" secondItem="Ah7-GM-5qJ" secondAttribute="bottom" constant="8" id="Hof-3v-4ke"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="phD-Gz-1tV" secondAttribute="bottom" constant="4" id="Ipd-2I-Nug"/>
                                                 <constraint firstItem="Ah7-GM-5qJ" firstAttribute="trailing" secondItem="bv9-IK-chz" secondAttribute="trailing" id="OIo-NV-05c"/>
+                                                <constraint firstItem="N1z-Rh-fdI" firstAttribute="top" secondItem="Ah7-GM-5qJ" secondAttribute="bottom" constant="8" id="QMB-9K-0Wz"/>
+                                                <constraint firstItem="phD-Gz-1tV" firstAttribute="top" secondItem="2Rl-vg-LMn" secondAttribute="bottom" constant="16" id="TGa-7u-7i9"/>
                                                 <constraint firstItem="bv9-IK-chz" firstAttribute="top" secondItem="RRv-eD-tZe" secondAttribute="topMargin" constant="8" id="TX5-aT-Nzw"/>
+                                                <constraint firstAttribute="trailing" secondItem="2Rl-vg-LMn" secondAttribute="trailing" constant="16" id="Val-22-YdD"/>
                                                 <constraint firstItem="Ah7-GM-5qJ" firstAttribute="leading" secondItem="RRv-eD-tZe" secondAttribute="leadingMargin" id="ass-MJ-66c"/>
                                                 <constraint firstItem="Ah7-GM-5qJ" firstAttribute="top" secondItem="aYg-xA-0nA" secondAttribute="bottom" constant="4" id="bDI-Gl-cuv"/>
                                                 <constraint firstItem="bv9-IK-chz" firstAttribute="leading" secondItem="aYg-xA-0nA" secondAttribute="trailing" constant="8" id="byT-rC-1uU"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="Ah7-GM-5qJ" secondAttribute="bottom" constant="8" id="cOC-Bi-ZJX"/>
+                                                <constraint firstItem="BNl-Ac-E3O" firstAttribute="top" secondItem="BR3-HA-qd7" secondAttribute="bottom" constant="8" id="der-Wm-auL"/>
                                                 <constraint firstItem="Ah7-GM-5qJ" firstAttribute="trailing" secondItem="aYg-xA-0nA" secondAttribute="trailing" id="hm7-Um-zkl"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="2Rl-vg-LMn" secondAttribute="bottom" constant="8" id="jP8-x0-XPz"/>
+                                                <constraint firstItem="BR3-HA-qd7" firstAttribute="top" secondItem="N1z-Rh-fdI" secondAttribute="bottom" constant="8" id="nbd-EX-lsH"/>
                                                 <constraint firstItem="aYg-xA-0nA" firstAttribute="leading" secondItem="RRv-eD-tZe" secondAttribute="leading" constant="16" id="rTw-WX-pfR"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="phD-Gz-1tV" secondAttribute="trailing" constant="8" id="ree-bY-o01"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="2Rl-vg-LMn" secondAttribute="bottom" constant="8.5" id="vLB-iG-FYH"/>
+                                                <constraint firstItem="BR3-HA-qd7" firstAttribute="leading" secondItem="RRv-eD-tZe" secondAttribute="leading" constant="16" id="x92-xA-rXH"/>
                                                 <constraint firstItem="aYg-xA-0nA" firstAttribute="top" secondItem="RRv-eD-tZe" secondAttribute="top" constant="8" id="xx2-F1-zwN"/>
+                                                <constraint firstItem="BNl-Ac-E3O" firstAttribute="leading" secondItem="RRv-eD-tZe" secondAttribute="leading" constant="16" id="y4R-AW-wwl"/>
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
+                                                    <exclude reference="Hof-3v-4ke"/>
                                                     <exclude reference="OIo-NV-05c"/>
                                                     <exclude reference="ass-MJ-66c"/>
                                                     <exclude reference="cOC-Bi-ZJX"/>
+                                                    <exclude reference="6Tv-7e-Rby"/>
+                                                    <exclude reference="jP8-x0-XPz"/>
+                                                    <exclude reference="vLB-iG-FYH"/>
                                                     <exclude reference="Giv-a9-xk0"/>
                                                 </mask>
                                             </variation>

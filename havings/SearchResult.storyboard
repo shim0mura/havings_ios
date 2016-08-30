@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jc4-it-qKx">
-                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="666"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="loading" id="oTy-Id-vmf">
@@ -40,17 +40,34 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kTN-Wh-Ezj" customClass="GADBannerView">
+                                <rect key="frame" x="0.0" y="686" width="414" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="13H-JN-1rA"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="jc4-it-qKx" firstAttribute="leading" secondItem="KfY-sL-7x4" secondAttribute="leading" id="GCP-Xu-uhX"/>
                             <constraint firstAttribute="trailing" secondItem="jc4-it-qKx" secondAttribute="trailing" id="L1N-jB-iha"/>
                             <constraint firstItem="jc4-it-qKx" firstAttribute="top" secondItem="Nyi-eC-Qhx" secondAttribute="bottom" id="NWS-Kb-o9v"/>
-                            <constraint firstItem="PVB-G3-x2a" firstAttribute="top" secondItem="jc4-it-qKx" secondAttribute="bottom" id="ZDF-Ah-gfG"/>
+                            <constraint firstItem="PVB-G3-x2a" firstAttribute="top" secondItem="jc4-it-qKx" secondAttribute="bottom" constant="60" id="ZDF-Ah-gfG"/>
+                            <constraint firstAttribute="trailing" secondItem="kTN-Wh-Ezj" secondAttribute="trailing" id="kUc-bM-FRS"/>
+                            <constraint firstItem="kTN-Wh-Ezj" firstAttribute="leading" secondItem="KfY-sL-7x4" secondAttribute="leading" id="xDu-4D-WDe"/>
+                            <constraint firstItem="kTN-Wh-Ezj" firstAttribute="top" secondItem="jc4-it-qKx" secondAttribute="bottom" id="xTG-6o-f1f"/>
+                            <constraint firstItem="PVB-G3-x2a" firstAttribute="top" secondItem="kTN-Wh-Ezj" secondAttribute="bottom" id="yOl-Y2-j68"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="ZDF-Ah-gfG"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
+                        <outlet property="bannerView" destination="kTN-Wh-Ezj" id="uiG-z3-wEY"/>
                         <outlet property="tableView" destination="jc4-it-qKx" id="FJA-oW-JYR"/>
                     </connections>
                 </viewController>

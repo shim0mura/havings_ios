@@ -33,7 +33,8 @@ class DumpItemListViewController: UIViewController {
         self.reloadDumpItems(0, callback: {})
         
         self.title = NSLocalizedString("Prompt.DumpList", comment: "")
-        
+        self.tableView.tableFooterView = UIView()
+
     }
 
     override func didReceiveMemoryWarning() {

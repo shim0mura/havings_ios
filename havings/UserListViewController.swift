@@ -71,6 +71,7 @@ class UserListViewController: UIViewController {
 
             break
         }
+        self.tableView.tableFooterView = UIView()
     }
 
     override func didReceiveMemoryWarning() {

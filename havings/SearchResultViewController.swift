@@ -8,10 +8,14 @@
 
 import UIKit
 import DZNEmptyDataSet
+import GoogleMobileAds
 
-class SearchResultViewController: UIViewController {
+class SearchResultViewController: UIViewController, BannerUtil {
 
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var bannerView: GADBannerView!
+    
     var searchResult: SearchResultEntity = SearchResultEntity()
     var tag: String = ""
     private var loadingNextItem: Bool = false
@@ -42,6 +46,8 @@ class SearchResultViewController: UIViewController {
         }
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
+        
+        showAd(bannerView)
     }
 
     override func didReceiveMemoryWarning() {

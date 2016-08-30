@@ -8,11 +8,15 @@
 
 import UIKit
 import Charts
+import GoogleMobileAds
 
-class DetailGraphViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ChartViewDelegate {
+class DetailGraphViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ChartViewDelegate, BannerUtil {
 
     @IBOutlet weak var chartView: LineChartView!
     @IBOutlet weak var activityTableView: UITableView!
+    
+    
+    @IBOutlet weak var bannerView: GADBannerView!
     
     @IBOutlet weak var activityTableHeightConstraint: NSLayoutConstraint!
     var countData: [CountDataEntity]?
@@ -74,6 +78,7 @@ class DetailGraphViewController: UIViewController, UITableViewDataSource, UITabl
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
 
+        showAd(bannerView)
     }
 
     override func didReceiveMemoryWarning() {

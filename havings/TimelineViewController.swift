@@ -8,8 +8,10 @@
 
 import UIKit
 import DZNEmptyDataSet
+import GoogleMobileAds
 
-class TimelineViewController: UIViewController {
+
+class TimelineViewController: UIViewController, BannerUtil {
 
     private let textViewTag: Int = 10
     private let iconImageTag: Int = 11
@@ -22,6 +24,8 @@ class TimelineViewController: UIViewController {
     private var timelineEntity: TimelineEntity = TimelineEntity()
     
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var bannerView: GADBannerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +45,8 @@ class TimelineViewController: UIViewController {
         
         self.title = NSLocalizedString("Prompt.Timeline", comment: "")
         self.tableView.tableFooterView = UIView()
+        
+        showAd(bannerView)
     }
 
     override func didReceiveMemoryWarning() {

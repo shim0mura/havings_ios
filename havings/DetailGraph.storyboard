@@ -18,32 +18,49 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R2S-rk-PSn" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="28" width="414" height="500"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="462"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NjF-Rr-SY8">
-                                <rect key="frame" x="20" y="536" width="374" height="180"/>
+                                <rect key="frame" x="20" y="498" width="374" height="180"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="180" id="1CW-sM-JSC"/>
                                 </constraints>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zm2-iB-PSr" customClass="GADBannerView">
+                                <rect key="frame" x="0.0" y="686" width="414" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="azZ-Ge-Veg"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="NjF-Rr-SY8" firstAttribute="leading" secondItem="x0s-X1-y4c" secondAttribute="leading" constant="20" id="0Fp-bZ-cD5"/>
                             <constraint firstItem="R2S-rk-PSn" firstAttribute="top" secondItem="J73-tx-7qC" secondAttribute="bottom" constant="8" id="1Ip-Fb-EQp"/>
+                            <constraint firstItem="Hev-2y-WsP" firstAttribute="top" secondItem="zm2-iB-PSr" secondAttribute="bottom" id="5dJ-34-bsH"/>
                             <constraint firstAttribute="trailing" secondItem="NjF-Rr-SY8" secondAttribute="trailing" constant="20" id="BJw-wL-AK1"/>
-                            <constraint firstItem="Hev-2y-WsP" firstAttribute="top" secondItem="NjF-Rr-SY8" secondAttribute="bottom" constant="20" id="UyP-Ok-O8Z"/>
+                            <constraint firstItem="zm2-iB-PSr" firstAttribute="top" secondItem="NjF-Rr-SY8" secondAttribute="bottom" constant="8" id="SeD-SR-l5r"/>
+                            <constraint firstItem="Hev-2y-WsP" firstAttribute="top" secondItem="NjF-Rr-SY8" secondAttribute="bottom" constant="60" id="UyP-Ok-O8Z"/>
+                            <constraint firstAttribute="trailing" secondItem="zm2-iB-PSr" secondAttribute="trailing" id="XCH-fS-ypY"/>
                             <constraint firstItem="R2S-rk-PSn" firstAttribute="leading" secondItem="x0s-X1-y4c" secondAttribute="leading" id="ftV-AW-mtK"/>
                             <constraint firstAttribute="trailing" secondItem="R2S-rk-PSn" secondAttribute="trailing" id="iAg-SY-7x0"/>
+                            <constraint firstItem="zm2-iB-PSr" firstAttribute="leading" secondItem="x0s-X1-y4c" secondAttribute="leading" id="kOW-gw-aBw"/>
                             <constraint firstItem="R2S-rk-PSn" firstAttribute="bottom" secondItem="NjF-Rr-SY8" secondAttribute="top" constant="-8" id="ngt-vo-Gql"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="UyP-Ok-O8Z"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <outlet property="activityTableHeightConstraint" destination="1CW-sM-JSC" id="4Lt-Er-thV"/>
                         <outlet property="activityTableView" destination="NjF-Rr-SY8" id="WRE-zU-RNr"/>
+                        <outlet property="bannerView" destination="zm2-iB-PSr" id="mf0-Wp-Yqc"/>
                         <outlet property="chartView" destination="R2S-rk-PSn" id="eRg-vl-4db"/>
                     </connections>
                 </viewController>
