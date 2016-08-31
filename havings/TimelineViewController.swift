@@ -23,6 +23,8 @@ class TimelineViewController: UIViewController, BannerUtil {
     private var isLoading: Bool = false
     private var timelineEntity: TimelineEntity = TimelineEntity()
     
+    private var refreshControl: UIRefreshControl!
+    
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var bannerView: GADBannerView!
@@ -47,6 +49,11 @@ class TimelineViewController: UIViewController, BannerUtil {
         self.tableView.tableFooterView = UIView()
         
         showAd(bannerView)
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString("Prompt.PullToRefresh", comment: ""))
+        self.refreshControl.addTarget(self, action: #selector(TimelineViewController.refresh), forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshControl)
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,6 +61,13 @@ class TimelineViewController: UIViewController, BannerUtil {
         // Dispose of any resources that can be recreated.
     }
 
+    func refresh(){
+        self.timelineEntity.getNextTimeline(0, callback: {_ in
+            self.beforeLoad = false
+            self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
+        })
+    }
 
 }
 
@@ -376,5 +390,15 @@ extension TimelineViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate
         
         let font = UIFont.systemFontOfSize(16)
         return NSAttributedString(string: text, attributes: [NSFontAttributeName: font, NSForegroundColorAttributeName : UIColor.darkGrayColor()])
+    }
+    
+    func buttonTitleForEmptyDataSet(scrollView: UIScrollView!, forState state: UIControlState) -> NSAttributedString! {
+        let text: String = NSLocalizedString("Prompt.Timeline.Reload", comment: "")
+        let font = UIFont.systemFontOfSize(17)
+        return NSAttributedString(string: text, attributes: [NSFontAttributeName: font, NSForegroundColorAttributeName : UIColorUtil.darkMainColor])
+    }
+    
+    func emptyDataSetDidTapButton(scrollView: UIScrollView!) {
+        refresh()
     }
 }

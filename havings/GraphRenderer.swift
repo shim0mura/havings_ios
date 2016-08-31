@@ -72,7 +72,12 @@ class GraphRenderer {
         
         let chartDataSet = LineChartDataSet(yVals: dataEntries, label: "アイテム数")
         let chartData = LineChartData(xVals: dates, dataSet: chartDataSet)
-        chartDataSet.valueFormatter = DoubleToIntFormatter()
+        
+        let numberFormatter = NSNumberFormatter()
+        numberFormatter.generatesDecimalNumbers = false
+        chartDataSet.valueFormatter = numberFormatter
+        
+        //chartDataSet.valueFormatter = DoubleToIntFormatter()
         return (chartData: chartData, xIndex: xindex)
     }
     

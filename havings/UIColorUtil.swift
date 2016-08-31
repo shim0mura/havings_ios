@@ -18,6 +18,8 @@ class UIColorUtil {
     static let accentColor: UIColor = UIColor(red: 0.96, green: 0.79, blue: 0.02, alpha: 1.0)
     static let darkMainColor: UIColor = UIColor(red: 0.53, green: 0.31, blue: 0.22, alpha: 1.0)
     
+    static let unreadColor: UIColor = UIColor(red: 0.5, green: 0.87, blue: 0.91, alpha: 1.0)
+    
     func hexStringToUIColor (hex:String) -> UIColor {
         var cString:String = hex.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet() as NSCharacterSet).uppercaseString
         

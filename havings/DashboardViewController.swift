@@ -84,6 +84,9 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
     private var chartSelectedType: Int? = nil
     private var selectedDate: NSDate = NSDate()
     
+    private var refreshControl: UIRefreshControl!
+    private var refreshCount: Int = 5
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = NSLocalizedString("Prompt.Dashboard", comment: "")
@@ -100,60 +103,7 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
         let comps: NSDateComponents = calendar.components([.Year, .Month, .Day], fromDate: NSDate())
         self.selectedDate = NSDate(year: comps.year, month: comps.month, day: comps.day, region: TimerPresenter.gregorianByRegion)
         
-        API.callArray(Endpoint.ItemPercentage.GetGraph) { response in
-            switch response {
-            case .Success(let result):
-                self.percentages = result
-                self.beforeLoadingChart = false
-                self.tableView.reloadData()
-            case .Failure(let error):
-                self.simpleAlertDialog(NSLocalizedString("Prompt.ProfileEdit.FailedToGetUserInfo", comment: ""), message: nil)
-                print("failure \(error)")
-            }
-        }
-        
-        API.callArray(Endpoint.Notification.GetUnreadCount){ response in
-            switch response {
-            case .Success(let result):
-                let count = result.count
-                self.leftBarButton?.badgeValue = "\(count)"
-            case .Failure(let error):
-                print(error)
-            }
-        }
-        
-        API.callArray(Endpoint.Timer.GetAll){ response in
-            switch response {
-            case .Success(let result):
-                self.timers = result
-                self.beforeLoadingTimers = false
-                self.tableView.reloadData()
-            case .Failure(let error):
-                print(error)
-            }
-        }
-        
-        API.callArray(Endpoint.DoneTask.GetAllDoneTasks){ response in
-            switch response {
-            case .Success(let result):
-                self.taskWrapper = result
-                self.beforeLoadingTasks = false
-                self.tableView.reloadData()
-            case .Failure(let error):
-                print(error)
-            }
-        }
-        
-        API.callArray(Endpoint.CountProperties.Get){ response in
-            switch response {
-            case .Success(let result):
-                self.countData = result
-                self.beforeLoadingCounts = false
-                self.tableView.reloadData()
-            case .Failure(let error):
-                print(error)
-            }
-        }
+        getDashboardInfo()
         
         //DefaultTagPresenter.migrateTag()
 
@@ -164,6 +114,11 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
         DefaultTagPresenter.setDefaultTagConf()
         
         showAd(bannerView)
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString("Prompt.PullToRefresh", comment: ""))
+        self.refreshControl.addTarget(self, action: #selector(DashboardViewController.refresh), forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshControl)
 
     }
 
@@ -176,7 +131,90 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
         self.tooltip = TooltipManager.getToolTip()
         let target = self.tabBarController?.tabBar.items![2].valueForKey("view") as? UIView
         self.tooltip?.show(forView: target!)
+    }
+    
+    func refresh(){
+        getDashboardInfo()
+    }
+    
+    func getDashboardInfo(){
+        self.refreshCount = 5
+        API.callArray(Endpoint.ItemPercentage.GetGraph) { response in
+            switch response {
+            case .Success(let result):
+                self.pieChartCell = nil
+                self.chartSelectedType = nil
+                self.percentages = result
+                self.beforeLoadingChart = false
+                self.tableView.reloadData()
+            case .Failure(let error):
+                self.simpleAlertDialog(NSLocalizedString("Prompt.ProfileEdit.FailedToGetUserInfo", comment: ""), message: nil)
+                print("failure \(error)")
+            }
+            self.refreshCount = self.refreshCount - 1
+            if self.refreshCount <= 0 {
+                self.refreshControl?.endRefreshing()
+            }
+        }
         
+        API.callArray(Endpoint.Notification.GetUnreadCount){ response in
+            switch response {
+            case .Success(let result):
+                let count = result.count
+                self.leftBarButton?.badgeValue = "\(count)"
+            case .Failure(let error):
+                print(error)
+            }
+            self.refreshCount = self.refreshCount - 1
+            if self.refreshCount <= 0 {
+                self.refreshControl?.endRefreshing()
+            }
+        }
+        
+        API.callArray(Endpoint.Timer.GetAll){ response in
+            switch response {
+            case .Success(let result):
+                self.timers = result
+                self.beforeLoadingTimers = false
+                self.tableView.reloadData()
+            case .Failure(let error):
+                print(error)
+            }
+            self.refreshCount = self.refreshCount - 1
+            if self.refreshCount <= 0 {
+                self.refreshControl?.endRefreshing()
+            }
+        }
+        
+        API.callArray(Endpoint.DoneTask.GetAllDoneTasks){ response in
+            switch response {
+            case .Success(let result):
+                self.taskWrapper = result
+                self.beforeLoadingTasks = false
+                self.tableView.reloadData()
+            case .Failure(let error):
+                print(error)
+            }
+            self.refreshCount = self.refreshCount - 1
+            if self.refreshCount <= 0 {
+                self.refreshControl?.endRefreshing()
+            }
+        }
+        
+        API.callArray(Endpoint.CountProperties.Get){ response in
+            switch response {
+            case .Success(let result):
+                self.countData = result
+                self.beforeLoadingCounts = false
+                self.tableView.reloadData()
+            case .Failure(let error):
+                print(error)
+            }
+            self.refreshCount = self.refreshCount - 1
+            if self.refreshCount <= 0 {
+                self.refreshControl?.endRefreshing()
+            }
+        }
     }
     
     func setUpLeftBarButton() {
@@ -208,7 +246,7 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
         self.chartSelectedType = entry.xIndex
         let afterCount = self.getChartSectionRowCount()
         
-        self.reloadSection(0, beforeRowCount: beforeCount, afterRowCount: afterCount)
+        self.reloadSection(3, beforeRowCount: beforeCount, afterRowCount: afterCount)
     }
     
     @IBAction func toDetailGraph(sender: AnyObject) {

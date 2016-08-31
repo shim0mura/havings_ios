@@ -16,6 +16,8 @@ class ProfileEditViewController: UIViewController, PostAlertUtil {
     @IBOutlet weak var profileBeforeImage: UIImageView!
     @IBOutlet weak var profileAfterImage: UIImageView!
     
+    weak var finishDelegate: FinishProfileUpdateDelegate?
+    
     var userEntity: UserEntity = UserEntity()
     private var imageData: String = ""
     private var isSending: Bool = false
@@ -141,7 +143,9 @@ class ProfileEditViewController: UIViewController, PostAlertUtil {
             switch response {
             case .Success(_):
                 
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.dismissViewControllerAnimated(true, completion: {
+                    self.finishDelegate?.finish()
+                })
             case .Failure(let error):
                 self.simpleAlertDialog(NSLocalizedString("Prompt.FailureToAceess", comment: ""), message: nil)
 

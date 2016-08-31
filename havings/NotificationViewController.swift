@@ -52,6 +52,9 @@ class NotificationViewController: UIViewController {
                 print("failure \(error)")
             }
         }
+        
+        self.title = NSLocalizedString("Prompt.Notification.Notification", comment: "")
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -94,10 +97,9 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
             let type = notification.type!
             
             if notification.unread == true {
-                cell.backgroundColor = UIColor.cyanColor()
+                cell.backgroundColor = UIColorUtil.unreadColor
             }else{
                 cell.backgroundColor = UIColor.whiteColor()
-
             }
             
             switch type {

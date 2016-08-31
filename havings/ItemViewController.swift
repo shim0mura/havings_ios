@@ -684,8 +684,11 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         commentCount.text = String(itemEntity?.commentCount ?? 0)
         
         if itemEntity?.owner?.id == self.userId {
-        let doneCount:UILabel = cell.contentView.viewWithTag(self.doneTaskCountTag) as! UILabel
-        doneCount.text = String(itemEntity?.doneCount ?? 0)
+            let doneCount:UILabel = cell.contentView.viewWithTag(self.doneTaskCountTag) as! UILabel
+            doneCount.text = String(itemEntity?.doneCount ?? 0)
+        }else{
+            let container = cell.contentView.viewWithTag(self.doneTaskCountainerTag)
+            container?.hidden = true
         }
         
         let tagList: TagListView = cell.contentView.viewWithTag(tagListTag) as! TagListView
@@ -905,7 +908,13 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 }
             }
             
-            let message = String(format: NSLocalizedString("Prompt.Timer.DoneNow.Detail", comment: ""), DateTimeFormatter.getFullStr(next))
+            let message: String
+            if let rep = timer.isRepeating where rep == true {
+                message = String(format: NSLocalizedString("Prompt.Timer.DoneNow.Detail", comment: ""), DateTimeFormatter.getFullStr(next))
+            }else{
+                message = String(format: NSLocalizedString("Prompt.Timer.DoneNow.Detail", comment: ""), NSLocalizedString("Prompt.Timer.NextDue.Nothing", comment: ""))
+            }
+            
             let alert: UIAlertController = UIAlertController(title: NSLocalizedString("Prompt.Timer.DoneNow", comment: ""), message: message, preferredStyle:  UIAlertControllerStyle.Alert)
             
             let defaultAction: UIAlertAction = UIAlertAction(title: NSLocalizedString("Prompt.Ok", comment: ""), style: UIAlertActionStyle.Default, handler:{

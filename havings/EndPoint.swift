@@ -88,11 +88,14 @@ class Endpoint {
         case GetFollowingUser(userId: Int)
         case GetFollowedUser(userId: Int)
         
+        // TODO: キャッシュ無視してリクエストするのをもっとかっこよくしたい
+        case ForceGet(userId: Int)
+        
         case ChangeProfile(userEntity: UserEntity)
         
         var method: Alamofire.Method {
             switch self {
-            case .Get, .GetSelf, .GetItemFavoritedUser, .GetImageFavoritedUser, .GetFollowingUser, .GetFollowedUser:
+            case .Get, .GetSelf, .GetItemFavoritedUser, .GetImageFavoritedUser, .GetFollowingUser, .GetFollowedUser, .ForceGet:
                 return .GET
             case .ChangeProfile:
                 return .PUT
@@ -115,15 +118,26 @@ class Endpoint {
                 return "/user/\(userId)/followers"
             case .ChangeProfile:
                 return "/users"
+            case .ForceGet(let userId):
+                return "/user/\(userId)"
             }
         }
         
         var parameters: [String : AnyObject]? {
             switch self {
-            case .Get, .GetSelf, .GetItemFavoritedUser, .GetImageFavoritedUser, .GetFollowingUser, .GetFollowedUser:
+            case .Get, .GetSelf, .GetItemFavoritedUser, .GetImageFavoritedUser, .GetFollowingUser, .GetFollowedUser, .ForceGet:
                 return nil
             case .ChangeProfile(let userEntity):
                 return ["user" : userEntity.toJSON()]
+            }
+        }
+        
+        var cache: Bool {
+            switch self {
+            case .ForceGet:
+                return false
+            default:
+                return true
             }
         }
     }

@@ -101,6 +101,10 @@ extension RequestProtocol {
         return .URL
     }
     
+    var cache: Bool {
+        return true
+    }
+    
     var URLRequest: NSMutableURLRequest {
         let url = "\(baseURL)\(path)"
         let encodedUrl = url.stringByAddingPercentEncodingWithAllowedCharacters(
@@ -108,6 +112,9 @@ extension RequestProtocol {
         let mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: encodedUrl!)!)
         mutableURLRequest.HTTPMethod = method.rawValue
         mutableURLRequest.allHTTPHeaderFields = headers
+        if cache == false {
+            mutableURLRequest.cachePolicy = .ReloadIgnoringLocalCacheData        
+        }
         do {
             if let parameters = parameters {
                 mutableURLRequest.HTTPBody = try NSJSONSerialization.dataWithJSONObject(

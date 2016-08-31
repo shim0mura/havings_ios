@@ -226,7 +226,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fea-R3-TOA">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="421.5"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kcg-VZ-EOs" userLabel="HeaderImage">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kcg-VZ-EOs" userLabel="HeaderImage">
                                                             <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="250" id="EIS-o4-6yn"/>

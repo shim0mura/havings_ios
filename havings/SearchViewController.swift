@@ -26,6 +26,8 @@ class SearchViewController: UIViewController, BannerUtil {
     private var isInputText: Bool = false
     private var pickup: PickupEntity?
     
+    private var refreshControl: UIRefreshControl!
+    
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var bannerView: GADBannerView!
@@ -64,11 +66,30 @@ class SearchViewController: UIViewController, BannerUtil {
         }
         
         showAd(bannerView)
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString("Prompt.PullToRefresh", comment: ""))
+        self.refreshControl.addTarget(self, action: #selector(SearchViewController.refresh), forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshControl)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func refresh(){
+        API.call(Endpoint.Pickup.Get) { response in
+            switch response {
+            case .Success(let result):
+                self.pickup = result
+                self.beforeLoad = false
+                self.tableView.reloadData()
+                self.refreshControl.endRefreshing()
+            case .Failure(let error):
+                print("failure \(error)")
+            }
+        }
     }
     
     @IBAction func tapMoreHotTag(sender: AnyObject) {

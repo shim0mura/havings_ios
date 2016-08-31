@@ -84,6 +84,16 @@ class TimerFormViewController: UIViewController, PostAlertUtil {
         
         self.title = NSLocalizedString("Prompt.Timer.Edit", comment: "")
         
+        if (UIDevice.currentDevice().systemVersion as NSString).floatValue >= 8.0 {
+            // iOS8以上
+            let type : UIUserNotificationType = [.Alert, .Badge, .Sound]
+            let setting = UIUserNotificationSettings(forTypes: type, categories: nil)
+            //通知のタイプを設定
+            UIApplication.sharedApplication().registerUserNotificationSettings(setting)
+            //DevoceTokenを要求
+            UIApplication.sharedApplication().registerForRemoteNotifications()
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {

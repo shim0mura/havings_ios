@@ -184,7 +184,13 @@ class TimerChangeDueViewController: UIViewController, PostAlertUtil {
     }
     
     func setRepeatNextDueAt(date: NSDate){
-        let next = TimerPresenter.getNextDueAtFromWeek(date, weekInterval: TimerEntity.TimerRepeatByWeekInterval(rawValue: self.timer.repeatWeek!)!, weekday: DayOfWeek(rawValue: self.timer.repeatDayOfWeek!)!)
+        let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        let comps: NSDateComponents = calendar.components([.Year, .Month, .Day, .Hour, .Minute], fromDate: date)
+        let originalComps: NSDateComponents = calendar.components([.Hour, .Minute], fromDate: self.timer.nextDueAt!)
+
+        let nextOfNext = NSDate(year: comps.year, month: comps.month, day: comps.day, hour: originalComps.hour, minute: originalComps.minute, second: 0, nanosecond:0, region: TimerPresenter.gregorianByRegion)
+        
+        let next = TimerPresenter.getNextDueAtFromWeek(nextOfNext, weekInterval: TimerEntity.TimerRepeatByWeekInterval(rawValue: self.timer.repeatWeek!)!, weekday: DayOfWeek(rawValue: self.timer.repeatDayOfWeek!)!)
         self.repeatNextDueLabel.text = DateTimeFormatter.getFullStr(next)
     }
 }

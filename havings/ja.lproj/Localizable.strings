@@ -166,6 +166,7 @@
 "Prompt.Timer.RepeatTypeSelect" = "繰り返しのタイプを選択";
 "Prompt.Timer.RepeatEditSelect" = "繰り返す頻度を選択";
 
+"Prompt.Timer.NextDue.Nothing" = "なし";
 
 "Prompt.Timer.RepeatBy.Day" = "日にちで繰り返す";
 
@@ -299,6 +300,9 @@
 "Prompt.ProfileEdit.UserImage.Before" = "変更前の画像";
 "Prompt.ProfileEdit.UserImage.After" = "変更後の画像";
 
+"Prompt.ProfileEdit.Success" = "プロフィールの編集をしました";
+
+
 "Prompt.DoneTask.DoneDate" = "%@ に実行";
 "Prompt.DoneTask.DoneByDay" = "%@ にこなしたタスク";
 
@@ -314,8 +318,13 @@
 "Prompt.Dashboard.Timers.Empty" = "設定中のタイマーはありません。\n \n整理したいリストから、定期的に行いたいタスク(整理、ホコリ取り、掃除機がけ等)を作成してみましょう!";
 "Prompt.Dashboard.DoneTasks" = "タスクの履歴";
 
+"Prompt.Notification.Notification" = "通知";
+
+
 "Prompt.Timeline" = "タイムライン";
 "Prompt.Timeline.isEmpty" = "アクティビティはありません。 \n \n誰かをフォローすると、その人がいいね!したアイテムや追加したアイテムの情報がここに表示されます。 \n \n気になる人たちをフォローしてみましょう！";
+"Prompt.Timeline.Reload" = "再読み込み";
+
 "Prompt.Timeline.Comment" = "にコメントしました";
 "Prompt.Timeline.Favorite" = "にいいね!しました";
 "Prompt.Timeline.ImageFavorite" = "の画像にいいね!しました";
@@ -346,6 +355,7 @@
 "Prompt.Setting.Choose.HowToUse" = "使い方";
 "Prompt.Setting.Choose.Logout" = "ログアウト";
 
+"Prompt.PullToRefresh" = "ひっぱって更新";
 
 "Prompt.Setting.Notification" = "通知";
 "Prompt.Setting.Notification.Detail" = "タイマーの期限が過ぎた時に通知を行います";

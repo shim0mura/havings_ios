@@ -404,25 +404,25 @@ class AddFormViewController: UIViewController {
     @IBAction func itemCountHelp(sender: UITapGestureRecognizer) {
         tooltip = EasyTipView(text: NSLocalizedString("Prompt.Tooltip.Form.ItemCount", comment: ""))
         tooltip?.backgroundColor = UIColorUtil.accentColor
-        tooltip?.show(forView: self.countHelpImage)
+        tooltip?.show(forView: self.countHelpImage, withinSuperview: self.scrollContentView)
     }
 
     @IBAction func belongListHelp(sender: UITapGestureRecognizer) {
         tooltip = EasyTipView(text: NSLocalizedString("Prompt.Tooltip.Form.BelongList", comment: ""))
         tooltip?.backgroundColor = UIColor(red:0.43, green: 0.72, blue: 0.86, alpha: 1.0)
-        tooltip?.show(forView: self.belongListHelpImage)
+        tooltip?.show(forView: self.belongListHelpImage, withinSuperview: self.scrollContentView)
     }
     
     @IBAction func tagHelp(sender: UITapGestureRecognizer) {
         tooltip = EasyTipView(text: NSLocalizedString("Prompt.Tooltip.Form.Tag", comment: ""))
         tooltip?.backgroundColor = UIColor(red:0.81, green: 0.89, blue: 0.51, alpha: 1.0)
-        tooltip?.show(forView: self.tagHelpImage)
+        tooltip?.show(forView: self.tagHelpImage, withinSuperview: self.scrollContentView)
     }
     
     @IBAction func garbageHelp(sender: UITapGestureRecognizer) {
         tooltip = EasyTipView(text: NSLocalizedString("Prompt.Tooltip.Form.Garbage", comment: ""))
         tooltip?.backgroundColor = UIColor(red:0.89, green: 0.53, blue: 0.57, alpha: 1.0)
-        tooltip?.show(forView: self.garbageHelp)
+        tooltip?.show(forView: self.garbageHelp, withinSuperview: self.scrollContentView)
     }
     
     @IBAction func isAsGarbage(sender: UISwitch) {
@@ -788,6 +788,21 @@ UINavigationControllerDelegate {
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(AddFormViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
         print("saved")
+        
+
+        //dismissViewControllerAnimated(true, completion: nil)
+        
+        let scale = 800 / image.size.width
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSizeMake(800, newHeight))
+        image.drawInRect(CGRectMake(0, 0, 800, newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        print(newImage)
+        self.addImageEntity(newImage)
+        self.imageCollectionView.reloadData()
+
         dismissViewControllerAnimated(true, completion: nil)
     }
     

@@ -27,17 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().translucent = false
         UITabBar.appearance().barTintColor = UIColorUtil.darkMainColor
         UITabBar.appearance().tintColor = UIColor.whiteColor()
-
-        
-        if (UIDevice.currentDevice().systemVersion as NSString).floatValue >= 8.0 {
-            // iOS8以上
-            let type : UIUserNotificationType = [.Alert, .Badge, .Sound]
-            let setting = UIUserNotificationSettings(forTypes: type, categories: nil)
-            //通知のタイプを設定
-            application.registerUserNotificationSettings(setting)
-            //DevoceTokenを要求
-            application.registerForRemoteNotifications()
-        }
         
         return true
     }

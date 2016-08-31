@@ -251,6 +251,18 @@ UINavigationControllerDelegate {
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(AddFormViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
         print("saved")
+        
+        let scale = 800 / image.size.width
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSizeMake(800, newHeight))
+        image.drawInRect(CGRectMake(0, 0, 800, newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        print(newImage)
+        self.addImageEntity(newImage)
+        self.imageCollectionView.reloadData()
+
         dismissViewControllerAnimated(true, completion: nil)
     }
     

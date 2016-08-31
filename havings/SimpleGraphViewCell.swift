@@ -91,6 +91,7 @@ class SimpleTableViewCell: UITableViewCell {
         //setSectionCount(data)
         let lineChartData = GraphRenderer.createChartData(self.countData!, dateShowType: GraphRenderer.DATE_SHOW_TYPE_MONTH)
         chartView.data = lineChartData.0
+        chartView.leftAxis.showOnlyMinMaxEnabled = true
         
     }
     

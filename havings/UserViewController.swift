@@ -137,9 +137,24 @@ class UserViewController: UIViewController, PostAlertUtil, ShareSheet, BannerUti
             }
         }
         
+        loadUser()
+
+        self.tableView.tableFooterView = UIView()
+
+        showAd(bannerView)
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func loadUser(){
+        self.beforeLoad = true
+        self.tableView.reloadData()
         API.call(Endpoint.User.Get(userId: self.userId)) { response in
             self.beforeLoad = false
-
+            
             switch response {
             case .Success(let result):
                 self.userEntity = result
@@ -168,15 +183,6 @@ class UserViewController: UIViewController, PostAlertUtil, ShareSheet, BannerUti
                 self.presentViewController(alert, animated: true, completion: nil)
             }
         }
-
-        self.tableView.tableFooterView = UIView()
-
-        showAd(bannerView)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func setSortButton(){
@@ -333,8 +339,9 @@ class UserViewController: UIViewController, PostAlertUtil, ShareSheet, BannerUti
             
             let profileEdit: UIAlertAction = UIAlertAction(title: NSLocalizedString("Prompt.Setting.Choose.ProfileEdit", comment: ""), style: UIAlertActionStyle.Default, handler:{(action: UIAlertAction!) -> Void in
                 let storyboard: UIStoryboard = UIStoryboard(name: "ProfileEdit", bundle: nil)
-                let next = storyboard.instantiateInitialViewController()
-                self.presentViewController(next!, animated: true, completion: nil)
+                let next = storyboard.instantiateInitialViewController() as! ProfileEditViewController
+                next.finishDelegate = self
+                self.presentViewController(next, animated: true, completion: nil)
             })
             
             let howToUse: UIAlertAction = UIAlertAction(title: NSLocalizedString("Prompt.Setting.Choose.HowToUse", comment: ""), style: UIAlertActionStyle.Default, handler:{(action: UIAlertAction!) -> Void in
@@ -756,4 +763,17 @@ extension UserViewController: UITableViewDelegate, UITableViewDataSource {
             actionFollowLabel.text = NSLocalizedString("Prompt.User.Action.Follow", comment: "")
         }
     }
+}
+
+extension UserViewController: FinishProfileUpdateDelegate {
+    func finish() {
+        self.view.makeToast(NSLocalizedString("Prompt.ProfileEdit.Success", comment: ""))
+        
+        headerCell = nil
+        loadUser()
+    }
+}
+
+protocol FinishProfileUpdateDelegate: class {
+    func finish()
 }

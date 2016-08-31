@@ -76,7 +76,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="332.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uWa-ar-Qbe" userLabel="headerImage">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uWa-ar-Qbe" userLabel="headerImage">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="250" id="HpH-P7-gAu"/>
