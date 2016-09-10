@@ -345,7 +345,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="housekeeping" translatesAutoresizingMaskIntoConstraints="NO" id="u1k-u8-HYY">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_type_list" translatesAutoresizingMaskIntoConstraints="NO" id="u1k-u8-HYY">
                                 <rect key="frame" x="167" y="268" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="Rs9-Ps-FTv"/>
@@ -2745,7 +2745,6 @@
         <image name="Room-100" width="100" height="100"/>
         <image name="Sofa-100" width="100" height="100"/>
         <image name="add_list" width="54" height="54"/>
-        <image name="housekeeping" width="100" height="100"/>
         <image name="ic_camera_36dp" width="72" height="72"/>
         <image name="ic_delete_black_24dp" width="48" height="48"/>
         <image name="ic_edit_black_36dp" width="72" height="72"/>
@@ -2758,6 +2757,7 @@
         <image name="ic_photo_black_18dp" width="36" height="36"/>
         <image name="ic_plus_one_black_24dp" width="48" height="48"/>
         <image name="icon_type_item" width="31" height="32"/>
-        <image name="icon_type_list_light" width="100" height="100"/>
+        <image name="icon_type_list" width="117" height="117"/>
+        <image name="icon_type_list_light" width="117" height="117"/>
     </resources>
 </document>

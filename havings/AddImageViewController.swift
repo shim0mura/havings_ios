@@ -37,6 +37,9 @@ class AddImageViewController: UIViewController, PostAlertUtil {
         
         self.title = NSLocalizedString("Prompt.ItemForm.AddImage", comment: "")
 
+        print(self.item)
+        print(self.item.path)
+        print(self.item.name)
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,7 +83,13 @@ class AddImageViewController: UIViewController, PostAlertUtil {
                 }
                 self.navigationController?.dismissViewControllerAnimated(true){
                     print("dismiss controller")
-                    self.finishDelegate?.finish(String(format: NSLocalizedString("Prompt.AddImage.Success", comment: ""), self.item.name!))
+                    let isPublic: Bool
+                    if let priv = self.item.privateType where priv > 0 {
+                        isPublic = false
+                    }else{
+                        isPublic = true
+                    }
+                    self.finishDelegate?.finish(String(format: NSLocalizedString("Prompt.AddImage.Success", comment: ""), self.item.name!), itemPath: self.item.path!, isPublic: isPublic)
                     self.item.imageDataForPost = nil
                 }
             case .Failure(let error):
@@ -213,7 +222,7 @@ extension AddImageViewController: UICollectionViewDelegate, UICollectionViewData
 extension AddImageViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
     func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-        let image = UIImage(named: "housekeeping")!
+        let image = UIImage(named: "icon_type_item")!
         
         let newHeight:CGFloat = 55
         let scale = newHeight / image.size.height

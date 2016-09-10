@@ -25,8 +25,6 @@ class SearchResultViewController: UIViewController, BannerUtil {
 
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.emptyDataSetSource = self
-        self.tableView.emptyDataSetDelegate = self
         
         self.tableView.estimatedRowHeight = 80
         self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -39,6 +37,8 @@ class SearchResultViewController: UIViewController, BannerUtil {
             self.tableView.tableFooterView = footer.contentView
             
             self.searchResult.getNextPage(tag, page: 1, callback: {
+                self.tableView.emptyDataSetSource = self
+                self.tableView.emptyDataSetDelegate = self
                 self.loadingNextItem = false
                 self.tableView.tableFooterView = nil
                 self.tableView.reloadData()

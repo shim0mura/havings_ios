@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import Social
+import TTGSnackbar
 
 protocol ShareSheet {
 
@@ -32,7 +33,7 @@ extension ShareSheet where Self: UIViewController {
             (action: UIAlertAction!) -> Void in
             var composeView : SLComposeViewController!
             composeView = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
-            composeView.setInitialText(itemName + " " + ApiManager.getBaseUrl() + itemPath + " #havings")
+            composeView.setInitialText(itemName + " " + ApiManager.getBaseUrl() + itemPath + " #Havings")
             self.presentViewController(composeView, animated: true, completion: nil)
         })
         
@@ -51,7 +52,11 @@ extension ShareSheet where Self: UIViewController {
             let text: String! = itemName + " " + ApiManager.getBaseUrl() + itemPath
             let board = UIPasteboard.generalPasteboard()
             board.setValue(text, forPasteboardType: "public.text")
-            self.view.makeToast(NSLocalizedString("Prompt.Item.Share.Copy.Success", comment: ""))
+            //self.view.makeToast(NSLocalizedString("Prompt.Item.Share.Copy.Success", comment: ""))
+            
+            let snackbar = TTGSnackbar.init(message: NSLocalizedString("Prompt.Item.Share.Copy.Success", comment: ""), duration: .Middle)
+            snackbar.bottomMargin = 50
+            snackbar.show()
         })
         
         

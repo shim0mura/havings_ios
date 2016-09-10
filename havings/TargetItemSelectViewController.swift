@@ -177,6 +177,7 @@ extension TargetItemSelectViewController: UITableViewDelegate, UITableViewDataSo
             item.id = selectedItem.id
             item.isList = selectedItem.isList
             item.name = selectedItem.name
+            item.path = selectedItem.path
             next.item = item
             next.finishDelegate = self.finishDelegate
             
@@ -188,6 +189,7 @@ extension TargetItemSelectViewController: UITableViewDelegate, UITableViewDataSo
             item.name = selectedItem.name
             item.isList = selectedItem.isList
             item.owningItems = selectedItem.owningItems
+            item.path = selectedItem.path
             next.item = item
             next.finishDelegate = self.finishDelegate
             
@@ -199,6 +201,7 @@ extension TargetItemSelectViewController: UITableViewDelegate, UITableViewDataSo
             item.name = selectedItem.name
             item.isList = selectedItem.isList
             item.owningItems = selectedItem.owningItems
+            item.path = selectedItem.path
             next.item = item
             next.finishDelegate = self.finishDelegate
             

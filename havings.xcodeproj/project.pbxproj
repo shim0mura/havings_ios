@@ -25,9 +25,15 @@
 		E01525411D731A11002815CB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E01525401D731A11002815CB /* SystemConfiguration.framework */; };
 		E01525431D73F53C002815CB /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01525421D73F53C002815CB /* ShareSheet.swift */; };
 		E0254B831D7473AD00852F73 /* BannerUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0254B821D7473AD00852F73 /* BannerUtil.swift */; };
+		E0254B851D77CA0800852F73 /* TTGSnackbar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0254B841D77CA0800852F73 /* TTGSnackbar.framework */; };
+		E0254B861D77CA0800852F73 /* TTGSnackbar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E0254B841D77CA0800852F73 /* TTGSnackbar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E05EC8A71D226DF60028C611 /* TargetItemSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E05EC8A61D226DF60028C611 /* TargetItemSelectViewController.swift */; };
 		E05EC8A91D240CBD0028C611 /* AddImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E05EC8A81D240CBD0028C611 /* AddImageViewController.swift */; };
 		E05EC8AB1D24179B0028C611 /* ImagePickable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E05EC8AA1D24179B0028C611 /* ImagePickable.swift */; };
+		E07E595A1D7FA9DA00FD88CF /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07E59581D7FA9DA00FD88CF /* Fabric.framework */; };
+		E07E595B1D7FA9DA00FD88CF /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E07E59591D7FA9DA00FD88CF /* Crashlytics.framework */; };
+		E08931461D82D37C003526CD /* FSCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E08931451D82D37C003526CD /* FSCalendar.framework */; };
+		E08931471D82D37C003526CD /* FSCalendar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E08931451D82D37C003526CD /* FSCalendar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E08C62561CF0030900F3DBCB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08C62551CF0030900F3DBCB /* AppDelegate.swift */; };
 		E08C62581CF0030900F3DBCB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08C62571CF0030900F3DBCB /* ViewController.swift */; };
 		E08C625B1CF0030900F3DBCB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E08C62591CF0030900F3DBCB /* Main.storyboard */; };
@@ -77,8 +83,6 @@
 		E0A5D1D51D44AF9C00FD60E8 /* TimerList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0A5D1D41D44AF9C00FD60E8 /* TimerList.storyboard */; };
 		E0A5D1D71D44B02B00FD60E8 /* TimerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A5D1D61D44B02B00FD60E8 /* TimerListViewController.swift */; };
 		E0A5D1D91D4EE6E200FD60E8 /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A5D1D81D4EE6E200FD60E8 /* InputViewController.swift */; };
-		E0A5D1DB1D50476600FD60E8 /* ToastSwiftFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0A5D1DA1D50476600FD60E8 /* ToastSwiftFramework.framework */; };
-		E0A5D1DC1D50476600FD60E8 /* ToastSwiftFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E0A5D1DA1D50476600FD60E8 /* ToastSwiftFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E0CC8E1F1D24C9DC006F01CE /* PostAlertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC8E1E1D24C9DC006F01CE /* PostAlertUtil.swift */; };
 		E0CC8E211D24E37F006F01CE /* DumpItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC8E201D24E37F006F01CE /* DumpItemViewController.swift */; };
 		E0CC8E231D2520A6006F01CE /* DeleteItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC8E221D2520A6006F01CE /* DeleteItemViewController.swift */; };
@@ -94,8 +98,6 @@
 		E0CC8E371D2B5F80006F01CE /* TimerFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC8E361D2B5F80006F01CE /* TimerFormViewController.swift */; };
 		E0CC8E391D2B7A0B006F01CE /* TimerRepeatTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC8E381D2B7A0B006F01CE /* TimerRepeatTypeViewController.swift */; };
 		E0CC8E3B1D2B7BD0006F01CE /* TimerRepeatEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC8E3A1D2B7BD0006F01CE /* TimerRepeatEditViewController.swift */; };
-		E0CC8E3D1D2BB5C8006F01CE /* FSCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E0CC8E3C1D2BB5C8006F01CE /* FSCalendar.framework */; };
-		E0CC8E3E1D2BB5C9006F01CE /* FSCalendar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E0CC8E3C1D2BB5C8006F01CE /* FSCalendar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E0CC8E401D2F910B006F01CE /* TimerChangeDueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC8E3F1D2F910B006F01CE /* TimerChangeDueViewController.swift */; };
 		E0CC8E421D2FAC34006F01CE /* TimerConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0CC8E411D2FAC34006F01CE /* TimerConfigViewController.swift */; };
 		E0CC8E441D311CF7006F01CE /* ItemImage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0CC8E431D311CF7006F01CE /* ItemImage.storyboard */; };
@@ -194,18 +196,18 @@
 			files = (
 				E0E36F881D0FCF2E003F46CF /* Realm.framework in Embed Frameworks */,
 				E0D6534A1D599042000F1BE7 /* EasyTipView.framework in Embed Frameworks */,
-				E0A5D1DC1D50476600FD60E8 /* ToastSwiftFramework.framework in Embed Frameworks */,
 				E0E36F031CF51C92003F46CF /* KeychainAccess.framework in Embed Frameworks */,
 				E0E36F8B1D0FCF42003F46CF /* RealmSwift.framework in Embed Frameworks */,
+				E0254B861D77CA0800852F73 /* TTGSnackbar.framework in Embed Frameworks */,
 				E08C62731CF01CE700F3DBCB /* ObjectMapper.framework in Embed Frameworks */,
 				E0CC8E331D27A788006F01CE /* SwiftDate.framework in Embed Frameworks */,
 				E0E36F601D06E51B003F46CF /* Charts.framework in Embed Frameworks */,
 				E0E36FB41D1CF0B5003F46CF /* DZNEmptyDataSet.framework in Embed Frameworks */,
-				E0CC8E3E1D2BB5C9006F01CE /* FSCalendar.framework in Embed Frameworks */,
 				E0E36F371D015BDD003F46CF /* Kingfisher.framework in Embed Frameworks */,
 				E08C62711CF01CE700F3DBCB /* Alamofire.framework in Embed Frameworks */,
 				E0A5D1931D34D61700FD60E8 /* RSKPlaceholderTextView.framework in Embed Frameworks */,
 				E0CC8E261D256AC2006F01CE /* XLActionController.framework in Embed Frameworks */,
+				E08931471D82D37C003526CD /* FSCalendar.framework in Embed Frameworks */,
 				E0E36F9E1D143C0B003F46CF /* QBImagePicker.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -232,9 +234,13 @@
 		E01525401D731A11002815CB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		E01525421D73F53C002815CB /* ShareSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		E0254B821D7473AD00852F73 /* BannerUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerUtil.swift; sourceTree = "<group>"; };
+		E0254B841D77CA0800852F73 /* TTGSnackbar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTGSnackbar.framework; path = Carthage/Build/iOS/TTGSnackbar.framework; sourceTree = "<group>"; };
 		E05EC8A61D226DF60028C611 /* TargetItemSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetItemSelectViewController.swift; sourceTree = "<group>"; };
 		E05EC8A81D240CBD0028C611 /* AddImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddImageViewController.swift; sourceTree = "<group>"; };
 		E05EC8AA1D24179B0028C611 /* ImagePickable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickable.swift; sourceTree = "<group>"; };
+		E07E59581D7FA9DA00FD88CF /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		E07E59591D7FA9DA00FD88CF /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		E08931451D82D37C003526CD /* FSCalendar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FSCalendar.framework; path = Carthage/Build/iOS/FSCalendar.framework; sourceTree = "<group>"; };
 		E08C62521CF0030900F3DBCB /* havings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = havings.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E08C62551CF0030900F3DBCB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E08C62571CF0030900F3DBCB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -393,22 +399,24 @@
 				E01525391D7319E0002815CB /* EventKit.framework in Frameworks */,
 				E01525371D7319D4002815CB /* CoreTelephony.framework in Frameworks */,
 				E01525351D7319C8002815CB /* CoreGraphics.framework in Frameworks */,
+				E07E595A1D7FA9DA00FD88CF /* Fabric.framework in Frameworks */,
 				E01525331D7319BB002815CB /* AVFoundation.framework in Frameworks */,
 				E01525311D7319AF002815CB /* AudioToolbox.framework in Frameworks */,
 				E015252F1D7319A3002815CB /* AdSupport.framework in Frameworks */,
 				E0E36F871D0FCF2E003F46CF /* Realm.framework in Frameworks */,
 				E0D653491D599042000F1BE7 /* EasyTipView.framework in Frameworks */,
 				E015252D1D731971002815CB /* GoogleMobileAds.framework in Frameworks */,
-				E0A5D1DB1D50476600FD60E8 /* ToastSwiftFramework.framework in Frameworks */,
 				E0E36F021CF51C92003F46CF /* KeychainAccess.framework in Frameworks */,
 				E0E36F8A1D0FCF42003F46CF /* RealmSwift.framework in Frameworks */,
 				E08C62721CF01CE700F3DBCB /* ObjectMapper.framework in Frameworks */,
 				E0CC8E321D27A788006F01CE /* SwiftDate.framework in Frameworks */,
 				E0E36F5F1D06E51B003F46CF /* Charts.framework in Frameworks */,
+				E08931461D82D37C003526CD /* FSCalendar.framework in Frameworks */,
+				E0254B851D77CA0800852F73 /* TTGSnackbar.framework in Frameworks */,
 				E0E36FB31D1CF0B5003F46CF /* DZNEmptyDataSet.framework in Frameworks */,
-				E0CC8E3D1D2BB5C8006F01CE /* FSCalendar.framework in Frameworks */,
 				E0E36F361D015BDC003F46CF /* Kingfisher.framework in Frameworks */,
 				E08C62701CF01CE700F3DBCB /* Alamofire.framework in Frameworks */,
+				E07E595B1D7FA9DA00FD88CF /* Crashlytics.framework in Frameworks */,
 				E0A5D1921D34D61700FD60E8 /* RSKPlaceholderTextView.framework in Frameworks */,
 				E0CC8E251D256AC2006F01CE /* XLActionController.framework in Frameworks */,
 				E0E36F9D1D143C0B003F46CF /* QBImagePicker.framework in Frameworks */,
@@ -421,6 +429,10 @@
 		E08C62491CF0030900F3DBCB = {
 			isa = PBXGroup;
 			children = (
+				E08931451D82D37C003526CD /* FSCalendar.framework */,
+				E07E59581D7FA9DA00FD88CF /* Fabric.framework */,
+				E07E59591D7FA9DA00FD88CF /* Crashlytics.framework */,
+				E0254B841D77CA0800852F73 /* TTGSnackbar.framework */,
 				E01525401D731A11002815CB /* SystemConfiguration.framework */,
 				E015253E1D731A01002815CB /* StoreKit.framework */,
 				E015253C1D7319F5002815CB /* MessageUI.framework */,
@@ -695,6 +707,8 @@
 				E08C624F1CF0030900F3DBCB /* Frameworks */,
 				E08C62501CF0030900F3DBCB /* Resources */,
 				E08C62741CF01CE800F3DBCB /* Embed Frameworks */,
+				E0254B871D7EA8F700852F73 /* ShellScript */,
+				E07E595C1D800FDB00FD88CF /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -720,6 +734,9 @@
 						DevelopmentTeam = LRL72P3QK5;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -786,6 +803,50 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E0254B871D7EA8F700852F73 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run afefab81e640bf834edc32869963b3c7c29dd493 cfedd2005cb40b3b80781a6fbc1aec47414d762c1f430de524279d3150c6999d";
+		};
+		E07E595C1D800FDB00FD88CF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/TTGSnackbar.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/EasyTipView.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RSKPlaceholderTextView.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/FSCalendar.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftDate.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/XLActionController.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/DZNEmptyDataSet.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/QBImagePicker.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Charts.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/KeychainAccess.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/ObjectMapper.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E08C624E1CF0030900F3DBCB /* Sources */ = {
@@ -972,6 +1033,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -983,6 +1045,7 @@
 				OTHER_SWIFT_FLAGS = "-D STAGING";
 				PRODUCT_BUNDLE_IDENTIFIER = "work.t-s.havings";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Staging;
 		};
@@ -1049,7 +1112,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development IOS Push Services: work.t-s.havings";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1064,6 +1128,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1074,6 +1139,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1085,6 +1151,7 @@
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "work.t-s.havings";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1092,7 +1159,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1104,6 +1172,7 @@
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "work.t-s.havings";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "69deab76-8cc4-4ed6-be82-f0b18341d0bc";
 			};
 			name = Release;
 		};

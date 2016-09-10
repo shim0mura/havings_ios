@@ -36,10 +36,14 @@ class DoneTaskViewController: UIViewController, PostAlertUtil {
                 result.tasks?.forEach{
                     self.taskByTupple.append((task: $0, list: result.list!))
                 }
+                
                 self.taskByEvent = DoneTaskWrapperEntity.setEventByDate([result])
                 self.calendarVC.taskByEvent = self.taskByEvent
+                print(22222)
+                print(self.taskByEvent)
 
                 self.listVC.taskByTupple = self.taskByTupple
+                self.calendarVC.didMoveToParentViewController(self)
 
                 self.viewDidLayoutSubviews()
                 

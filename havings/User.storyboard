@@ -513,20 +513,31 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="42" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zi0-Nb-8rD" userLabel="itemCount">
-                                                    <rect key="frame" x="44" y="19" width="354" height="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="42" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999items" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zi0-Nb-8rD" userLabel="itemCount">
+                                                    <rect key="frame" x="44" y="19" width="70" height="16"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="width" constant="70" id="FZq-s6-hrJ"/>
                                                         <constraint firstAttribute="height" constant="16" id="Rxi-dC-NPQ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" tag="43" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_lock_black_24dp" translatesAutoresizingMaskIntoConstraints="NO" id="eBE-gL-DXr">
+                                                    <rect key="frame" x="110" y="19" width="16" height="16"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="16" id="3yN-m3-sa0"/>
+                                                        <constraint firstAttribute="width" constant="16" id="Ipw-Bd-F0F"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="eBE-gL-DXr" firstAttribute="centerY" secondItem="Zi0-Nb-8rD" secondAttribute="centerY" id="4SL-QE-HGo"/>
+                                                <constraint firstItem="eBE-gL-DXr" firstAttribute="leading" secondItem="smu-9F-4i0" secondAttribute="trailing" constant="70" id="5yX-Fq-Keg"/>
                                                 <constraint firstItem="Zi0-Nb-8rD" firstAttribute="leading" secondItem="H7T-LP-GpA" secondAttribute="leadingMargin" constant="36" id="6fT-kP-SYx"/>
                                                 <constraint firstItem="smu-9F-4i0" firstAttribute="leading" secondItem="H7T-LP-GpA" secondAttribute="leadingMargin" constant="8" id="7C4-0i-Cz2"/>
                                                 <constraint firstAttribute="bottom" secondItem="smu-9F-4i0" secondAttribute="bottom" constant="4" id="BLm-N5-6yG"/>
+                                                <constraint firstItem="eBE-gL-DXr" firstAttribute="leading" secondItem="Zi0-Nb-8rD" secondAttribute="trailing" constant="-4" id="HIz-Vf-TIF"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Zi0-Nb-8rD" secondAttribute="trailing" constant="8" id="L6S-kS-c3j"/>
                                                 <constraint firstItem="smu-9F-4i0" firstAttribute="centerY" secondItem="H7T-LP-GpA" secondAttribute="centerY" id="LZH-jA-vUt"/>
                                                 <constraint firstItem="05h-xK-La2" firstAttribute="leading" secondItem="smu-9F-4i0" secondAttribute="trailing" constant="8" id="McC-DT-9bV"/>
@@ -546,8 +557,10 @@
                                                     <exclude reference="LZH-jA-vUt"/>
                                                     <exclude reference="McC-DT-9bV"/>
                                                     <exclude reference="bfS-yE-YuC"/>
+                                                    <exclude reference="L6S-kS-c3j"/>
                                                     <exclude reference="hhu-Bk-zeC"/>
                                                     <exclude reference="s3L-7J-qJx"/>
+                                                    <exclude reference="5yX-Fq-Keg"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -748,6 +761,7 @@
     </scenes>
     <resources>
         <image name="ic_favorite_white_36dp" width="72" height="72"/>
+        <image name="ic_lock_black_24dp" width="36" height="36"/>
         <image name="ic_person_add_black_18dp" width="36" height="36"/>
         <image name="ic_share_black_36dp" width="72" height="72"/>
     </resources>

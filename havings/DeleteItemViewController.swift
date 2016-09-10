@@ -109,7 +109,7 @@ class DeleteItemViewController: UIViewController, PostAlertUtil {
                 
                 self.navigationController?.dismissViewControllerAnimated(true){
                     print("dismiss controller")
-                    self.finishDelegate?.finish(String(format: NSLocalizedString("Prompt.DeleteItem.Success", comment: ""), self.item.name!))
+                    self.finishDelegate?.finish(String(format: NSLocalizedString("Prompt.DeleteItem.Success", comment: ""), self.item.name!), itemPath: "", isPublic: false)
 
                 }
             case .Failure(let error):

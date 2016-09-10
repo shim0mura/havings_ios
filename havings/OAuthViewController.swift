@@ -48,7 +48,11 @@ class OAuthViewController: UIViewController, UIWebViewDelegate {
         if let url = NSURL(string: self.account.getUrl()) {
             let urlRequest = NSURLRequest(URL: url)
             print("request")
-            //NSURLConnection(request: urlRequest, delegate: self)!
+            
+            #if DEBUG
+                NSURLConnection(request: urlRequest, delegate: self)!
+            #endif
+            
             print("load")
 
             OAuthWebView.loadRequest(urlRequest)

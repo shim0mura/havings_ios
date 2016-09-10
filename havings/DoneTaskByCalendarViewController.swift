@@ -11,6 +11,9 @@ import FSCalendar
 
 class DoneTaskByCalendarViewController: UIViewController {
     
+    private let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+
+    
     @IBOutlet weak var calendarView: FSCalendar!
     
     @IBOutlet weak var tableView: UITableView!
@@ -46,8 +49,6 @@ class DoneTaskByCalendarViewController: UIViewController {
         let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
         let comps: NSDateComponents = calendar.components([.Year, .Month, .Day], fromDate: NSDate())
         self.selectedDate = NSDate(year: comps.year, month: comps.month, day: comps.day, region: TimerPresenter.gregorianByRegion)
-        
-
 
         
         // Do any additional setup after loading the view.
@@ -63,6 +64,8 @@ class DoneTaskByCalendarViewController: UIViewController {
         self.calendarView.reloadData()
         calendarView.selectDate(selectedDate)
 
+        print(11111)
+        print(self.taskByEvent)
     }
 
 }
@@ -71,7 +74,10 @@ extension DoneTaskByCalendarViewController: FSCalendarDelegate, FSCalendarDataSo
     
     func calendar(calendar: FSCalendar, appearance: FSCalendarAppearance, fillColorForDate date: NSDate) -> UIColor? {
         
-        if let content = self.taskByEvent[date] {
+        let comps: NSDateComponents = self.calendar.components([.Year, .Month, .Day], fromDate: date)
+        let keyDate = NSDate(year: comps.year, month: comps.month, day: comps.day, region: TimerPresenter.gregorianByRegion)
+        
+        if let content = self.taskByEvent[keyDate] {
             if content.count == 1 {
                 return UIColor(red: 0.55, green: 0.94, blue: 0.29, alpha: 0.25)
             }else if content.count == 2 {
@@ -86,7 +92,15 @@ extension DoneTaskByCalendarViewController: FSCalendarDelegate, FSCalendarDataSo
     
     func calendar(calendar: FSCalendar, didSelectDate date: NSDate) {
         self.selectedDate = date
+        print(self.selectedDate)
+
+        let comps: NSDateComponents = self.calendar.components([.Year, .Month, .Day], fromDate: self.selectedDate)
+        let keyDate = NSDate(year: comps.year, month: comps.month, day: comps.day, region: TimerPresenter.gregorianByRegion)
+        print(keyDate)
+        self.selectedDate = keyDate
         self.tableView.reloadData()
+
+
     }
 
 }

@@ -46,6 +46,8 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
     private var pieChartCell: UITableViewCell?
     private var taskCalendarCell: UITableViewCell?
     
+    private let currentCalendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+    
     private var tooltip: EasyTipView?
     
     private var leftBarButton: ENMBadgedBarButtonItem?
@@ -127,8 +129,17 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(animated: Bool) {
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+    }
+    
     private func showTooltip(){
+        
+        //let tokenManager = TokenManager.sharedManager
+        //tokenManager.resetDeviceToken()
+        
         self.tooltip = TooltipManager.getToolTip()
+        
         let target = self.tabBarController?.tabBar.items![2].valueForKey("view") as? UIView
         self.tooltip?.show(forView: target!)
     }
@@ -215,7 +226,10 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
                 self.refreshControl?.endRefreshing()
             }
         }
+
     }
+
+
     
     func setUpLeftBarButton() {
         let image = UIImage(named: "ic_notifications_white")
@@ -278,7 +292,9 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
             reloadPath.append(NSIndexPath(forRow: i, inSection: section))
         }
         self.tableView.reloadRowsAtIndexPaths(reloadPath, withRowAnimation: .Automatic)
-        self.tableView.scrollToRowAtIndexPath(reloadPath.first!, atScrollPosition: .Top, animated: true)
+        if section == 3 {
+            self.tableView.scrollToRowAtIndexPath(reloadPath.first!, atScrollPosition: .Top, animated: true)
+        }
     }
     
     @IBAction func toAllTimers(sender: AnyObject) {
@@ -647,7 +663,10 @@ extension DashboardViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
     
     func calendar(calendar: FSCalendar, appearance: FSCalendarAppearance, fillColorForDate date: NSDate) -> UIColor? {
         
-        if let content = self.taskByEvent[date] {
+        let comps: NSDateComponents = self.currentCalendar.components([.Year, .Month, .Day], fromDate: date)
+        let keyDate = NSDate(year: comps.year, month: comps.month, day: comps.day, region: TimerPresenter.gregorianByRegion)
+        
+        if let content = self.taskByEvent[keyDate] {
             if content.count == 1 {
                 return UIColor(red: 0.55, green: 0.94, blue: 0.29, alpha: 0.25)
             }else if content.count == 2 {
@@ -662,7 +681,11 @@ extension DashboardViewController: FSCalendarDelegate, FSCalendarDataSource, FSC
     
     func calendar(calendar: FSCalendar, didSelectDate date: NSDate) {
         let before = self.getDoneTaskSectionRowCount()
-        self.selectedDate = date
+        
+        let comps: NSDateComponents = self.currentCalendar.components([.Year, .Month, .Day], fromDate: date)
+        let keyDate = NSDate(year: comps.year, month: comps.month, day: comps.day, region: TimerPresenter.gregorianByRegion)
+        
+        self.selectedDate = keyDate
         let after = self.getDoneTaskSectionRowCount()
         self.reloadSection(2, beforeRowCount: before, afterRowCount: after)
 

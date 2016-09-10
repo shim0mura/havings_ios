@@ -110,4 +110,17 @@ class TooltipManager {
 
     }
     
+    static func resetStatus(){
+        let keychain = Keychain(service: TokenManager.service)
+        do {
+            let _ : String? = try keychain.getString(statusKey)
+            keychain[statusKey] = nil
+            
+        }catch{
+            print("something occured access to keychain in set")
+            keychain[statusKey] = ShowStatus.List.rawValue
+            
+        }
+    }
+    
 }

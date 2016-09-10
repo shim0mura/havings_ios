@@ -2079,21 +2079,31 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="42" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tVa-JR-JDR" userLabel="itemCount">
-                                                    <rect key="frame" x="44" y="19" width="354" height="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="42" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999items" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tVa-JR-JDR" userLabel="itemCount">
+                                                    <rect key="frame" x="44" y="19" width="70" height="16"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="pe0-39-pVm"/>
+                                                        <constraint firstAttribute="width" constant="70" id="t0s-XM-Uhs"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" tag="43" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_lock_black_24dp" translatesAutoresizingMaskIntoConstraints="NO" id="Ih0-37-EXr">
+                                                    <rect key="frame" x="122" y="18" width="16" height="16.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="16.5" id="O1k-Dz-cOd"/>
+                                                        <constraint firstAttribute="width" constant="16" id="j6J-Ah-51f"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="pvf-tM-ycp" firstAttribute="top" secondItem="XeM-c2-PkW" secondAttribute="top" constant="8" id="6WY-pf-ivF"/>
+                                                <constraint firstItem="Ih0-37-EXr" firstAttribute="leading" secondItem="tVa-JR-JDR" secondAttribute="trailing" constant="8" id="9VY-r6-A2d"/>
                                                 <constraint firstItem="AN8-o5-aHz" firstAttribute="leading" secondItem="XeM-c2-PkW" secondAttribute="leadingMargin" constant="36" id="BnC-c2-Oy4"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="tVa-JR-JDR" secondAttribute="bottom" id="GLd-SI-TD9"/>
                                                 <constraint firstItem="AN8-o5-aHz" firstAttribute="top" secondItem="XeM-c2-PkW" secondAttribute="topMargin" id="M7b-gb-L0J"/>
+                                                <constraint firstItem="Ih0-37-EXr" firstAttribute="centerY" secondItem="tVa-JR-JDR" secondAttribute="centerY" id="Ox6-np-3DU"/>
                                                 <constraint firstItem="AN8-o5-aHz" firstAttribute="top" secondItem="pvf-tM-ycp" secondAttribute="top" id="Rff-56-gGf"/>
                                                 <constraint firstItem="pvf-tM-ycp" firstAttribute="centerY" secondItem="XeM-c2-PkW" secondAttribute="centerY" id="T4u-Jv-HEu"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="tVa-JR-JDR" secondAttribute="trailing" constant="8" id="Xl0-uW-7uL"/>
@@ -2112,6 +2122,7 @@
                                                     <exclude reference="gEc-aE-4Ey"/>
                                                     <exclude reference="Rff-56-gGf"/>
                                                     <exclude reference="urc-cN-Jai"/>
+                                                    <exclude reference="Xl0-uW-7uL"/>
                                                     <exclude reference="bLj-8W-PBN"/>
                                                     <exclude reference="cWp-cK-9pw"/>
                                                 </mask>
@@ -2441,6 +2452,7 @@
         <image name="ic_favorite_white_36dp" width="72" height="72"/>
         <image name="ic_home_white_24dp" width="48" height="48"/>
         <image name="ic_label_outline_yellow_600_24dp" width="48" height="48"/>
+        <image name="ic_lock_black_24dp" width="36" height="36"/>
         <image name="ic_loop_light_gray_18dp" width="36" height="36"/>
         <image name="ic_mode_edit_white_24dp" width="48" height="48"/>
         <image name="ic_person_add_black_18dp" width="36" height="36"/>
@@ -2450,6 +2462,6 @@
         <image name="ic_share_black_36dp" width="72" height="72"/>
         <image name="ic_timeline_white_24dp" width="48" height="48"/>
         <image name="ic_whatshot_yellow_600_24dp" width="48" height="48"/>
-        <image name="icon_type_list_light" width="100" height="100"/>
+        <image name="icon_type_list_light" width="117" height="117"/>
     </resources>
 </document>

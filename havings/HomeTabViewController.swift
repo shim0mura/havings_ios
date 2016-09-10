@@ -38,8 +38,8 @@ class HomeTabViewController: UITabBarController {
             let storyboard: UIStoryboard = UIStoryboard(name: "Item", bundle: nil)
             let next: ItemViewController = storyboard.instantiateInitialViewController() as! ItemViewController
             next.itemId = itemId
-            nav.pushViewController(next, animated: true)
             UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+            nav.pushViewController(next, animated: true)
 
         }
     }

@@ -65,16 +65,22 @@ extension PopularTagViewController: UITableViewDelegate, UITableViewDataSource {
         tagCount.text = String(format: NSLocalizedString("Prompt.PopularTag.Count", comment: ""),
                                String(c))
         let topItemCount: Int = (tagContainer.items?.count > 4) ? 4 : (tagContainer.items?.count ?? 0)
+        //let topItemCount: Int = 4
+
         for i in 0..<topItemCount {
-            let item = tagContainer.items![i]
             let thumbnail: UIImageView = cell.viewWithTag(self.hotTagImageTagBase + i) as! UIImageView
             
-            if let imagePath = item.thumbnail {
-                let urlString = ApiManager.getBaseUrl() + imagePath
-                thumbnail.kf_setImageWithURL(NSURL(string: urlString)!)
+            if let item = tagContainer.items?[i] {
+                if let imagePath = item.thumbnail {
+                    let urlString = ApiManager.getBaseUrl() + imagePath
+                    thumbnail.kf_setImageWithURL(NSURL(string: urlString)!)
+                }else{
+                    thumbnail.image = UIImage(named: "ic_photo_36dp")
+                }
             }else{
                 thumbnail.image = UIImage(named: "ic_photo_36dp")
             }
+            
         }
         
         return cell

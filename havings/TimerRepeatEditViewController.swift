@@ -30,6 +30,8 @@ class TimerRepeatEditViewController: UIViewController, FSCalendarDataSource, FSC
     var repeatWeekInterval:[TimerEntity.TimerRepeatByWeekInterval] = [.EveryWeek]
     let weekdays = DayOfWeek.getAllCombination()
     var candidateDates: [NSDate] = []
+    private let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,7 +91,13 @@ class TimerRepeatEditViewController: UIViewController, FSCalendarDataSource, FSC
     }
     
     func calendar(calendar: FSCalendar, appearance: FSCalendarAppearance, fillColorForDate date: NSDate) -> UIColor? {
-        if self.candidateDates.contains(date) {
+        print("select date")
+        print(date)
+        
+        let comps: NSDateComponents = self.calendar.components([.Year, .Month, .Day], fromDate: date)
+        let keyDate = NSDate(year: comps.year, month: comps.month, day: comps.day, region: TimerPresenter.gregorianByRegion)
+        
+        if self.candidateDates.contains(keyDate) {
             return UIColor.greenColor()
         }else{
             return nil
@@ -120,9 +128,11 @@ class TimerRepeatEditViewController: UIViewController, FSCalendarDataSource, FSC
             
             if let candidateDay = candidateDay {
                 //self.calendarView.selectDate(candidateDay)
-                self.candidateDates.append(candidateDay)
+                let comps: NSDateComponents = self.calendar.components([.Year, .Month, .Day], fromDate: candidateDay)
+                let keyDate = NSDate(year: comps.year, month: comps.month, day: comps.day, region: TimerPresenter.gregorianByRegion)
+                self.candidateDates.append(keyDate)
             }
-            print(candidateDates)
+
             self.calendarView.reloadData()
 
         case .ByWeek:

@@ -250,8 +250,12 @@ class AddFormViewController: UIViewController {
             self!.marginBetweenAutoComp.constant = height + 8
         }
         nameField.onSelect = {[weak self] str, indexPath in
-            self?.tagShowingView.addTag(str)
-            self?.tagInputField.addInputToken(str)
+            if let tagField = self?.tagInputField {
+                if !tagField.inputTextTokens.contains(str) {
+                    self?.tagShowingView.addTag(str)
+                    self?.tagInputField.addInputToken(str)
+                }
+            }
         }
         
         tagShowingView.textFont = UIFont.systemFontOfSize(15)
@@ -297,7 +301,7 @@ class AddFormViewController: UIViewController {
         //self.tagContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
         self.memoContainer.addTopBorderWithColor(UIColorUtil.borderColor, width: 1)
         self.memoContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
-        self.garbageContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+        //self.garbageContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
         
     }
 
@@ -346,16 +350,17 @@ class AddFormViewController: UIViewController {
                     
                 }else if self.activeInput == memoInputFieldTag {
                     let originY = self.memoField.superview?.frame.maxY ?? 0
-                    shownY = originY + 70
+                    shownY = originY + 100
                 }else if self.activeInput == garbageReasonInputFieldTag {
+                    print("garbage")
                     let originY = self.garbageReasonField.superview?.frame.maxY ?? 0
-                    shownY = originY + 70
+                    shownY = originY + 230
                 }
                 
                 let offsetY: CGFloat = shownY - CGRectGetMinY(convertedKeyboardFrame)
                 print(self.scrollContentView.contentOffset.y)
-                //print(shownY)
-                //print(offsetY)
+                print(shownY)
+                print(offsetY)
                 if offsetY < 0 { return }
                 updateScrollViewSize(offsetY, duration: animationDuration)
             }
@@ -529,9 +534,16 @@ class AddFormViewController: UIViewController {
                         }
                     }
                     TooltipManager.setNextStatus()
+                    
+                    let isPublic: Bool
+                    if let priv = result.privateType where priv > 0 {
+                        isPublic = false
+                    }else{
+                        isPublic = true
+                    }
                     self.navigationController?.dismissViewControllerAnimated(true){
                         print("dismiss controller")
-                        self.finishDelegate?.finish(String(format: NSLocalizedString("Prompt.ItemForm.Success", comment: ""), self.item.name!))
+                        self.finishDelegate?.finish(String(format: NSLocalizedString("Prompt.ItemForm.Success", comment: ""), self.item.name!), itemPath: result.path!, isPublic: isPublic)
 
                     }
                 case .Failure(let error):
@@ -557,9 +569,16 @@ class AddFormViewController: UIViewController {
                         return
                     }
                     
+                    let isPublic: Bool
+                    if let priv = result.privateType where priv > 0 {
+                        isPublic = false
+                    }else{
+                        isPublic = true
+                    }
+                    
                     self.navigationController?.dismissViewControllerAnimated(true){
                         print("dismiss controller")
-                        self.finishDelegate?.finish(String(format: NSLocalizedString("Prompt.ItemForm.Success", comment: ""), self.item.name!))
+                        self.finishDelegate?.finish(String(format: NSLocalizedString("Prompt.ItemForm.Success.Edit", comment: ""), self.item.name!), itemPath: result.path!, isPublic: isPublic)
 
                     }
                 case .Failure(let error):
@@ -722,7 +741,7 @@ extension AddFormViewController: UICollectionViewDelegate, UICollectionViewDataS
 extension AddFormViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
     func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-        let image = UIImage(named: "housekeeping")!
+        let image = UIImage(named: "icon_type_item")!
         
         let newHeight:CGFloat = 50
         let scale = newHeight / image.size.height

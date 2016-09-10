@@ -8,6 +8,8 @@
 
 import UIKit
 import Kingfisher
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let downloader = KingfisherManager.sharedManager.downloader
         downloader.trustedHosts = Set(["havings.com"])
+        Fabric.with([Crashlytics.self])
 
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().barTintColor = UIColorUtil.darkMainColor
@@ -39,44 +42,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let token = tokenManager.getDeviceToken() {
             
             let currentToken: String = String(deviceToken)
+            print("device token detected")
+            print(token)
+            print(currentToken)
             
-            if token.isEmpty {
-                print("device token not detected")
-                print(deviceToken)
-                
+            if token != currentToken {
                 let tokenEntity = DeviceTokenEntity()
-                tokenEntity.token = String(deviceToken)
-                API.call(Endpoint.DeviceToken.Post(tokenEntity: tokenEntity)){ response in
+                tokenEntity.token = currentToken
+                API.call(Endpoint.DeviceToken.Update(tokenEntity: tokenEntity)){ response in
                     switch response {
                     case .Success( _):
                         tokenManager.setDeviceToken(tokenEntity.token!)
                     case .Failure(let error):
-                        print("post failed")
+                        print("failed")
                         print(error)
-                    }
-                }
-            
-            }else{
-                
-                print("device token detected")
-                print(token)
-                print(currentToken)
-                
-                if token != currentToken {
-                    let tokenEntity = DeviceTokenEntity()
-                    tokenEntity.token = currentToken
-                    API.call(Endpoint.DeviceToken.Update(tokenEntity: tokenEntity)){ response in
-                        switch response {
-                        case .Success( _):
-                            tokenManager.setDeviceToken(tokenEntity.token!)
-                        case .Failure(let error):
-                            print("failed")
-                            print(error)
-                        }
                     }
                 }
             }
             
+        }else{
+            print("device token not detected")
+            print(deviceToken)
+            
+            let tokenEntity = DeviceTokenEntity()
+            tokenEntity.token = String(deviceToken)
+            API.call(Endpoint.DeviceToken.Post(tokenEntity: tokenEntity)){ response in
+                switch response {
+                case .Success( _):
+                    tokenManager.setDeviceToken(tokenEntity.token!)
+                case .Failure(let error):
+                    print("post failed")
+                    print(error)
+                }
+            }
         }
         
     }

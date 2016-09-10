@@ -124,7 +124,13 @@ class DumpItemViewController: UIViewController, PostAlertUtil {
 
                 self.navigationController?.dismissViewControllerAnimated(true){
                     print("dismiss controller")
-                    self.finishDelegate?.finish(String(format: NSLocalizedString("Prompt.DumpItem.Success", comment: ""), self.item.name!))
+                    let isPublic: Bool
+                    if let priv = self.item.privateType where priv > 0 {
+                        isPublic = false
+                    }else{
+                        isPublic = true
+                    }
+                    self.finishDelegate?.finish(String(format: NSLocalizedString("Prompt.DumpItem.Success", comment: ""), self.item.name!), itemPath: self.item.path!, isPublic: isPublic)
 
                 }
             case .Failure(let error):

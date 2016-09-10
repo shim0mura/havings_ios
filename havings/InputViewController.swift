@@ -7,10 +7,10 @@
 //
 
 import UIKit
-import ToastSwiftFramework
 import EasyTipView
 import GoogleMobileAds
-
+import TTGSnackbar
+import Social
 
 class InputViewController: UIViewController, BannerUtil {
 
@@ -29,9 +29,13 @@ class InputViewController: UIViewController, BannerUtil {
         func getImage() -> UIImage {
             switch self {
             case .CreateList:
-                return UIImage(named: "ic_add_list_36dp")!
+                //return UIImage(named: "ic_add_list_36dp")!
+                return UIImage(named: "icon_type_list")!
+
             case .CreateItem:
-                return UIImage(named: "ic_add_item_36dp")!
+                //return UIImage(named: "ic_add_item_36dp")!
+                return UIImage(named: "icon_type_item")!
+
             case .AddImage:
                 return UIImage(named: "ic_photo_36dp")!
             case .EditItem:
@@ -76,10 +80,6 @@ class InputViewController: UIViewController, BannerUtil {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        let tooltip = TooltipManager.getToolTip()
-        let target = self.tabBarController?.tabBar.items![2].valueForKey("view") as? UIView
-        tooltip?.show(forView: target!)
-        
         let tokenManager = TokenManager.sharedManager
         if let ui = tokenManager.getUserId() {
             self.userId = ui
@@ -94,6 +94,12 @@ class InputViewController: UIViewController, BannerUtil {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        let tooltip = TooltipManager.getToolTip()
+        let target = self.tabBarController?.tabBar.items![2].valueForKey("view") as? UIView
+        tooltip?.show(forView: target!)
     }
 
 }
@@ -208,11 +214,32 @@ extension InputViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension InputViewController: FinishItemUpdateDelegate {
-    func finish(prompt: String) {
-        self.view.makeToast(prompt)
+    func finish(prompt: String, itemPath: String, isPublic: Bool) {
+        //self.view.makeToast(prompt)
+        let tooltip = TooltipManager.getToolTip()
+        let target = self.tabBarController?.tabBar.items![2].valueForKey("view") as? UIView
+        tooltip?.show(forView: target!)
+        
+        let snackbar: TTGSnackbar
+        if isPublic {
+            snackbar = TTGSnackbar.init(message: prompt, duration: .Long, actionText: NSLocalizedString("Prompt.ItemForm.Action.Tweet", comment: ""))
+            { (snackbar) -> Void in
+                var composeView : SLComposeViewController!
+                composeView = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+                composeView.setInitialText(prompt + " " + ApiManager.getBaseUrl() + " #Havings")
+                self.presentViewController(composeView, animated: true, completion: nil)
+                
+            }
+        
+        }else{
+            snackbar = TTGSnackbar.init(message: prompt, duration: .Long)
+        }
+        
+        snackbar.bottomMargin = 100
+        snackbar.show()
     }
 }
 
 protocol FinishItemUpdateDelegate: class {
-    func finish(prompt: String)
+    func finish(prompt: String, itemPath: String, isPublic: Bool)
 }

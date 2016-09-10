@@ -668,8 +668,10 @@ class ItemViewController: UIViewController, UITableViewDataSource, UITableViewDe
         userName.text = itemEntity?.owner?.name
         
         let userThumbnail: UIImageView = cell.contentView.viewWithTag(userThumbnailTag) as! UIImageView
-        if let userThumbnailPath = itemEntity!.owner?.image {
-            let urlString = ApiManager.getBaseUrl() + userThumbnailPath
+        
+        if let userThumbnailPath = itemEntity!.owner?.image, let range = userThumbnailPath.rangeOfString("https") {
+            let isExternalLink: Bool = userThumbnailPath.startIndex.distanceTo(range.startIndex) == 0
+            let urlString = isExternalLink ? userThumbnailPath : (ApiManager.getBaseUrl() + userThumbnailPath)
             userThumbnail.kf_setImageWithURL(NSURL(string: urlString)!)
         }else{
             userThumbnail.image = UIImage(named: "user_thumb")

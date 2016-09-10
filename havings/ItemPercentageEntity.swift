@@ -51,7 +51,7 @@ class ItemPercentageEntity: Mappable {
             case .Living:
                 return "住"
             case .Etc:
-                return "その他"
+                return "趣味"
             }
         }
         

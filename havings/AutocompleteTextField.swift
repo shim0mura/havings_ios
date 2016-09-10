@@ -70,7 +70,7 @@ public class AutoCompleteTextField:UITextField {
         }
     }
     
-    public func addInputToken(token: String){
+    public func addInputToken(token: String){        
         if let text = self.text where !text.isEmpty {
             self.text = text + "," + token + ","
         }else{

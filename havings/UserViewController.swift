@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import GoogleMobileAds
+import TTGSnackbar
 
 
 class UserViewController: UIViewController, PostAlertUtil, ShareSheet, BannerUtil {
@@ -81,6 +82,7 @@ class UserViewController: UIViewController, PostAlertUtil, ShareSheet, BannerUti
     private let nestedItemIconTag: Int = 40
     private let nestedItemNameTag: Int = 41
     private let nestedItemCountTag: Int = 42
+    private let nestedItemPrivateTag: Int = 43
     
     private let itemImageTag: Int = 50
     private let itemImageNameTag: Int = 51
@@ -110,6 +112,8 @@ class UserViewController: UIViewController, PostAlertUtil, ShareSheet, BannerUti
     private var nestedItems: [(depth: Int, item: ItemEntity)] = []
     private var buttonSort: UIBarButtonItem? = nil
     private var sortType: SortType = .Nest
+    
+    private var refreshControl: UIRefreshControl!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -142,6 +146,11 @@ class UserViewController: UIViewController, PostAlertUtil, ShareSheet, BannerUti
         self.tableView.tableFooterView = UIView()
 
         showAd(bannerView)
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: NSLocalizedString("Prompt.PullToRefresh", comment: ""))
+        self.refreshControl.addTarget(self, action: #selector(UserViewController.loadUser), forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshControl)
     }
 
     override func didReceiveMemoryWarning() {
@@ -159,6 +168,7 @@ class UserViewController: UIViewController, PostAlertUtil, ShareSheet, BannerUti
             case .Success(let result):
                 self.userEntity = result
                 if let home = result.nestedItemFromHome {
+                    self.nestedItems = []
                     self.setNestedItem(home, depth: 0)
                     self.setSortButton()
                 }
@@ -182,6 +192,8 @@ class UserViewController: UIViewController, PostAlertUtil, ShareSheet, BannerUti
                 
                 self.presentViewController(alert, animated: true, completion: nil)
             }
+            self.refreshControl?.endRefreshing()
+
         }
     }
     
@@ -325,10 +337,13 @@ class UserViewController: UIViewController, PostAlertUtil, ShareSheet, BannerUti
         }
         
         guard let userId = self.userEntity?.id, let header = self.headerCell else {
+            let tokenManager = TokenManager.sharedManager
+            tokenManager.resetTokenAndUid()
+            self.view.window!.rootViewController?.dismissViewControllerAnimated(false, completion: nil)
             return
         }
         
-        if self.userEntity?.relation == 3 {
+        if self.userEntity?.relation == 3 || self.userEntity?.id == nil {
             let alert: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle:  UIAlertControllerStyle.ActionSheet)
 
             let notificationSetting: UIAlertAction = UIAlertAction(title: NSLocalizedString("Prompt.Setting.Choose.Notification", comment: ""), style: UIAlertActionStyle.Default, handler:{(action: UIAlertAction!) -> Void in
@@ -344,7 +359,7 @@ class UserViewController: UIViewController, PostAlertUtil, ShareSheet, BannerUti
                 self.presentViewController(next, animated: true, completion: nil)
             })
             
-            let howToUse: UIAlertAction = UIAlertAction(title: NSLocalizedString("Prompt.Setting.Choose.HowToUse", comment: ""), style: UIAlertActionStyle.Default, handler:{(action: UIAlertAction!) -> Void in
+            let _: UIAlertAction = UIAlertAction(title: NSLocalizedString("Prompt.Setting.Choose.HowToUse", comment: ""), style: UIAlertActionStyle.Default, handler:{(action: UIAlertAction!) -> Void in
                     print("defaultAction_2")
             })
             
@@ -375,7 +390,7 @@ class UserViewController: UIViewController, PostAlertUtil, ShareSheet, BannerUti
             alert.addAction(cancelAction)
             alert.addAction(notificationSetting)
             alert.addAction(profileEdit)
-            alert.addAction(howToUse)
+            //alert.addAction(howToUse)
             alert.addAction(logout)
             
             presentViewController(alert, animated: true, completion: nil)
@@ -512,7 +527,7 @@ extension UserViewController: UITableViewDelegate, UITableViewDataSource {
                     let iconImage: UIImageView = cell.viewWithTag(self.nestedItemIconTag) as! UIImageView
                     let itemName: UILabel = cell.viewWithTag(self.nestedItemNameTag) as! UILabel
                     let itemCount: UILabel = cell.viewWithTag(self.nestedItemCountTag) as! UILabel
-                    
+                    let itemPrivate: UIImageView = cell.viewWithTag(self.nestedItemPrivateTag) as! UIImageView
                     
                     let colorBase = 1 - (0.03 * Double(i.depth))
                     let indentDepth = i.depth > 5 ? 5 : i.depth
@@ -524,6 +539,12 @@ extension UserViewController: UITableViewDelegate, UITableViewDataSource {
                         iconImage.image = UIImage(named: "icon_type_list_light")
                     }else{
                         iconImage.image = UIImage(named: "icon_type_item")
+                    }
+                    
+                    if i.item.privateType == 0 {
+                        itemPrivate.hidden = true
+                    }else{
+                        itemPrivate.hidden = false
                     }
                     
                     itemName.text = i.item.name
@@ -687,8 +708,9 @@ extension UserViewController: UITableViewDelegate, UITableViewDataSource {
         itemCount.text = String(format: NSLocalizedString("Prompt.User.itemCount", comment: ""), String(count))
         
         let userThumbnail: UIImageView = cell.contentView.viewWithTag(self.userThumbnailTag) as! UIImageView
-        if let userThumbnailPath = self.userEntity?.image {
-            let urlString = ApiManager.getBaseUrl() + userThumbnailPath
+        if let userThumbnailPath = self.userEntity?.image, let range = userThumbnailPath.rangeOfString("https") {
+            let isExternalLink: Bool = userThumbnailPath.startIndex.distanceTo(range.startIndex) == 0
+            let urlString = isExternalLink ? userThumbnailPath : (ApiManager.getBaseUrl() + userThumbnailPath)
             userThumbnail.kf_setImageWithURL(NSURL(string: urlString)!)
         }else{
             userThumbnail.image = UIImage(named: "user_thumb")
@@ -727,7 +749,9 @@ extension UserViewController: UITableViewDelegate, UITableViewDataSource {
         actionFollowContainer?.userInteractionEnabled = true
         let actionFollowImage: UIImageView = cell.contentView.viewWithTag(self.actionFollowImageTag) as! UIImageView
         let actionFollowLabel: UILabel = cell.contentView.viewWithTag(self.actionFollowLabelTag) as! UILabel
-        if self.userEntity?.relation == 3 {
+        
+        print(self.userEntity)
+        if self.userEntity?.relation == 3 || self.userEntity?.id == nil {
             actionFollowImage.image = UIImage(named: "ic_settings_black_36dp")
             actionFollowLabel.text = NSLocalizedString("Prompt.User.Action.Edit", comment: "")
         }else if self.userEntity?.relation == 2 || self.userEntity?.relation == 1 {
@@ -767,7 +791,10 @@ extension UserViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension UserViewController: FinishProfileUpdateDelegate {
     func finish() {
-        self.view.makeToast(NSLocalizedString("Prompt.ProfileEdit.Success", comment: ""))
+        let snackbar = TTGSnackbar.init(message: NSLocalizedString("Prompt.ProfileEdit.Success", comment: ""), duration: .Middle)
+        snackbar.bottomMargin = 50
+        snackbar.show()
+        //self.view.makeToast(NSLocalizedString("Prompt.ProfileEdit.Success", comment: ""))
         
         headerCell = nil
         loadUser()

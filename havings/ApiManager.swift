@@ -239,6 +239,11 @@ class TokenManager {
         uid = nil
     }
     
+    func resetDeviceToken(){
+        let keychain = Keychain(service: TokenManager.service)
+        keychain[TokenManager.keyToDeviceToken] = nil
+    }
+    
     func isTokenAndUidSaved() -> Bool {
         let keychain = Keychain(service: TokenManager.service)
         do {
@@ -265,9 +270,12 @@ class API {
             .validate(statusCode: 200..<500)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
-                print("response ##########################")
-                print(response.result.value)
-                print("response end ######################")
+                #if DEBUG
+                    print("response ##########################")
+                    print(response.result.value)
+                    print("response end ######################")
+                #endif
+
                 switch response.result {
                 case .Success(let json):
                     completion(request.fromJson(json))
@@ -287,9 +295,11 @@ class API {
             .validate(statusCode: 200..<300)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
-                print("response array $$$$$$$$$$$$$$$$$$$")
-                print(response.result.value)
-                print("response array end $$$$$$$$$$$$$$$")
+                #if DEBUG
+                    print("response array $$$$$$$$$$$$$$$$$$$")
+                    print(response.result.value)
+                    print("response array end $$$$$$$$$$$$$$$")
+                #endif
 
                 switch response.result {
                 case .Success(let json):

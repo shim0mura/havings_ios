@@ -120,10 +120,13 @@
 "Prompt.ItemForm.CreateItem" = "追加する";
 "Prompt.ItemForm.EditItem" = "編集する";
 "Prompt.ItemForm.Success" = "%@を追加しました";
+"Prompt.ItemForm.Success.Edit" = "%@を編集しました";
+
 
 "Prompt.ItemForm.AddImage" = "写真を追加する";
 "Prompt.ItemForm.AddImage.Button" = "追加する";
 
+"Prompt.ItemForm.Action.Tweet" = "ツイートする";
 
 
 
@@ -389,7 +392,7 @@
 
 
 "Prompt.ItemForm.RegisterAsDumpItem" = "手放したアイテムとして登録";
-"Prompt.ItemForm.GarbageReason" = "手放した理由";
+"Prompt.ItemForm.GarbageReason" = "手放した理由\n(オプション)";
 
 "Prompt.WaitForPost" = "送信中です...\n\n";
 "Prompt.FailureToAceess" = "接続できません。時間をおいてから再度お試しください";

@@ -8,6 +8,9 @@
 
 import UIKit
 
+import Fabric
+import Crashlytics
+
 class SignupViewController: UIViewController, UITextFieldDelegate, PostAlertUtil {
     
     @IBOutlet weak var userName: UITextField!
@@ -36,6 +39,9 @@ class SignupViewController: UIViewController, UITextFieldDelegate, PostAlertUtil
         self.userName.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
         self.mail.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
         self.password.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+
+        self.view.userInteractionEnabled = true
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -106,6 +112,17 @@ class SignupViewController: UIViewController, UITextFieldDelegate, PostAlertUtil
             break;
         }
         return true
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+}
+
+class SignupScrollView: UIScrollView {
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        superview?.touchesBegan(touches, withEvent: event)
     }
     
 }
