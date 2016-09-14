@@ -8,9 +8,6 @@
 
 import UIKit
 
-import Fabric
-import Crashlytics
-
 class SignupViewController: UIViewController, UITextFieldDelegate, PostAlertUtil {
     
     @IBOutlet weak var userName: UITextField!

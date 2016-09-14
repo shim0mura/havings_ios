@@ -80,8 +80,6 @@ class TimerPresenter {
             //monthDiff = monthDiff + 1
         }
         
-        print(targetComps.month, startComps.month)
-        print(monthDiff, interval)
         if (monthDiff == 0) {
             return nil
         }else if (monthDiff == 0 && interval == 0) || ((monthDiff % interval) == 0) {

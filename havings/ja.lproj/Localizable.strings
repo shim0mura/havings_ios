@@ -315,6 +315,8 @@
 "Prompt.Dashboard.CountGraph.Empty" = "リスト、アイテムがありません。\n\nリストやアイテムを追加して記録を始めましょう!";
 
 "Prompt.Dashboard.PieChart" = "あなたのアイテムの分類グラフ";
+"Prompt.Dashboard.PieChart.Total" = "全アイテム\n%@個";
+
 "Prompt.Dashboard.PieChart.Empty" = "グラフはありません。\n \nアイテムやリストを追加すると、グラフが自動的に作成されます";
 "Prompt.Dashboard.PieChart.TypeLegend" = "";
 "Prompt.Dashboard.Timers" = "稼働中のタイマー";
@@ -343,6 +345,8 @@
 "Prompt.Search" = "検索";
 "Prompt.SearchResult" = "%@の検索結果";
 "Prompt.SearchResult.Empty" = "アイテムは見つかりませんでした。";
+
+"Prompt.ClassedTagItem" = "持ちモノ: %@";
 
 "Prompt.Search.Suggest" = "検索候補";
 

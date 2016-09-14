@@ -254,13 +254,18 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
         self.navigationController?.pushViewController(next!, animated: true)
     }
     
-    func chartValueSelected(chartView: ChartViewBase, entry: ChartDataEntry, dataSetIndex: Int, highlight: ChartHighlight) {
-        
+    func chartValueSelected(chartView: ChartViewBase, entry: ChartDataEntry, dataSetIndex: Int, highlight: ChartHighlight) {        
         let beforeCount = self.getChartSectionRowCount()
         self.chartSelectedType = entry.xIndex
         let afterCount = self.getChartSectionRowCount()
         
         self.reloadSection(3, beforeRowCount: beforeCount, afterRowCount: afterCount)
+    }
+    
+    func chartValueNothingSelected(chartView: ChartViewBase) {
+        let count = self.getChartSectionRowCount()
+        print(chartView)
+        self.reloadSection(3, beforeRowCount: count, afterRowCount: count)
     }
     
     @IBAction func toDetailGraph(sender: AnyObject) {
@@ -273,28 +278,36 @@ class DashboardViewController: UIViewController, PostAlertUtil, ChartViewDelegat
     
     func reloadSection(section: Int, beforeRowCount: Int, afterRowCount: Int){
         let diff = beforeRowCount - afterRowCount
+        
+        self.tableView.beginUpdates()
+        
         if diff > 0 {
             var path: [NSIndexPath] = []
             for i in afterRowCount..<beforeRowCount {
                 path.append(NSIndexPath(forRow: i, inSection: section))
             }
-            self.tableView.deleteRowsAtIndexPaths(path, withRowAnimation: .Automatic)
+            self.tableView.deleteRowsAtIndexPaths(path, withRowAnimation: .None)
         }else if diff < 0 {
             var path: [NSIndexPath] = []
             for i in beforeRowCount..<afterRowCount {
                 path.append(NSIndexPath(forRow: i, inSection: section))
             }
-            self.tableView.insertRowsAtIndexPaths(path, withRowAnimation: .Automatic)
+            self.tableView.insertRowsAtIndexPaths(path, withRowAnimation: .None)
         }
+        self.tableView.endUpdates()
+
         
         var reloadPath: [NSIndexPath] = []
         for i in 1..<afterRowCount {
             reloadPath.append(NSIndexPath(forRow: i, inSection: section))
         }
-        self.tableView.reloadRowsAtIndexPaths(reloadPath, withRowAnimation: .Automatic)
+ 
+        self.tableView.reloadRowsAtIndexPaths(reloadPath, withRowAnimation: .None)
+        
         if section == 3 {
-            self.tableView.scrollToRowAtIndexPath(reloadPath.first!, atScrollPosition: .Top, animated: true)
+            self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: section), atScrollPosition: .Top, animated: true)
         }
+
     }
     
     @IBAction func toAllTimers(sender: AnyObject) {
@@ -460,9 +473,11 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
                     var entries: [ChartDataEntry] = []
                     var strings: [String] = []
                     var colors: [UIColor] = []
+                    var total: Int = 0
                     for i in 0..<target.count {
                         let type = self.percentages[i]
                         let percent = type.percentage!
+                        total = total + type.count!
                         
                         if let typeCase = type.typeCase {
                             entries.append(ChartDataEntry(value: percent, xIndex: i))
@@ -490,17 +505,21 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
                         
                         graph.descriptionText = ""
                         graph.usePercentValuesEnabled = true
-                        graph.delegate = self
+                        //graph.delegate = self
                         graph.data = PieChartData(xVals: strings, dataSet: dataSet)
+                        graph.centerText = String(format: NSLocalizedString("Prompt.Dashboard.PieChart.Total", comment: ""), "\(total)")
+                        graph.userInteractionEnabled = false
+                        
                     }
-                    
+
                     self.pieChartCell = cell
                 }
+                
                 return cell
                 
             }else if let select = self.chartSelectedType where indexPath.row == 1 {
                 
-                cell = self.getTypeCell(self.percentages[select])
+                cell = self.getTypeCell(self.percentages[select], chartSelectType: self.chartSelectedType ?? 0)
                 
             }else if let select = self.chartSelectedType where indexPath.row >= 2 {
                 
@@ -514,9 +533,10 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 
             }else {
-                cell = self.getTypeCell(self.percentages[indexPath.row - 1])
+                let percentage = self.percentages[indexPath.row - 1]
+                cell = self.getTypeCell(percentage, chartSelectType: percentage.type!)
             }
-            cell.selectionStyle = .None
+            //cell.selectionStyle = .None
             return cell
             
         }else{
@@ -526,6 +546,7 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("table tap")
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         if !self.beforeLoadingTimers && indexPath.section == 1 {
@@ -544,6 +565,51 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
                 next.itemId = id
                 self.navigationController?.pushViewController(next, animated: true)
             }
+        }else if !self.beforeLoadingTasks && indexPath.section == 3 && indexPath.row == 0 {
+
+            let beforeCount = self.getChartSectionRowCount()
+            self.chartSelectedType = nil
+            let afterCount = self.getChartSectionRowCount()
+            
+            self.reloadSection(3, beforeRowCount: beforeCount, afterRowCount: afterCount)
+            
+        }else if !self.beforeLoadingTasks && indexPath.section == 3 && indexPath.row >= 1 {
+            
+            
+            if let select = self.chartSelectedType {
+                
+                if indexPath.row == 1 {
+                    let beforeCount = self.getChartSectionRowCount()
+                    self.chartSelectedType = nil
+                    let afterCount = self.getChartSectionRowCount()
+                    
+                    self.reloadSection(3, beforeRowCount: beforeCount, afterRowCount: afterCount)
+                }else{
+                    let percentage = self.percentages[select]
+                    let byCategory = self.percentageByCategory[percentage.type!]
+                    let target = byCategory![indexPath.row - 1]
+                    print("\(target.category.tag) \(target.category.tagId)")
+                    
+                    if let tagId = target.category.tagId, let tagName = target.category.tag {
+                        let storyboard: UIStoryboard = UIStoryboard(name: "ClassedItemList", bundle: nil)
+                        let next: ClassedItemListViewController = storyboard.instantiateInitialViewController() as! ClassedItemListViewController
+                        next.tagId = tagId
+                        next.tagName = tagName
+                        self.navigationController?.pushViewController(next, animated: true)
+                    }
+                    
+                }
+                
+            }else{
+                let beforeCount = self.getChartSectionRowCount()
+                self.chartSelectedType = indexPath.row - 1
+                let afterCount = self.getChartSectionRowCount()
+                
+                self.reloadSection(3, beforeRowCount: beforeCount, afterRowCount: afterCount)
+            }
+            
+
+            
         }
     }
     
@@ -600,7 +666,7 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
         return 2 + task.count
     }
     
-    func getTypeCell(percentage: ItemPercentageEntity) -> UITableViewCell {
+    func getTypeCell(percentage: ItemPercentageEntity, chartSelectType: Int) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCellWithIdentifier("itemType")! as UITableViewCell
         
         let itemTypeIcon: UIImageView = cell.viewWithTag(self.itemTypeImageTag) as! UIImageView
@@ -609,6 +675,9 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
         
         if self.chartSelectedType != nil {
             cell.backgroundColor = percentage.typeCase!.getColor()        
+        }else{
+            let type = ItemPercentageEntity.TypeCase(rawValue: chartSelectType)
+            cell.backgroundColor = type?.getColor()
         }
         
         switch percentage.typeCase! {
@@ -640,6 +709,7 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
         let count = percentage.count ?? 0
         let percent = percentage.percentage ?? 0
         categoryCount.text = "\(count) " + NSLocalizedString("Unit.ItemCount", comment: "") + " (\(percent)%)"
+        cell.accessoryType = .DisclosureIndicator
         
         return cell
     }
@@ -654,6 +724,7 @@ extension DashboardViewController: UITableViewDelegate, UITableViewDataSource {
         let count = percentage.count ?? 0
         let percent = percentage.percentage ?? 0
         categoryCount.text = "\(count) " + NSLocalizedString("Unit.ItemCount", comment: "") + " (\(percent)%)"
+        cell.accessoryType = .DisclosureIndicator
         
         return cell
     }

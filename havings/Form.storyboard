@@ -540,7 +540,7 @@
                                     <action selector="postForm:" destination="zjh-gt-R7Q" eventType="touchUpInside" id="kz0-mF-KpK"/>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="BbZ-2Y-hvl" customClass="MyScrollView" customModule="havings" customModuleProvider="target">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BbZ-2Y-hvl" customClass="MyScrollView" customModule="havings" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="414" height="621"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yR2-xg-uhq" userLabel="NameContainer">
@@ -554,7 +554,7 @@
                                                 </constraints>
                                             </imageView>
                                             <textField opaque="NO" clipsSubviews="YES" tag="60" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="アイテム名" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="c4q-uW-FUF" customClass="AutoCompleteTextField" customModule="havings" customModuleProvider="target">
-                                                <rect key="frame" x="40" y="3.5" width="366" height="35"/>
+                                                <rect key="frame" x="40" y="3" width="366" height="35"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="bZc-7e-O7o"/>
                                                 </constraints>
@@ -953,7 +953,7 @@
                                         </variation>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N8S-TG-BbV" userLabel="garbageContainer">
-                                        <rect key="frame" x="0.0" y="537" width="414" height="71"/>
+                                        <rect key="frame" x="0.0" y="537" width="414" height="91"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_delete_black_24dp" translatesAutoresizingMaskIntoConstraints="NO" id="xg2-tJ-rwj">
                                                 <rect key="frame" x="4" y="10" width="24" height="24"/>
@@ -981,10 +981,10 @@
                                                 </connections>
                                             </switch>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="64" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SpW-t6-IA4">
-                                                <rect key="frame" x="98" y="43" width="308" height="20"/>
+                                                <rect key="frame" x="98" y="43" width="308" height="40"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="20" id="3Rn-K6-8gI"/>
+                                                    <constraint firstAttribute="height" constant="40" id="3Rn-K6-8gI"/>
                                                     <constraint firstAttribute="width" constant="266" id="8RB-w4-IKH"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -995,11 +995,13 @@
                                                     </mask>
                                                 </variation>
                                             </textView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手放した理由" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wPl-Iw-XsE">
-                                                <rect key="frame" x="8" y="43" width="90" height="18"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wPl-Iw-XsE">
+                                                <rect key="frame" x="8" y="43" width="90" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="90" id="7eN-Rv-NMP"/>
                                                 </constraints>
+                                                <string key="text">手放した理由
+(オプション)</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -1166,7 +1168,7 @@
                                                 </variation>
                                             </collectionView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_photo_black_18dp" translatesAutoresizingMaskIntoConstraints="NO" id="AxA-1t-KRa">
-                                                <rect key="frame" x="8" y="5.5" width="24" height="24"/>
+                                                <rect key="frame" x="8" y="5" width="24" height="24"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="24" id="QnB-Xm-n4V"/>
                                                     <constraint firstAttribute="height" constant="24" id="lSi-CR-Ryc"/>

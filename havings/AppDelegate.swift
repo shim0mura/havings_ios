@@ -8,8 +8,7 @@
 
 import UIKit
 import Kingfisher
-import Fabric
-import Crashlytics
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let downloader = KingfisherManager.sharedManager.downloader
         downloader.trustedHosts = Set(["havings.com"])
-        Fabric.with([Crashlytics.self])
+        FIRApp.configure()
 
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().barTintColor = UIColorUtil.darkMainColor

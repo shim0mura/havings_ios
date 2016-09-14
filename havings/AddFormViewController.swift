@@ -189,15 +189,19 @@ class AddFormViewController: UIViewController {
             postButton.setTitle(NSLocalizedString("Prompt.ItemForm.EditItem", comment: ""), forState: .Normal)
             postButton.setTitle(NSLocalizedString("Prompt.ItemForm.EditItem", comment: ""), forState: .Selected)
             
+            self.isGarbageSwitch.on = item.isGarbage ?? false
+            self.garbageReasonField.text = item.garbageReason
             garbageContainer.hidden = true
             garbageReasonField.hidden = true
             garbageReasonLabel.hidden = true
             garbageReasonHeightConstraint.constant = 0
             
             if item.isGarbage == true {
+                /*
                 counterContainer.hidden = true
                 counterContainerConstraint.constant = 0
                 counterContainerMarginConstraint.constant = 0
+                */
             }
 
         }
@@ -301,7 +305,7 @@ class AddFormViewController: UIViewController {
         //self.tagContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
         self.memoContainer.addTopBorderWithColor(UIColorUtil.borderColor, width: 1)
         self.memoContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
-        //self.garbageContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
+        self.garbageContainer.addBottomBorderWithColor(UIColorUtil.borderColor, width: 1)
         
     }
 

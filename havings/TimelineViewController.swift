@@ -17,6 +17,7 @@ class TimelineViewController: UIViewController, BannerUtil {
     private let iconImageTag: Int = 11
     private let targetThumbnailTag: Int = 12
     private let targetNameTag: Int = 13
+    private let timeLabelTag: Int = 14
     
     private let maxActer = 3
     private var beforeLoad: Bool = true
@@ -102,6 +103,9 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
             let notification = self.timelineEntity.timeline![indexPath.row]
             let result = NSMutableAttributedString()
             let type = notification.type!
+            
+            let time: UILabel = cell.viewWithTag(self.timeLabelTag) as! UILabel
+            time.text = getActionDateString(notification.date!)
             
             switch type {
                 
@@ -336,6 +340,29 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
                 })
             }
         }
+    }
+    
+    func getActionDateString(date: NSDate) -> String{
+        let seconds = date.timeIntervalSinceNow
+
+        var result = ""
+        
+        let absSeconds = Int(abs(seconds))
+        
+        if absSeconds < 60 * 60 {
+            result = result + String(format: "%d", absSeconds / 60)
+            result = result + NSLocalizedString("Unit.Minute", comment: "")
+        }else if absSeconds < 60 * 60 * 24 {
+            result = result + String(format: "%d", absSeconds / (60 * 60))
+            result = result + NSLocalizedString("Unit.Hour", comment: "")
+        }else {
+            result = result + String(format: "%d", absSeconds / (60 * 60 * 24))
+            result = result + NSLocalizedString("Unit.Day", comment: "")
+        }
+        
+        //result = result + NSLocalizedString("Prompt.Timer.Postfix.Over", comment: "")
+        result = result + NSLocalizedString("Prompt.Before", comment: "")
+        return result
     }
 }
 

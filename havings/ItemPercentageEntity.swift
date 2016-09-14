@@ -13,6 +13,7 @@ import UIKit
 class ItemPercentageEntity: Mappable {
     
     var tag: String?
+    var tagId: Int?
     var count: Int?
     var percentage: Double?
     var type: Int?
@@ -24,6 +25,7 @@ class ItemPercentageEntity: Mappable {
     
     func mapping(map: Map) {
         tag <- map["tag"]
+        tagId <- map["tag_id"]
         count <- map["count"]
         percentage <- map["percentage"]
         type <- map["type"]

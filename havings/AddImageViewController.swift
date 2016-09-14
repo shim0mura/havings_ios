@@ -224,7 +224,7 @@ extension AddImageViewController: DZNEmptyDataSetSource, DZNEmptyDataSetDelegate
     func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
         let image = UIImage(named: "icon_type_item")!
         
-        let newHeight:CGFloat = 55
+        let newHeight:CGFloat = 50
         let scale = newHeight / image.size.height
         let newWidth = image.size.width * scale
         UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))

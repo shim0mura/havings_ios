@@ -159,10 +159,12 @@ class Endpoint {
         case GetFavoriteImage(userId: Int, page: Int)
         
         case GetDumpItem(userId: Int, page: Int)
+        case GetClassedItem(tagId: Int, page: Int)
+
 
         var method: Alamofire.Method {
             switch self {
-            case .Get, .GetNextItem, .GetUserItemTree, .GetFavoriteItem, .GetFavoriteImage, .GetDumpItem:
+            case .Get, .GetNextItem, .GetUserItemTree, .GetFavoriteItem, .GetFavoriteImage, .GetDumpItem, .GetClassedItem:
                 return .GET
             case .Post, .AddImage:
                 return .POST
@@ -200,12 +202,14 @@ class Endpoint {
                 return "/user/\(userId)/favorite_images?page=\(page)"
             case .GetDumpItem(let userId, let page):
                 return "/user/\(userId)/dump_items?page=\(page)"
+            case .GetClassedItem(let tagId, let page):
+                return "/user/classed_items/\(tagId)?page=\(page)"
             }
         }
         
         var parameters: [String : AnyObject]? {
             switch self {
-            case .Get, .GetNextItem, .GetUserItemTree, .GetFavoriteItem, .GetFavoriteImage, .GetDumpItem:
+            case .Get, .GetNextItem, .GetUserItemTree, .GetFavoriteItem, .GetFavoriteImage, .GetDumpItem, .GetClassedItem:
                 return nil
             case .Post(let itemEntity):
                 /*
